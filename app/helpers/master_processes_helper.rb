@@ -1,0 +1,2 @@
+module MasterProcessesHelper
+end

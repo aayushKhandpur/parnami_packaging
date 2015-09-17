@@ -1,0 +1,2 @@
+module MasterProductsHelper
+end

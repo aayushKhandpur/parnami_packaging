@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer_id: 
+  order_date: 2015-08-20
+  delivery_date: 2015-08-20
+  delivery_address: MyText
+  order_details: MyText
+  order_price: 
+
+two:
+  customer_id: 
+  order_date: 2015-08-20
+  delivery_date: 2015-08-20
+  delivery_address: MyText
+  order_details: MyText
+  order_price: 

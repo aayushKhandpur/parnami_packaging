@@ -1,0 +1,2 @@
+class MasterProcessesController < ApplicationController
+end

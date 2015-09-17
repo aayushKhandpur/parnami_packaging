@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  order_id: 
+  order_delivery_plan_id: 
+  order_product_id: 
+  master_process_id: 
+  sequence_number: 1
+  is_first_step: false
+  is_last_step: false
+  location: MyString
+
+two:
+  order_id: 
+  order_delivery_plan_id: 
+  order_product_id: 
+  master_process_id: 
+  sequence_number: 1
+  is_first_step: false
+  is_last_step: false
+  location: MyString

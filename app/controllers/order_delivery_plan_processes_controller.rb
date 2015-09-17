@@ -1,0 +1,2 @@
+class OrderDeliveryPlanProcessesController < ApplicationController
+end

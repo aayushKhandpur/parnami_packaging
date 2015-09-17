@@ -58,3 +58,5 @@ group :development, :test do
   gem 'railroady'
   gem 'hirb'
 end
+
+gem 'devise'

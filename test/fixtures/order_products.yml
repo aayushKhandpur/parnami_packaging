@@ -1,0 +1,43 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  master_product_id: 
+  order_id: 
+  size: 1
+  color: MyString
+  print_type: MyString
+  ink_color: MyString
+  gsm: MyString
+  print_scheme: MyString
+  front_pattern: MyString
+  side_fabric_color: MyString
+  dori_color: MyString
+  lamination: false
+  is_dori: false
+  is_velcrow: MyString
+  boolean: MyString
+  is_tape: false
+  price_per_piece: 1.5
+  price_per_kg: 1.5
+  quantity: 1
+
+two:
+  master_product_id: 
+  order_id: 
+  size: 1
+  color: MyString
+  print_type: MyString
+  ink_color: MyString
+  gsm: MyString
+  print_scheme: MyString
+  front_pattern: MyString
+  side_fabric_color: MyString
+  dori_color: MyString
+  lamination: false
+  is_dori: false
+  is_velcrow: MyString
+  boolean: MyString
+  is_tape: false
+  price_per_piece: 1.5
+  price_per_kg: 1.5
+  quantity: 1

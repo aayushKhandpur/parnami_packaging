@@ -1,0 +1,2 @@
+class MasterProductsController < ApplicationController
+end
