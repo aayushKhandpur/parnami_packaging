@@ -12,5 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+//= require bower_components/angular/angular.min
+//= require bower_components/angular-route/angular-route.min
+//= require bower_components/angular-ui-router/release/angular-ui-router.min
+//= require bootstrap-sprockets
+//= require bootstrap-datepicker
+//= require angular-rails-templates
+//= require_tree

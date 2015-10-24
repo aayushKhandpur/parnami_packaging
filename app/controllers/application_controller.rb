@@ -4,6 +4,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def index
-    render json: {working: true}, :status => 200
+    #render json: {working: true}, :status => 200
   end
 end
