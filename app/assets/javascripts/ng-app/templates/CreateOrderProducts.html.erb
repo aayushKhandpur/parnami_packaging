@@ -1,0 +1,179 @@
+<%= stylesheet_link_tag "homecss" %>
+<div class="container-fluid">
+	<div style="border-bottom: 1px solid #EEEEEE;">
+		<h3>Order Products</h3>
+	</div>
+	<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+		<button class="btn btn-default col-md-1"><i class="fa fa-level-up fa-rotate-270"></i></button>
+		<button class="btn btn-default col-md-1" style="margin-left:1%;"><i class="fa fa-paste"></i></button>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="profile-info-row">
+				<div class="profile-info-name">Product Name</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control"/>
+				</div>
+			</div>
+			<div class="profile-info-row">
+				<div class="profile-info-name">Product Size</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control"/>
+				</div>
+			</div>
+			
+			<div class="profile-info-row">
+				<div class="profile-info-name">GSM</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control"/>
+				</div>
+			</div>
+			<div class="profile-info-row">
+				<div class="profile-info-name">Product Scheme</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control"/>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<!--<div class="profile-info-row">
+				<div class="profile-info-value">
+					<button class="btn btn-white btn-round">Lamination</button>
+					<button class="btn btn-white">Chain</button>
+					<button class="btn btn-white">Dori</button>
+					<button class="btn btn-white">Valcrow</button>
+					<button class="btn btn-white">Tape</button>
+				</div>
+			</div>-->
+			<div class="profile-info-row">
+				<div class="profile-info-name">Font Pattern</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control"/>
+				</div>
+			</div>
+			<div class="profile-info-row">
+				<div class="profile-info-name">Fabric Color</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control"/>
+				</div>
+			</div>
+			<div class="profile-info-row">
+				<div class="profile-info-name">Dori Color</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control"/>
+				</div>
+			</div>
+			
+			<div class="profile-info-row">
+				<div class="col-md-6" style="padding-left: 0px;">
+					<div class="profile-info-name">Lamination</div>
+					<div class="profile-info-value">
+						<input type="checkbox" class=""/>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="profile-info-name">Chain</div>
+					<div class="profile-info-value">
+						<input type="checkbox" class=""/>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="col-md-3">
+			<div class="profile-info-row">
+				<div class="profile-info-name">Product Color</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control"/>
+				</div>
+			</div>
+			<div class="profile-info-row">
+				<div class="profile-info-name">Print Type</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control"/>
+				</div>
+			</div>
+			<div class="profile-info-row">
+				<div class="profile-info-name">Ink Color</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control"/>
+				</div>
+			</div>
+			<div class="profile-info-row">
+				<div class="col-md-6" style="padding-left: 0px;"> 
+					<div class="profile-info-name">Dori</div>
+					<div class="profile-info-value">
+						<input type="checkbox" class=""/>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="profile-info-name">Velcrow</div>
+					<div class="profile-info-value">
+						<input type="checkbox" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="profile-info-row">
+				<div class="profile-info-name">Price per piece</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control"/>
+				</div>
+			</div>
+			<div class="profile-info-row">
+				<div class="profile-info-name">Price per kg</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control"/>
+				</div>
+			</div>
+			<div class="profile-info-row">
+				<div class="profile-info-name">Quantity</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control"/>
+				</div>
+			</div>
+			<div class="profile-info-row">
+				<div class="col-md-6" style="padding-left: 0px;">
+					<div class="profile-info-name">Tape</div>
+					<div class="profile-info-value">
+						<input type="checkbox"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div style="border-bottom: 1px solid #EEEEEE;">
+		<h3>Product Plan Process</h3>
+	</div>
+	<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+		<button class="btn btn-default" style="padding:6px 35px 6px 35px;"><i class="fa fa-plus-square"></i></button>
+		<button class="btn btn-default" style="padding:6px 35px 6px 35px;"><i class="fa fa-download"></i></button>
+	</div>
+	<br />
+	<div class="row">
+		<div class="col-md-9">
+			<table class="idTableOrder">
+				<tr>
+					<th>Name</th>
+					<th>Quantity</th>
+					<th>Color</th>
+					<th>Size</th>
+				</tr>
+				<tr>
+					<td>Product 1</td>
+					<td>12</td>
+					<td>Blue</td>
+					<td>10</td>
+				</tr>
+				<tr>
+					<td>Product 2</td>
+					<td>18</td>
+					<td>Red</td>
+					<td>5</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+

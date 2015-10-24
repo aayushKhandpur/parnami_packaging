@@ -1,0 +1,90 @@
+<%= stylesheet_link_tag "homecss" %>
+<div class="container-fluid">
+	<div  style="border-bottom: 1px solid #EEEEEE;">
+		<h3>Product Plan Process</h3>
+	</div>
+	<div class="row" style="padding-left:0px;margin:1% 0% 1% 0.5%">
+		<button class="btn btn-default col-md-1"><i class="fa fa-level-up fa-rotate-270"></i></button>
+		<button class="btn btn-default col-md-1" style="margin-left:1%;"><i class="fa fa-paste"></i></button>
+	</div>	
+	<div class="row" style="margin:0.5%">
+		 <div class="panel panel-default" >
+			<div class="panel-heading">
+				<h3 class="panel-title">General Information</h3>
+			</div>
+			<div class="panel-body">
+				<div class="col-md-3">
+					<div class="profile-info-row">
+						<div class="profile-info-name">Quantity</div>
+						<div class="profile-info-value">
+							<input type="text" class="form-control"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="profile-info-row">
+						<div class="profile-info-name">Delivery Date</div>
+						<div class="profile-info-value">
+							<div class='input-group date' id='datetimepicker1'>
+								<input type='text' class="form-control" />
+								<span class="input-group-addon">
+								<span class="fa fa-calendar"></span>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="row" style="margin:0.5%">
+		 <div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Status Information</h3>
+			</div>
+			<div class="panel-body">
+				<div class="col-md-3">
+					<div class="profile-info-row">
+						<div class="profile-info-name">Location</div>
+						<div class="profile-info-value">
+							<input type="text" class="form-control"/>
+						</div>
+					</div>
+					<div class="profile-info-row">
+						<div class="profile-info-name">Is First Step</div>
+						<div class="profile-info-value">
+							<input type="checkbox"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="profile-info-row">
+						<div class="profile-info-name">Sequence Number</div>
+						<div class="profile-info-value">
+							<input type="text" class="form-control"/>
+						</div>
+					</div>
+					
+					<div class="profile-info-row">
+						<div class="profile-info-name">Is Last Step</div>
+						<div class="profile-info-value">
+							<input type="checkbox"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="profile-info-row">
+						<div class="profile-info-name">Process Stage</div>
+						<div class="profile-info-value">
+							<input type="text" class="form-control"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+<%= javascript_include_tag "homejs" %>

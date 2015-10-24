@@ -1,0 +1,90 @@
+<%= stylesheet_link_tag "homecss" %>
+<div class="container-fluid">
+	<div style="border-bottom: 1px solid #EEEEEE;">
+		<h3>Order</h3>
+	</div>
+	<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+		<button class="btn btn-default col-md-1"><i class="fa fa-level-up fa-rotate-270"></i></button>
+		<button class="btn btn-default col-md-1" style="margin-left:1%;"><i class="fa fa-paste"></i></button>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="profile-info-row">
+				<div class="profile-info-name">Customer Name</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control"/>
+				</div>
+			</div>
+			<div class="profile-info-row">
+				<div class="profile-info-name">Order Details</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control"/>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="profile-info-row">
+				<div class="profile-info-name">Order Price</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control"/>
+				</div>
+			</div>
+			<div class="profile-info-row">
+				<div class="profile-info-name">Delivery Date</div>
+				<div class="profile-info-value">
+					<div class='input-group date' id='datetimepicker1'>
+						<input type='text' class="form-control" />
+						<span class="input-group-addon">
+						<span class="fa fa-calendar"></span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="profile-info-row">
+				<div class="profile-info-name">Delivery Address</div>
+				<div class="profile-info-value">
+					<textarea class="form-control" rows="4"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			
+		</div>
+	</div>
+	<div style="border-bottom: 1px solid #EEEEEE;">
+		<h3>Products</h3>
+	</div>
+	<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+		<button class="btn btn-default" style="padding:6px 35px 6px 35px;"><i class="fa fa-plus-square"></i></button>
+		<button class="btn btn-default" style="padding:6px 35px 6px 35px;"><i class="fa fa-download"></i></button>
+	</div>
+	<br />
+	<div class="row">
+		<div class="col-md-9">
+			<table class="idTableOrder">
+				<tr>
+					<th>Name</th>
+					<th>Quantity</th>
+					<th>Color</th>
+					<th>Size</th>
+				</tr>
+				<tr>
+					<td>Product 1</td>
+					<td>12</td>
+					<td>Blue</td>
+					<td>10</td>
+				</tr>
+				<tr>
+					<td>Product 2</td>
+					<td>18</td>
+					<td>Red</td>
+					<td>5</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+<%= javascript_include_tag "homejs" %>
+
