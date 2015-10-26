@@ -3,9 +3,9 @@ class OrderProductsController < ApplicationController
   before_action :set_order
 
     def index
-      order_products = @order.order_products.all
+      @order_products = @order.order_products.all
       if params[:master_product_id].present?
-        order_products = order_products.where(master_product_id: params[:master_product_id])
+        @order_products = order_products.where(master_product_id: params[:master_product_id])
       end
     end
 

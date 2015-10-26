@@ -1,15 +1,15 @@
 class OrderDeliveryPlansController < ApplicationController
 
     def index
-      order_delivery_plans = OrderDeliveryPlan.all
+      @order_delivery_plans = OrderDeliveryPlan.all
       if params[:customer_id].present?
-        order_delivery_plans = order_delivery_plans.where(customer_id: params[:customer_id])
+        @order_delivery_plans = order_delivery_plans.where(customer_id: params[:customer_id])
       end
       if params[:order_id].present?
-        order_delivery_plans = order_delivery_plans.where(order_id: params[:order_id])
+        @order_delivery_plans = order_delivery_plans.where(order_id: params[:order_id])
       end
       if params[:order_product_id].present?
-        order_delivery_plans = order_delivery_plans.where(order_product_id: params[:order_product_id])
+        @order_delivery_plans = order_delivery_plans.where(order_product_id: params[:order_product_id])
       end
     end
 

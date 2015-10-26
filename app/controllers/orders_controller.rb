@@ -1,9 +1,9 @@
 class OrdersController < ApplicationController
 
   def index
-    orders = Order.all
+    @orders = Order.all
     if params[:customer_id].present?
-      orders = orders.where(customer_id: params[:customer_id])
+      @orders = orders.where(customer_id: params[:customer_id])
     end
   end
 

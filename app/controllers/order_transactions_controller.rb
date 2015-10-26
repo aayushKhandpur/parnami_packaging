@@ -1,18 +1,18 @@
 class OrderTransactionsController < ApplicationController
 
   def index
-    order_transactions = OrderTransaction.all
+    @order_transactions = OrderTransaction.all
     if params[:order_id].present?
-      order_transactions = order_transactions.where(order_id: params[:order_id])
+      @order_transactions = order_transactions.where(order_id: params[:order_id])
     end
     if params[:order_product_id].present?
-      order_transactions = order_transactions.where(order_product_id: params[:order_product_id])
+      @order_transactions = order_transactions.where(order_product_id: params[:order_product_id])
     end
     if params[:master_product_id].present?
-      order_transactions = order_transactions.where(master_product_id: params[:master_product_id])
+      @order_transactions = order_transactions.where(master_product_id: params[:master_product_id])
     end
     if params[:order_delivery_plan_process_id].present?
-      order_transactions = order_transactions.where(order_delivery_plan_process_id: params[:order_delivery_plan_process_id])
+      @order_transactions = order_transactions.where(order_delivery_plan_process_id: params[:order_delivery_plan_process_id])
     end
   end
 

@@ -1,18 +1,18 @@
 class OrderDeliveryPlanProcessesController < ApplicationController
 
       def index
-        order_delivery_plan_processes = OrderDeliveryPlanProcess.all
+        @order_delivery_plan_processes = OrderDeliveryPlanProcess.all
         if params[:master_process_id].present?
-          order_delivery_plan_processes = order_delivery_plan_processes.where(master_process_id: params[:master_process_id])
+          @order_delivery_plan_processes = order_delivery_plan_processes.where(master_process_id: params[:master_process_id])
         end
         if params[:order_id].present?
-          order_delivery_plan_processes = order_delivery_plan_processes.where(order_id: params[:order_id])
+          @order_delivery_plan_processes = order_delivery_plan_processes.where(order_id: params[:order_id])
         end
         if params[:order_product_id].present?
-          order_delivery_plan_processes = order_delivery_plan_processes.where(order_product_id: params[:order_product_id])
+          @order_delivery_plan_processes = order_delivery_plan_processes.where(order_product_id: params[:order_product_id])
         end
         if params[:order_delivery_plan_id].present?
-          order_delivery_plan_processes = order_delivery_plan_processes.where(order_delivery_plan_id: params[:order_delivery_plan_id])
+          @order_delivery_plan_processes = order_delivery_plan_processes.where(order_delivery_plan_id: params[:order_delivery_plan_id])
         end
       end
 
