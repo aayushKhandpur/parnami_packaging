@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/datepicker
 //= require bower_components/angular/angular.min
 //= require bower_components/angular-route/angular-route.min
 //= require bower_components/angular-ui-router/release/angular-ui-router.min
