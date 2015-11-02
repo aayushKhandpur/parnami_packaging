@@ -14,13 +14,7 @@
     <nav class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
             <li>
-                <a href="#/createorder">Create Order</a>
-            </li>
-            <li>
-                <a href="#/orderproducts">Create Customer</a>
-            </li>
-            <li>
-                <a href="#/productprocessplan">All Orders </a>
+                <a href="#/createorder/new">Create Order</a>
             </li>
         </ul>
         <ul class="nav navbar-nav pull-right">
@@ -37,68 +31,23 @@
 		<div id="sidebar-wrapper" class="col-md-3">
             <div id="sidebar">
                 <ul class="nav list-group">
-					<li><div class="tree well">
-						<ul style="padding:0px;">
-							<li>
-								<span class="badge badge-success"><i class="fa fa-plus-circle"></i> Parent</span>
-						<ul>
 					<li>
-                	<span class="badge badge-success"><i class="fa fa-plus-circle"></i> Child</span>
-                    <ul>
-                        <li>
-	                        <span class="badge badge-success"><i class="fa fa-leaf"></i> Grand Child</span>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                	<span class="badge badge-success"><i class="fa fa-plus-circle"></i> Child</span>
-                    <ul>
-                        <li>
-	                        <span class="badge badge-success"><i class="fa fa-leaf"></i> Grand Child</span>
-                        </li>
-                        <li>
-                        	<span class="badge badge-success"><i class="fa fa-plus-circle"></i> Grand Child</span>
-                            <ul>
-                                <li>
-	                                <span class="badge badge-success"><i class="fa fa-plus-circle"></i> Great Grand Child</span>
-		                            <ul>
-		                                <li>
-			                                <span class="badge badge-success"><i class="fa fa-leaf"></i> Great great Grand Child</span>
-		                                </li>
-		                                <li>
-			                                <span class="badge badge-success"><i class="fa fa-leaf"></i> Great great Grand Child</span>
-		                                </li>
-		                             </ul>
-                                </li>
-                                <li>
-	                                <span class="badge badge-success"><i class="fa fa-leaf"></i> Great Grand Child</span>
-                                </li>
-                                <li>
-	                                <span class="badge badge-success"><i class="fa fa-leaf"></i> Great Grand Child</span>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-	                        <span class="badge badge-success"><i class="fa fa-leaf"></i> Grand Child</span>
-                        </li>
-                    </ul>
-                </li>
+						<div class="tree well">
+							<ul style="padding:0px;">
+								<li ng-repeat="treeBranch in treeStructure">
+									<span class="badge badge-success"><i class="fa fa-plus-circle"></i> <a href="#/createorder/{{treeBranch.order.order_id}}" style="color:#333333 !important;text-decoration:none;">{{treeBranch.order.order_details}}</a></span>
+									<ul>
+										<li ng-repeat="products in treeBranch.order.order_products">
+											<span class="badge badge-success"><i class="fa fa-leaf"></i> <a href="#/orderproducts/{{treeBranch.order.order_id}}/{{products.product.product_id}}" style="color:#333333 !important;text-decoration:none;">{{products.product.product_name}}</a></span>
+										</li>
+									</ul>
+								</li>
 							</ul>
-						</li>
-							<li>
-								<span class="badge badge-success"><i class="fa fa-plus-circle"></i> Parent2</span>
-								<ul>
-									<li>
-										<span class="badge badge-success"><i class="fa fa-leaf"></i> Child</span>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</li>
-			</ul>
-        </div>
-     </div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
 	<div id="main-wrapper" class="col-md-9 pull-right">
 		  <ui-view></ui-view>
 	  

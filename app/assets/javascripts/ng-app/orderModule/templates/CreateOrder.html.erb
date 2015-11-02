@@ -6,36 +6,37 @@
 	<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
 		<!--<button class="btn btn-default col-md-1" ng-click="goBackToPrevious()"><i class="fa fa-level-up fa-rotate-270"></i></button>-->
 		<back-button></back-button>
-		<button class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="createOrder()"><i class="fa fa-paste"></i></button>
+		<button class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="createOrder()"><i class="fa fa-save"></i></button>
+		<button class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="editOrder()"><i class="fa fa-edit"></i></button>
 	</div>
 	<div class="row">
 		<div class="col-md-3">
 			<div class="profile-info-row">
 				<div class="profile-info-name">Customer Name</div>
 				<div class="profile-info-value">
-					<input type="text" class="form-control" ng-model="order.customer_name"/>
+					<input type="text" class="form-control" ng-model="customer_name" ng-disabled="isOrderShown"/>
 				</div>
 			</div>
 			<div class="profile-info-row">
 				<div class="profile-info-name">Order Details</div>
 				<div class="profile-info-value">
-					<input type="text" class="form-control" ng-model="order.order_details"/>
+					<input type="text" class="form-control" ng-model="order.order_details" ng-disabled="isOrderShown"/>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-3">
 			<div class="profile-info-row">
-				<div class="profile-info-name">Order Price</div>
+				<div class="profile-info-name">Mobile Number</div>
 				<div class="profile-info-value">
-					<input type="text" class="form-control" ng-model="order.order_price" ng-disabled="true"/>
+					<input type="text" class="form-control" ng-model="mobile_number" ng-disabled="isOrderShown"/>
 				</div>
 			</div>
 			<div class="profile-info-row">
 				<div class="profile-info-name">Delivery Date</div>
 				<div class="profile-info-value">
 					<div class='input-group date' id='datetimepicker1'>
-						<input type='text' class="form-control" ng-model="order.delivery_date"/>
-						<span class="input-group-addon">
+						<input type='text' class="form-control"  ng-model="order.delivery_date" ng-disabled="isOrderShown"/>
+						<span class="input-group-addon" >
 						<span class="fa fa-calendar"></span>
 						</span>
 					</div>
@@ -46,7 +47,7 @@
 			<div class="profile-info-row">
 				<div class="profile-info-name">Delivery Address</div>
 				<div class="profile-info-value">
-					<textarea class="form-control" rows="4" ng-model="order.delivery_address"></textarea>
+					<textarea class="form-control" rows="4" ng-model="order.delivery_address" ng-disabled="isOrderShown"></textarea>
 				</div>
 			</div>
 		</div>
@@ -58,30 +59,24 @@
 		<h3>Products</h3>
 	</div>
 	<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
-		<button class="btn btn-default" style="padding:6px 35px 6px 35px;" ng-click="navigateToProduct()"><i class="fa fa-plus-square"></i></button>
-		<button class="btn btn-default" style="padding:6px 35px 6px 35px;"><i class="fa fa-download"></i></button>
+		<button class="btn btn-default" style="padding:6px 35px 6px 35px;" ng-click="navigateToProduct()" ng-disabled="!isOrderShown"><i class="fa fa-plus-square"></i></button>
+		<!--<button class="btn btn-default" style="padding:6px 35px 6px 35px;"><i class="fa fa-download"></i></button>-->
 	</div>
 	<br />
 	<div class="row">
 		<div class="col-md-9">
-			<table class="idTableOrder">
+			<table class="idTableOrder" ng-hide="productList.length == 0">
 				<tr>
-					<th>Name</th>
 					<th>Quantity</th>
 					<th>Color</th>
 					<th>Size</th>
+					<th>Price Per Piece</th>
 				</tr>
-				<tr>
-					<td>Product 1</td>
-					<td>12</td>
-					<td>Blue</td>
-					<td>10</td>
-				</tr>
-				<tr>
-					<td>Product 2</td>
-					<td>18</td>
-					<td>Red</td>
-					<td>5</td>
+				<tr ng-repeat="product in productList">
+					<td><a href="#/orderproducts/{{orderId}}/{{product.order_product.id}}">{{product.order_product.quantity}}</a></td>
+					<td>{{product.order_product.color}}</td>
+					<td>{{product.order_product.size}}</td>
+					<td>{{product.order_product.price_per_piece}}</td>
 				</tr>
 			</table>
 		</div>

@@ -42,6 +42,6 @@ class OrderDeliveryPlanProcessesController < ApplicationController
       private
 
       def order_delivery_plan_process_params
-        params.permit(:master_process_id, :order_id, :order_product_id, :order_delivery_plan_id, :sequence_number, :is_last_step, :is_first_step, :master_process_name)
+        params.permit(:master_process_id, :order_id, :order_product_id, :order_delivery_plan_id, :sequence_number, :is_last_step, :is_first_step, :master_process_name, :location_id)
       end
 end

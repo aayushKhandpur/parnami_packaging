@@ -4,10 +4,14 @@ var parnamiPackaging = angular.module('AngularRails', ['ngRoute',
 		'orderModule',
 		'UtilityModule',
 		'productModule',
-		'productPlanModule'
+		'productPlanModule',
+		'masterProductModule',
+		'locationModule',
+		'masterProcessModule'
     ]);
 	
-	parnamiPackaging.config(function ($stateProvider) {
+	parnamiPackaging.config(function ($stateProvider,$httpProvider) {
+		 
         $stateProvider
             .state('welcome', {
 				url: '/',
@@ -16,3 +20,9 @@ var parnamiPackaging = angular.module('AngularRails', ['ngRoute',
             })
 			
 		});
+		
+		parnamiPackaging.config(['$httpProvider',function($httpProvider) {
+  var authToken;
+  authToken = $("meta[name=\"csrf-token\"]").attr("content");
+  return $httpProvider.defaults.headers.common["X-CSRF-TOKEN"] = authToken;
+}]);

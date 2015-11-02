@@ -1,15 +1,58 @@
 angular.module('orderModule')
-    .factory('orderMgr', function (orderSrv,utilitySrv) {
-        
-		return {
+    .service('orderMgr', function (orderSrv,utilitySrv,productPlanSrv,productSrv) {
+	
+		var orderDetails = {};
+        var self = this;
 		
-			createOrder: function createOrder(newOrder) {
-				
+		this.createOrder = function(newOrder,mobNum,customer_name,orderId,getInsertedOrder) {
+			if(orderId == 'new') {
 				newOrder.order_date =  utilitySrv.getCustomCurrentDate();
 				newOrder.created_at = new Date();
 				newOrder.updated_at = new Date();
-				orderSrv.insertOrder(newOrder);
+				newOrder.order_price = 0.00;
+				orderSrv.insertOrder(newOrder,function(insertedOrder){
+					getInsertedOrder(insertedOrder);
+				});
 			}
-		};
+			else {
+				newOrder.updated_at = new Date();
+				orderSrv.updateOrder(newOrder,orderId,function(insertedOrder){
+					getInsertedOrder(insertedOrder);
+				});
+			}
+		}
+		this.loadDefaults = function(orderId,getOrderDetails) {
+			orderSrv.getOrderById(orderId,function(orderRequested){
+				orderDetails.orderProperty = orderRequested;
+				//console.log('JFFGJFJFH'+JSON.stringify(orderRequested));
+				productPlanSrv.getCustomerById(orderRequested.order.customer_id,function(customerDetails){
+					//console.log(JSON.stringify(customerDetails));
+					orderDetails.customer_name = customerDetails.customer.name;
+					orderDetails.mobile_number = customerDetails.customer.mobile_number;
+					productSrv.getAllProduct(function(allProducts){
+						orderDetails.productList = self.getAllProductByOrderId(orderId,allProducts);
+						getOrderDetails(orderDetails);
+					});
+				});
+			});
+		}
+		this.getAllProductByOrderId = function(orderId,allProducts) {
+			var productList = [];
+			for(var counter = 0;counter < allProducts.length;counter++) {
+				if(allProducts[counter].order_product.order_id == orderId)
+					productList.push(allProducts[counter]);
+			}
+			//console.log('##'+productList);
+			//console.log('##'+JSON.stringify(productList));
+			return productList;
+		}
+		this.validateCustomerName = function(customerName,mobNum,getCustomer) {
+			productPlanSrv.getCustomerByNameAndMobile(customerName,mobNum,function(customers){
+				if(customers.length == 0)
+					getCustomer(null);
+				else
+					getCustomer(customers[0].customer.id);
+			});
+		}
 		
     });

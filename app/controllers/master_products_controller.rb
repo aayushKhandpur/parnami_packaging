@@ -3,6 +3,10 @@ class MasterProductsController < ApplicationController
     def index
       @products = MasterProduct.all
     end
+	
+	def show
+    @master_product = MasterProduct.find(params[:id])
+	end
 
     def create
       @master_products = MasterProduct.new(master_product_params)

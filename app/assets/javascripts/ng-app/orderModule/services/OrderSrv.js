@@ -3,13 +3,38 @@ angular.module('orderModule')
         
 		return {
 		
-			insertOrder: function(newOrder) {
-			
-				console.log('###'+JSON.stringify(newOrder));
-			
+			insertOrder: function(newOrder,getResponseData) {
+				var httpRequest = $http.post('/orders',newOrder);
+				httpRequest.success(function(data){
+					getResponseData(data);
+				
+				});
+				httpRequest.error(function(data){
+					console.log(JSON.stringify(data));
+				});
+			},
+			updateOrder: function(updateOrder,orderId,getResponseData) {
+				var httpRequest = $http.put('/orders/'+orderId,updateOrder);
+				httpRequest.success(function(data){
+					//console.log('order updated is'+JSON.stringify(data));
+					getResponseData(data);
+				
+				});
+				httpRequest.error(function(data){
+					console.log(JSON.stringify(data));
+				});
+			},
+			getOrderById: function(orderId,getOrder) {
+				var httpRequest = $http.get('/orders/'+orderId);
+				httpRequest.success(function(data){
+					getOrder(data);
+				
+				});
+				httpRequest.error(function(data){
+					console.log(JSON.stringify(data));
+				});
 			}
 			
-		};
-		
+		};	
 		
     });

@@ -3,10 +3,10 @@ class CustomersController < ApplicationController
   def index
     @customers = Customer.all
     if params[:search_name].present?
-      @customers = customers.where("name like ?", "#{params[:search_name]}%")
+      @customers = @customers.where("name like ?", "#{params[:search_name]}%")
     end
     if params[:mobile_number].present?
-      @customers = customers.where("mobile_number like ?", "#{params[:mobile_number]}%")
+      @customers = @customers.where("mobile_number like ?", "#{params[:mobile_number]}%")
     end
   end
 
