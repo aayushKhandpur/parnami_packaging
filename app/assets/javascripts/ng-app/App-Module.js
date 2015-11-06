@@ -7,14 +7,15 @@ var parnamiPackaging = angular.module('AngularRails', ['ngRoute',
 		'productPlanModule',
 		'masterProductModule',
 		'locationModule',
-		'masterProcessModule'
+		'masterProcessModule',
+		'customerModule'
     ]);
 	
 	parnamiPackaging.config(function ($stateProvider,$httpProvider) {
 		 
         $stateProvider
-            .state('welcome', {
-				url: '/',
+		.state("index", {
+				url: '/index',
                 templateUrl: 'ng-app/WelcomePage.html',
                 controller: 'HomeCtrl'
             })

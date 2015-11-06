@@ -19,4 +19,5 @@
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
 //= require angular-rails-templates
+//= require select2
 //= require_tree

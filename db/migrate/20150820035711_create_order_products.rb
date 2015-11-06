@@ -20,6 +20,7 @@ class CreateOrderProducts < ActiveRecord::Migration
       t.decimal :price_per_piece, null: false
       t.decimal :price_per_kg, null: false
       t.integer :quantity, null: false
+	  t.string :master_process_name
 
       t.timestamps null: false
     end

@@ -45,24 +45,6 @@ productPlanModule.factory('productPlanSrv', function ($http) {
 					console.log(JSON.stringify(data));
 				});
 			},
-			getLocations: function(callbackFunction) {
-				var httpRequest = $http.get('/locations');
-				httpRequest.success(function(data){
-					callbackFunction(data);
-				});
-				httpRequest.error(function(data){
-					console.log(JSON.stringify(data));
-				});
-			},
-			getProcesses: function(callbackFunction) {
-				var httpRequest = $http.get('/master_processes');
-				httpRequest.success(function(data){
-					callbackFunction(data);
-				});
-				httpRequest.error(function(data){
-					console.log(JSON.stringify(data));
-				});
-			},
 			insertPlanStatus: function(orderPlanStatus,callbackFunction) {
 				var httpRequest = $http.post('/order_delivery_plan_processes',orderPlanStatus);
 				httpRequest.success(function(data){
@@ -101,6 +83,15 @@ productPlanModule.factory('productPlanSrv', function ($http) {
 			},
 			getAllPlanOrderStatus:  function(callbackFunction) {
 				var httpRequest = $http.get('/order_delivery_plan_processes');
+				httpRequest.success(function(data){
+					callbackFunction(data);
+				});
+				httpRequest.error(function(data){
+					console.log(JSON.stringify(data));
+				});
+			},
+			getOrderPlanDeliveryByOrderId: function(orderId,callbackFunction) {
+				var httpRequest = $http.get('/order_delivery_plans_custom/'+orderId);
 				httpRequest.success(function(data){
 					callbackFunction(data);
 				});

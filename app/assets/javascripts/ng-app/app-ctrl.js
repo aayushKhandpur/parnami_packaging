@@ -46,7 +46,7 @@ parnamiPackaging.controller('HomeCtrl', function ($scope,$http,utilitySrv,$locat
 			}
 		];
 		objList.add($location.absUrl());
-		
-		$location.path('/');
+		if($location.absUrl().indexOf('#') == -1)
+			$location.path('/index');
         
     });

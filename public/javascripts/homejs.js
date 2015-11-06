@@ -5,8 +5,12 @@ $(document).ready(function(){
 				autoclose:true,
 				format:"yyyy/mm/dd"
 		});
-		$(".ui-datepicker").datepicker({
-				
+		$('ul.nav-tabs li a').click(function (e) {
+			$('ul.nav-tabs li.active').removeClass('active');
+			$(this).parent('li').addClass('active');
+		});
+		$(".select2").select2({
+			
 		});
 	});			
 });

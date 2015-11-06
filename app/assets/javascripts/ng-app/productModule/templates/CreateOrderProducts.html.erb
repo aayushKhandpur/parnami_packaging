@@ -1,4 +1,5 @@
 <%= stylesheet_link_tag "homecss" %>
+<%= javascript_include_tag "homejs" %>
 <div class="container-fluid">
 	<div style="border-bottom: 1px solid #EEEEEE;">
 		<h3>Order Products</h3>
@@ -6,16 +7,17 @@
 	<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
 		<!--<button class="btn btn-default col-md-1" ng-click="goBackToPrevious()"><i class="fa fa-level-up fa-rotate-270"></i></button>-->
 		<back-button></back-button>
-		<button class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="createProduct()"><i class="fa fa-save"></i></button>
-		<button class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="editProduct()"><i class="fa fa-edit"></i></button>
+		<button class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="createProduct('savereturn')" ng-show="!isProductShown"><i class="fa fa-save"></i></button>
+		<button class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="createProduct('savenew')" ng-show="!isProductShown"><i class="fa fa-save"></i><i class="fa fa-plus"></i></button>
+		<button class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="editProduct()" ng-show="isProductShown"><i class="fa fa-edit"></i></button>
+
 	</div>
 	<div class="row">
 		<div class="col-md-3">
-			<div class="profile-info-row">
-				<div class="profile-info-name">Product Name</div>
+			<div class="profile-info-name">Product Name</div>
 				<div class="profile-info-value">
-					<input type="text" class="form-control" ng-model="productName" ng-disabled="isProductShown"/>
-				</div>
+					<select class="form-control" ng-model="masterProductId" ng-options="masterProduct.id as masterProduct.name for masterProduct in allMasterProducts" ng-disabled="isProductShown" ng-change="productChanged()">
+					</select>
 			</div>
 			<div class="profile-info-row">
 				<div class="profile-info-name">Product Size</div>
@@ -136,27 +138,4 @@
 			</div>
 		</div>
 	</div>
-	<div style="border-bottom: 1px solid #EEEEEE;">
-		<h3>Product Plan Process</h3>
-	</div>
-	<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
-		<button class="btn btn-default" style="padding:6px 35px 6px 35px;" ng-click="navigateToProductPlan()" ng-disabled="!isProductShown"><i class="fa fa-plus-square"></i></button>
-		<!--<button class="btn btn-default" style="padding:6px 35px 6px 35px;"><i class="fa fa-download"></i></button>-->
-	</div>
-	<br />
-	<div class="row" ng-hide="productPlanList.length == 0">
-		<div class="col-md-9">
-			<table class="idTableOrder">
-				<tr>
-					<th>Delivery Date</th>
-					<th>Quantity</th>
-				</tr>
-				<tr ng-repeat="productPlan in productPlanList">
-					<td><a href="#/productprocessplan/{{orderId}}/{{productId}}/{{productPlan.order_delivery_plan.id}}">{{productPlan.order_delivery_plan.delivery_date}}</a></td>
-					<td>{{productPlan.order_delivery_plan.quantity}}</td>
-				</tr>
-			</table>
-		</div>
-	</div>
 </div>
-

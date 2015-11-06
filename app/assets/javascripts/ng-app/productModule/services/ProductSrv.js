@@ -52,6 +52,16 @@ productModule.factory('productSrv', function ($http) {
 				httpRequest.error(function(data){
 					console.log(JSON.stringify(data));
 				});
+			},
+			getProductByOrderId: function(orderId,callbackFunction) {
+				var httpRequest = $http.get('/order_products_custom/'+orderId);
+				httpRequest.success(function(data){
+					callbackFunction(data);
+				
+				});
+				httpRequest.error(function(data){
+					console.log(JSON.stringify(data));
+				});
 			}
 		};	
 		

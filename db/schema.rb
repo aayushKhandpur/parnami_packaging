@@ -81,27 +81,28 @@ ActiveRecord::Schema.define(version: 20150825140738) do
   add_index "order_delivery_plans", ["order_product_id"], name: "index_order_delivery_plans_on_order_product_id", using: :btree
 
   create_table "order_products", force: :cascade do |t|
-    t.integer  "master_product_id", limit: 4,                                  null: false
-    t.integer  "order_id",          limit: 4,                                  null: false
-    t.string   "size",              limit: 255
-    t.string   "color",             limit: 255
-    t.string   "print_type",        limit: 255
-    t.string   "ink_color",         limit: 255
-    t.string   "gsm",               limit: 255
-    t.string   "print_scheme",      limit: 255
-    t.string   "font_pattern",      limit: 255
-    t.string   "side_fabric_color", limit: 255
-    t.string   "dori_color",        limit: 255
-    t.boolean  "lamination",        limit: 1,                  default: false, null: false
-    t.boolean  "is_chain",          limit: 1,                  default: false, null: false
-    t.boolean  "is_dori",           limit: 1,                  default: false, null: false
-    t.boolean  "is_velcrow",        limit: 1,                  default: false, null: false
-    t.boolean  "is_tape",           limit: 1,                  default: false, null: false
-    t.decimal  "price_per_piece",               precision: 10,                 null: false
-    t.decimal  "price_per_kg",                  precision: 10,                 null: false
-    t.integer  "quantity",          limit: 4,                                  null: false
-    t.datetime "created_at",                                                   null: false
-    t.datetime "updated_at",                                                   null: false
+    t.integer  "master_product_id",   limit: 4,                                  null: false
+    t.integer  "order_id",            limit: 4,                                  null: false
+    t.string   "size",                limit: 255
+    t.string   "color",               limit: 255
+    t.string   "print_type",          limit: 255
+    t.string   "ink_color",           limit: 255
+    t.string   "gsm",                 limit: 255
+    t.string   "print_scheme",        limit: 255
+    t.string   "font_pattern",        limit: 255
+    t.string   "side_fabric_color",   limit: 255
+    t.string   "dori_color",          limit: 255
+    t.boolean  "lamination",          limit: 1,                  default: false, null: false
+    t.boolean  "is_chain",            limit: 1,                  default: false, null: false
+    t.boolean  "is_dori",             limit: 1,                  default: false, null: false
+    t.boolean  "is_velcrow",          limit: 1,                  default: false, null: false
+    t.boolean  "is_tape",             limit: 1,                  default: false, null: false
+    t.decimal  "price_per_piece",                 precision: 10,                 null: false
+    t.decimal  "price_per_kg",                    precision: 10,                 null: false
+    t.integer  "quantity",            limit: 4,                                  null: false
+    t.string   "master_process_name", limit: 255
+    t.datetime "created_at",                                                     null: false
+    t.datetime "updated_at",                                                     null: false
   end
 
   add_index "order_products", ["master_product_id"], name: "index_order_products_on_master_product_id", using: :btree

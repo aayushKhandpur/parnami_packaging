@@ -3,6 +3,10 @@ class MasterProcessesController < ApplicationController
       def index
         @processes = MasterProcess.all
       end
+	  
+	  def show
+        @process = MasterProcess.find(params[:id])
+      end
 
       def create
         @master_process = MasterProcess.new(master_process_params)

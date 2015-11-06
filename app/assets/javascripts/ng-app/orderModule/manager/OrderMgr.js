@@ -1,10 +1,10 @@
 angular.module('orderModule')
-    .service('orderMgr', function (orderSrv,utilitySrv,productPlanSrv,productSrv) {
+    .service('orderMgr', function (orderSrv,utilitySrv,productPlanSrv,productSrv,customerSrv) {
 	
 		var orderDetails = {};
         var self = this;
 		
-		this.createOrder = function(newOrder,mobNum,customer_name,orderId,getInsertedOrder) {
+		this.createOrder = function(newOrder,orderId,getInsertedOrder) {
 			if(orderId == 'new') {
 				newOrder.order_date =  utilitySrv.getCustomCurrentDate();
 				newOrder.created_at = new Date();
@@ -24,19 +24,19 @@ angular.module('orderModule')
 		this.loadDefaults = function(orderId,getOrderDetails) {
 			orderSrv.getOrderById(orderId,function(orderRequested){
 				orderDetails.orderProperty = orderRequested;
-				//console.log('JFFGJFJFH'+JSON.stringify(orderRequested));
 				productPlanSrv.getCustomerById(orderRequested.order.customer_id,function(customerDetails){
-					//console.log(JSON.stringify(customerDetails));
-					orderDetails.customer_name = customerDetails.customer.name;
-					orderDetails.mobile_number = customerDetails.customer.mobile_number;
-					productSrv.getAllProduct(function(allProducts){
-						orderDetails.productList = self.getAllProductByOrderId(orderId,allProducts);
-						getOrderDetails(orderDetails);
+					//orderDetails.customer = customerDetails;
+					productSrv.getProductByOrderId(orderId,function(allProducts) {
+						orderDetails.productList = allProducts;
+						productPlanSrv.getOrderPlanDeliveryByOrderId(orderId,function(orderDeliveryPlan) {
+							orderDetails.orderDeliveryPlanList = orderDeliveryPlan;
+							getOrderDetails(orderDetails,customerDetails);
+						});
 					});
 				});
 			});
 		}
-		this.getAllProductByOrderId = function(orderId,allProducts) {
+		/*this.getAllProductByOrderId = function(orderId,allProducts) {
 			var productList = [];
 			for(var counter = 0;counter < allProducts.length;counter++) {
 				if(allProducts[counter].order_product.order_id == orderId)
@@ -45,13 +45,18 @@ angular.module('orderModule')
 			//console.log('##'+productList);
 			//console.log('##'+JSON.stringify(productList));
 			return productList;
-		}
+		}*/
 		this.validateCustomerName = function(customerName,mobNum,getCustomer) {
 			productPlanSrv.getCustomerByNameAndMobile(customerName,mobNum,function(customers){
 				if(customers.length == 0)
 					getCustomer(null);
 				else
 					getCustomer(customers[0].customer.id);
+			});
+		}
+		this.getAllCustomers = function(callbackFunction) {
+			customerSrv.getAllCustomers(function(data){
+				callbackFunction(data);
 			});
 		}
 		

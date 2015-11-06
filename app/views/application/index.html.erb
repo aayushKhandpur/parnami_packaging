@@ -29,24 +29,7 @@
 </div>
 <div id="wrapper">
 		<div id="sidebar-wrapper" class="col-md-3">
-            <div id="sidebar">
-                <ul class="nav list-group">
-					<li>
-						<div class="tree well">
-							<ul style="padding:0px;">
-								<li ng-repeat="treeBranch in treeStructure">
-									<span class="badge badge-success"><i class="fa fa-plus-circle"></i> <a href="#/createorder/{{treeBranch.order.order_id}}" style="color:#333333 !important;text-decoration:none;">{{treeBranch.order.order_details}}</a></span>
-									<ul>
-										<li ng-repeat="products in treeBranch.order.order_products">
-											<span class="badge badge-success"><i class="fa fa-leaf"></i> <a href="#/orderproducts/{{treeBranch.order.order_id}}/{{products.product.product_id}}" style="color:#333333 !important;text-decoration:none;">{{products.product.product_name}}</a></span>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</div>
-					</li>
-				</ul>
-			</div>
+            
 		</div>
 	<div id="main-wrapper" class="col-md-9 pull-right">
 		  <ui-view></ui-view>

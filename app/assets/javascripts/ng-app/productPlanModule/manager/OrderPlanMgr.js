@@ -1,4 +1,4 @@
-productPlanModule.factory('orderPlanMgr', function (orderSrv,productPlanSrv) {
+productPlanModule.factory('orderPlanMgr', function (orderSrv,productPlanSrv,masterProcessSrv,locationSrv,productSrv,masterProductSrv) {
 	
 		return {
 			createPlan: function(orderPlan,orderPlanId,orderId,getOrderPlan) {
@@ -19,20 +19,13 @@ productPlanModule.factory('orderPlanMgr', function (orderSrv,productPlanSrv) {
 					});
 				}
 			},
-			createPlanStatus: function(orderPlanStatus,locationName,processName,orderPlanStatusId,getOrderPlanStatus){
+			createPlanStatus: function(orderPlanStatus,orderPlanStatusId,getOrderPlanStatus){
 				if(orderPlanStatusId == null) {
 					orderPlanStatus.created_at = new Date();
 					orderPlanStatus.updated_at = new Date();
-					//productPlanSrv.getLocations(function(locationDetails){
-						//if(locationDetails.length != 0) {
-							orderPlanStatus.location_id = 47;
-							orderPlanStatus.master_process_name = 'Printing';
-							orderPlanStatus.master_process_id = 1;
-							productPlanSrv.insertPlanStatus(orderPlanStatus,function(insertedOrderPlanStatus){
-								getOrderPlanStatus(insertedOrderPlanStatus);
-							});
-						//}
-					//});
+					productPlanSrv.insertPlanStatus(orderPlanStatus,function(insertedOrderPlanStatus){
+						getOrderPlanStatus(insertedOrderPlanStatus);
+					});
 				}
 				else {
 					orderPlanStatus.updated_at = new Date();
@@ -41,7 +34,7 @@ productPlanModule.factory('orderPlanMgr', function (orderSrv,productPlanSrv) {
 					});
 				}
 			},
-			loadDefaults : function(orderPlanId,getOrderPlanDetails) {
+			loadDefaults: function(orderPlanId,getOrderPlanDetails) {
 				var orderPlanStatus = [];
 				productPlanSrv.getOrderPlanById(orderPlanId,function(orderPlanDetails){
 					console.log('@@@@'+JSON.stringify(orderPlanDetails));
@@ -50,11 +43,60 @@ productPlanModule.factory('orderPlanMgr', function (orderSrv,productPlanSrv) {
 						for(var counter = 0;counter < allPlanStatus.length; counter++) {
 							if(allPlanStatus[counter].order_delivery_plan_process.order_delivery_plan_id == orderPlanId) {
 								orderPlanStatus.push(allPlanStatus[counter].order_delivery_plan_process);
-								break;
 							}
 						}
 						orderPlanDetails.orderDeliveryPlanStatus = orderPlanStatus;
 						getOrderPlanDetails(orderPlanDetails);
+					});
+				});
+			},
+			validateLocationAndProcess: function(locationName,processName,validateResult) {
+				var validationDetails = {};
+				validationDetails.isLocationPresent = false;
+				validationDetails.isValid = false;
+				validationDetails.isProcessPresent = false;
+				locationSrv.getLocations(function(locationDetails){
+					for(var counter = 0; counter < locationDetails.length ; counter++) {
+						if(locationDetails[counter].location.name == locationName) {
+							validationDetails.locationId = locationDetails[counter].location.id;
+							validationDetails.isLocationPresent = true;
+							break;
+						}
+					}
+					masterProcessSrv.getProcesses(function(processDetails){
+						for(var counter = 0; counter < processDetails.length ; counter++) {
+							if(processDetails[counter].master_process.name == processName) {
+								validationDetails.masterProcessId = processDetails[counter].master_process.id;
+								validationDetails.isProcessPresent = true;
+								if(validationDetails.isLocationPresent == true)
+									validationDetails.isValid = true;
+								break;
+							}
+						}
+						validateResult(validationDetails);
+					});
+				});		
+			},
+			getPicklistData: function(orderId,callbackFunction) {
+				var productNameIdList = [];
+				productSrv.getProductByOrderId(orderId,function(orderProducts) {
+					masterProductSrv.getMasterProducts(function(masterProducts) {
+							for(var outerCounter = 0;outerCounter < orderProducts.length; outerCounter++) {
+									for(var innerCounter = 0;innerCounter < masterProducts.length; innerCounter++) {
+										if(orderProducts[outerCounter].order_product.master_product_id == masterProducts[innerCounter].master_product.id) {
+											var productNameAndId = {};
+											productNameAndId.productName = masterProducts[innerCounter].master_product.name;
+											productNameAndId.productId = orderProducts[outerCounter].order_product.id;
+											productNameIdList.push(productNameAndId);
+										}
+									}
+							}
+							locationSrv.getLocations(function(locationDetails) {
+								masterProcessSrv.getProcesses(function(processDetails){
+									callbackFunction(productNameIdList,locationDetails,processDetails);
+								});
+							});
+							
 					});
 				});
 			}

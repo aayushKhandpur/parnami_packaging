@@ -5,39 +5,62 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 		$scope.productId = $stateParams.productId;
 		$scope.orderId = $stateParams.orderId;
 		$scope.currentProduct = null;
-		$scope.isProductShown = false;
+		$scope.isProductShown;
 		$scope.productPlanList = [];
+		$scope.allMasterProducts;
+		$scope.masterProductId;
+		
+		
+		$scope.applyChanges = function()
+	    {
+		   if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest')
+			   $scope.$apply();
+	    }
 		
 		$scope.loadDefaults = function() {
-			if($scope.productId == 'new')
-				return;
-			else {
-				productMgr.loadDefaults($scope.productId,function(productDetails){
-					$scope.product = productDetails.order_product;
-					$scope.productName = productDetails.productName;
-					$scope.productPlanList = productDetails.productPlanList;
-					$scope.isProductShown = true;
+		console.log($scope.productId);
+				productMgr.getMasterProducts(function(data){
+					console.log(JSON.stringify(data));
+					$scope.product = {};
+					$scope.isProductShown = false;
+					$scope.allMasterProducts = [];
+					$.each(data,function(k,v){
+						$scope.allMasterProducts.push(v.master_product);
+					});
+					$scope.masterProductId = $scope.allMasterProducts[0].id;
+					$scope.productName = $scope.allMasterProducts[0].name;
+					console.log($scope.productName);
+					if($scope.productId == 'new'){}
+					else {
+						productMgr.loadDefaults($scope.productId,function(productDetails){
+							$scope.product = productDetails.order_product;
+							$scope.masterProductId =  productDetails.order_product.master_product_id;
+							$scope.productName = productDetails.order_product.master_process_name;
+							$scope.isProductShown = true;
+							$scope.applyChanges();
+						});
+					}
 					$scope.applyChanges();
-				});
-			}
+			});
 		}
 		
 		$scope.loadDefaults();
 		
-		$scope.createProduct = function() {
-			productMgr.validateProductName($scope.productName,function(masterProductDetails){
-				if(masterProductDetails.length == 0) {
-					alert('No such Product exists...');
-				}
-				else {
-					$scope.product.master_product_id = masterProductDetails[0].id;
-					productMgr.createProduct($scope.product,$scope.productId,$scope.orderId,function(productInserted){
-						$scope.productId = productInserted.order_product.id;
-						$scope.isProductShown = true;
-						$scope.applyChanges();
-						alert('Your Product is Saved...!!!');
-						$location.path('/orderproducts/'+$scope.orderId+'/'+$scope.productId);
-					});
+		$scope.createProduct = function(option) {
+			$scope.product.master_product_id = $scope.masterProductId;
+			$scope.product.master_process_name = $scope.productName;
+			productMgr.createProduct($scope.product,$scope.productId,$scope.orderId,function(productInserted){
+				$scope.productId = productInserted.order_product.id;
+				$scope.isProductShown = true;
+				$scope.applyChanges();
+				alert('Your Product is Saved...!!!');
+				if(option == 'savereturn')
+					$location.path('/createorder/'+$scope.orderId);
+				else
+				{	console.log('khghINNNNNNNNNNNNNNNNNN');
+					$scope.productId = 'new';
+					$scope.loadDefaults();
+					$location.path('/orderproducts/'+$scope.orderId+'/new');
 				}
 			});
 		}
@@ -46,14 +69,20 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 			$scope.isProductShown = false;
 		}
 		
-		$scope.applyChanges = function()
-	    {
-		   if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest')
-			   $scope.$apply();
-	    }
 		
 		$scope.navigateToProductPlan = function() {
 			$location.path('/productprocessplan/'+$scope.orderId+'/'+$scope.productId+'/new');
+		}
+		
+		$scope.productChanged = function() {
+			var name;
+			for(var counter = 0; counter <  $scope.allMasterProducts.length; counter++) {
+				if($scope.allMasterProducts[counter].id == $scope.masterProductId) {
+					selectedCustomer = $scope.allMasterProducts[counter].name ;
+					break;
+				}
+			}
+			$scope.productName = name;
 		}
 		
     });
