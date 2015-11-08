@@ -1,0 +1,89 @@
+<%= stylesheet_link_tag "homecss" %>
+<div class="container-fluid">
+	<div style="border-bottom: 1px solid #EEEEEE;">
+		<h3>Customers</h3>
+	</div>
+	<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+		<back-button></back-button>
+		<button class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="createMasterProduct()" ng-show="!isMasterProductShown"><i class="fa fa-save"></i></button>
+		<button class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="isMasterProductShown = false" ng-show="isMasterProductShown"><i class="fa fa-edit"></i></button>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="profile-info-row">
+				<div class="profile-info-name">Customer Name</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control" ng-model="masterProduct.name" ng-disabled="isMasterProductShown"/>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="profile-info-row">
+				<div class="profile-info-name">Customer Email</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control" ng-model="masterProduct.email_id" ng-disabled="isMasterProductShown"/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="profile-info-row">
+				<div class="profile-info-name">Mobile Number</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control" ng-model="masterProduct.mobile_number" ng-disabled="isMasterProductShown"/>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="profile-info-row">
+				<div class="profile-info-name">Landline Number</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control" ng-model="masterProduct.landline_number" ng-disabled="isMasterProductShown"/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="profile-info-row">
+				<div class="profile-info-name">Billing Name</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control" ng-model="masterProduct.billing_name" ng-disabled="isMasterProductShown"/>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="profile-info-row">
+				<div class="profile-info-name">Billing Address</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control" ng-model="masterProduct.billing_address" ng-disabled="isMasterProductShown"/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br />
+	<div style="border-bottom: 1px solid #EEEEEE;">
+		<h3>All Customers</h3>
+	</div>
+	<div class="row" ng-hide="allMasterProducts.length == 0">
+		<div class="col-md-9">
+			<table>
+				<tr>
+					<th>Customer Name</th>
+					<th>Email</th>
+					<th>Mobile Number</th>
+					<th>Billing Name</th>
+					<th>Billing Address</th>
+				</tr>
+				<tr ng-repeat="master in allMasterProducts">
+					<td><a href="javascript:void(0)" ng-click="showMasterProduct(master.id)">{{master.name}}</a></td>
+					<td>{{master.email_id}}</td>
+					<td>{{master.mobile_number}}</td>
+					<td>{{master.billing_name}}</td>
+					<td>{{master.billing_address}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>

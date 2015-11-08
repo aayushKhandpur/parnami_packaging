@@ -1,20 +1,36 @@
 customerModule.service('customerSrv', function ($http) {
        
 		var self = this;
-		this.allCustomers = [];
+		//this.allCustomers = [];
 		
 		this.getAllCustomers = function(callbackFunction) {
-			if(self.allCustomers.length != 0)
-				callbackFunction(self.allCustomers);
-			else {
-				var httpRequest = $http.get('/customers');
-				httpRequest.success(function(data){
-					self.allCustomers = data;
-					callbackFunction(data);
-				});
-				httpRequest.error(function(data){
-					console.log(JSON.stringify(data));
-				});
-			}
+			var httpRequest = $http.get('/customers');
+			httpRequest.success(function(data){
+				//self.allCustomers = data;
+				callbackFunction(data);
+			});
+			httpRequest.error(function(data){
+				console.log(JSON.stringify(data));
+			});
+		}
+		this.insertMasterProduct = function(masterProduct,callbackFunction) {
+			var httpRequest = $http.post('/customers',masterProduct);
+			httpRequest.success(function(data){
+				console.log('servicw'+JSON.stringify(data));
+				callbackFunction(data);
+			});
+			httpRequest.error(function(data){
+				console.log(JSON.stringify(data));
+			});
+		}
+		this.updateMasterProduct = function(masterProductId,masterProduct,callbackFunction) {
+			var httpRequest = $http.put('/customers/'+masterProductId,masterProduct);
+			httpRequest.success(function(data){
+				callbackFunction(data);
+			
+			});
+			httpRequest.error(function(data){
+				console.log(JSON.stringify(data));
+			});
 		}
     });
