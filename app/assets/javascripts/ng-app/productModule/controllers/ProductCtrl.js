@@ -9,6 +9,7 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 		$scope.productPlanList = [];
 		$scope.allMasterProducts;
 		$scope.masterProductId;
+		$scope.productErrorMsg;
 		
 		
 		$scope.applyChanges = function()
@@ -49,20 +50,27 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 		$scope.createProduct = function(option) {
 			$scope.product.master_product_id = $scope.masterProductId;
 			$scope.product.master_process_name = $scope.productName;
-			productMgr.createProduct($scope.product,$scope.productId,$scope.orderId,function(productInserted){
-				$scope.productId = productInserted.order_product.id;
-				$scope.isProductShown = true;
-				$scope.applyChanges();
-				alert('Your Product is Saved...!!!');
-				if(option == 'savereturn')
-					$location.path('/createorder/'+$scope.orderId);
-				else
-				{	console.log('khghINNNNNNNNNNNNNNNNNN');
-					$scope.productId = 'new';
-					$scope.loadDefaults();
-					$location.path('/orderproducts/'+$scope.orderId+'/new');
-				}
-			});
+			//$scope.order_id = $scope.orderId;
+			var errorMsg = productMgr.validateProduct($scope.product);
+			if(errorMsg.length == 0) {
+				productMgr.createProduct($scope.product,$scope.productId,$scope.orderId,function(productInserted){
+					$scope.productId = productInserted.order_product.id;
+					$scope.isProductShown = true;
+					$scope.applyChanges();
+					alert('Your Product is Saved...!!!');
+					if(option == 'savereturn')
+						$location.path('/createorder/'+$scope.orderId);
+					else
+					{	console.log('khghINNNNNNNNNNNNNNNNNN');
+						$scope.productId = 'new';
+						$scope.loadDefaults();
+						$location.path('/orderproducts/'+$scope.orderId+'/new');
+					}
+				});
+			}
+			else {
+				$scope.productErrorMsg = errorMsg;
+			}
 		}
 		
 		$scope.editProduct = function() {

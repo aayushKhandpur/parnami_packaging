@@ -4,12 +4,16 @@
 	<div style="border-bottom: 1px solid #EEEEEE;">
 		<h3>Order Products</h3>
 	</div>
+	<div class="alert alert-danger col-md-12" ng-show="productErrorMsg.length > 0">
+		 <span style="color:#cc0000"><h4>Errors</h4></span>
+		<span ng-bind-html="productErrorMsg | sanitize"><p>{{productErrorMsg}}</p></span>
+	</div>
 	<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
 		<!--<button class="btn btn-default col-md-1" ng-click="goBackToPrevious()"><i class="fa fa-level-up fa-rotate-270"></i></button>-->
-		<back-button></back-button>
-		<button class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="createProduct('savereturn')" ng-show="!isProductShown"><i class="fa fa-save"></i></button>
-		<button class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="createProduct('savenew')" ng-show="!isProductShown"><i class="fa fa-save"></i><i class="fa fa-plus"></i></button>
-		<button class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="editProduct()" ng-show="isProductShown"><i class="fa fa-edit"></i></button>
+		<back-button data-toggle="tooltip" title="Click this button to go to previous screen."></back-button>
+		<button data-toggle="tooltip" title="Click this button to save the Order Product and return to Order" class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="createProduct('savereturn')" ng-show="!isProductShown"><i class="fa fa-save"></i></button>
+		<button data-toggle="tooltip" title="Click this button to save the Order Product and create new Order Product" class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="createProduct('savenew')" ng-show="!isProductShown"><i class="fa fa-save"></i><i class="fa fa-plus"></i></button>
+		<button data-toggle="tooltip" title="Click this button to edit the Order Product" class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="editProduct()" ng-show="isProductShown"><i class="fa fa-edit"></i></button>
 
 	</div>
 	<div class="row">
@@ -33,23 +37,23 @@
 				</div>
 			</div>
 			<div class="profile-info-row">
-				<div class="profile-info-name">Product Scheme</div>
-				<div class="profile-info-value">
-					<input type="text" class="form-control" ng-model="product.print_scheme" ng-disabled="isProductShown"/>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-3">
-			<div class="profile-info-row">
 				<div class="profile-info-name">Font Pattern</div>
 				<div class="profile-info-value">
 					<input type="text" class="form-control" ng-model="product.font_pattern" ng-disabled="isProductShown"/>
 				</div>
 			</div>
+		</div>
+		<div class="col-md-3">
 			<div class="profile-info-row">
-				<div class="profile-info-name">Fabric Color</div>
+				<div class="profile-info-name">Quantity</div>
 				<div class="profile-info-value">
-					<input type="text" class="form-control" ng-model="product.side_fabric_color" ng-disabled="isProductShown"/>
+					<input type="text" class="form-control" ng-model="product.quantity" ng-disabled="isProductShown"/>
+				</div>
+			</div>
+			<div class="profile-info-row">
+				<div class="profile-info-name">Product Color</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control" ng-model="product.color" ng-disabled="isProductShown"/>
 				</div>
 			</div>
 			<div class="profile-info-row">
@@ -77,9 +81,9 @@
 		</div>
 		<div class="col-md-3">
 			<div class="profile-info-row">
-				<div class="profile-info-name">Product Color</div>
+				<div class="profile-info-name">Price Per Kg</div>
 				<div class="profile-info-value">
-					<input type="text" class="form-control" ng-model="product.color" ng-disabled="isProductShown"/>
+					<input type="text" class="form-control" ng-model="product.price_per_kg" ng-disabled="isProductShown"/>
 				</div>
 			</div>
 			<div class="profile-info-row">
@@ -117,15 +121,15 @@
 				</div>
 			</div>
 			<div class="profile-info-row">
-				<div class="profile-info-name">Price per kg</div>
+				<div class="profile-info-name">Fabric Color</div>
 				<div class="profile-info-value">
-					<input type="text" class="form-control" ng-model="product.price_per_kg" ng-disabled="isProductShown"/>
+					<input type="text" class="form-control" ng-model="product.side_fabric_color" ng-disabled="isProductShown"/>
 				</div>
 			</div>
 			<div class="profile-info-row">
-				<div class="profile-info-name">Quantity</div>
+				<div class="profile-info-name">Print Scheme</div>
 				<div class="profile-info-value">
-					<input type="text" class="form-control" ng-model="product.quantity" ng-disabled="isProductShown"/>
+					<input type="text" class="form-control" ng-model="product.print_scheme" ng-disabled="isProductShown"/>
 				</div>
 			</div>
 			<div class="profile-info-row">

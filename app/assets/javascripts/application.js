@@ -12,12 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui/datepicker
+//= require jquery-ui
 //= require bower_components/angular/angular.min
-//= require bower_components/angular-route/angular-route.min
 //= require bower_components/angular-ui-router/release/angular-ui-router.min
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
 //= require angular-rails-templates
 //= require select2
+//= require bower_components/angular-bootstrap/build/angular-ui
+//= require bower_components/angular-utils-pagination/dirPagination
 //= require_tree

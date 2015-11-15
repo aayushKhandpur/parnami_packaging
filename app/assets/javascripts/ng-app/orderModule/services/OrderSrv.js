@@ -16,9 +16,7 @@ angular.module('orderModule')
 			updateOrder: function(updateOrder,orderId,getResponseData) {
 				var httpRequest = $http.put('/orders/'+orderId,updateOrder);
 				httpRequest.success(function(data){
-					//console.log('order updated is'+JSON.stringify(data));
 					getResponseData(data);
-				
 				});
 				httpRequest.error(function(data){
 					console.log(JSON.stringify(data));
@@ -33,8 +31,16 @@ angular.module('orderModule')
 				httpRequest.error(function(data){
 					console.log(JSON.stringify(data));
 				});
+			},
+			getAllOrders: function(callbackFunction) {
+				var httpRequest = $http.get('/orders');
+				httpRequest.success(function(data){
+					callbackFunction(data);
+				});
+				httpRequest.error(function(data){
+					console.log(JSON.stringify(data));
+				});
 			}
-			
 		};	
 		
     });

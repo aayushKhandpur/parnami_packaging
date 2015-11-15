@@ -36,8 +36,8 @@ productPlanModule.factory('productPlanSrv', function ($http) {
 					console.log(JSON.stringify(data));
 				});
 			},
-			updatePlan: function(orderPlan,orderPlanId,callbackFunction) {
-				var httpRequest = $http.put('/order_delivery_plans/'+orderPlanId,orderPlan);
+			updatePlan: function(orderPlan,callbackFunction) {
+				var httpRequest = $http.put('/order_delivery_plans/'+orderPlan.id,orderPlan);
 				httpRequest.success(function(data){
 					callbackFunction(data);
 				});
@@ -54,8 +54,8 @@ productPlanModule.factory('productPlanSrv', function ($http) {
 					console.log(JSON.stringify(data));
 				});
 			},
-			updatePlanStatus: function(orderPlanStatus,id,callbackFunction) {
-				var httpRequest = $http.put('/order_delivery_plan_processes/'+id,orderPlanStatus);
+			updatePlanStatus: function(orderPlanStatus,callbackFunction) {
+				var httpRequest = $http.put('/order_delivery_plan_processes/'+orderPlanStatus.id,orderPlanStatus);
 				httpRequest.success(function(data){
 					callbackFunction(data);
 				});
@@ -92,6 +92,33 @@ productPlanModule.factory('productPlanSrv', function ($http) {
 			},
 			getOrderPlanDeliveryByOrderId: function(orderId,callbackFunction) {
 				var httpRequest = $http.get('/order_delivery_plans_custom/'+orderId);
+				httpRequest.success(function(data){
+					callbackFunction(data);
+				});
+				httpRequest.error(function(data){
+					console.log(JSON.stringify(data));
+				});
+			},
+			deletePlanProcess: function(planProcessId,callbackFunction) {
+				var httpRequest = $http.delete('/order_delivery_plan_processes/'+planProcessId);
+				httpRequest.success(function(data){
+					callbackFunction(data);
+				});
+				httpRequest.error(function(data){
+					console.log(JSON.stringify(data));
+				});
+			},
+			checkPost: function(order_delivery_plan_id,callbackFunction){
+				var httpRequest = $http.post('/order_delivery_plan_processes_bulupdate/'+order_delivery_plan_id);
+				httpRequest.success(function(data){
+					callbackFunction(data);
+				});
+				httpRequest.error(function(data){
+					console.log(JSON.stringify(data));
+				});
+			},
+			getProductPlanByProductId: function(order_product_id,callbackFunction) {
+				var httpRequest = $http.get('/order_delivery_plan_byproductid/'+order_product_id);
 				httpRequest.success(function(data){
 					callbackFunction(data);
 				});

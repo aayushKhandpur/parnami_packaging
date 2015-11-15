@@ -5,7 +5,9 @@
       "angular": "latest",
 	  "angular-route": "latest",
 	  "angular-ui-router" : "latest",
-	  "ng-grid" : "latest"
+	  "ng-grid" : "latest",
+	  "angular-ui" : "latest",
+	  "angular-utils-pagination" : "latest"
     }
   }
 }

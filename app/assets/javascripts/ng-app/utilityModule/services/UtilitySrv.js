@@ -1,30 +1,6 @@
 utilityModule.service('utilitySrv', function () {
 
-
-		var self = this;
-		this.getCustomCurrentDate = function() {
-			var today = new Date();
-			var dd = today.getDate();
-			var mm = today.getMonth()+1;
-			var yyyy = today.getFullYear();
-
-			if(dd < 10) {
-				dd = '0'+ dd;
-			} 
-
-			if(mm < 10) {
-				mm = '0'+ mm;
-			} 
-
-			today = yyyy+'/'+mm+'/'+dd;
-			return today;
-		}
-		
-		this.sampleCheck = function() {
-			this.getCustomCurrentDate();
-		}
-		
-		
+		var self = this;	
 		this.LinkedList = function() {
 			this._length = 0;
 			this._head = null;
@@ -118,7 +94,7 @@ utilityModule.service('utilitySrv', function () {
 			return self.objLinkedList;
 		}
 		this.isLastUrl = function(url){
-			if(url==self.objLinkedList.item(self.objLinkedList._length-1).data)
+			if(url == self.objLinkedList.item(self.objLinkedList._length-1).data)
 				return true;
 			else 
 				return false;

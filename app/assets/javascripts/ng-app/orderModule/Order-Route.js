@@ -5,10 +5,10 @@ orderModule.config(function ($stateProvider) {
                 templateUrl: 'ng-app/orderModule/templates/CreateOrder.html',
                 controller: 'orderCtrl'
             })
-			.state('testangular', {
-				url: '/testangular',
-                templateUrl: 'ng-app/orderModule/templates/TestAngular.html',
-                controller: 'orderCtrl'
+			.state('allorders', {
+				url: '/allorders',
+                templateUrl: 'ng-app/orderModule/templates/AllOrders.html',
+                controller: 'allOrderCtrl'
             })
 			
 		});

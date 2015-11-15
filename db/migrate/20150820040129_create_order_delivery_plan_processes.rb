@@ -9,6 +9,7 @@ class CreateOrderDeliveryPlanProcesses < ActiveRecord::Migration
       t.integer :sequence_number, null: false
       t.boolean :is_first_step, null: false, default: false
       t.boolean :is_last_step, null: false, default: false
+	  t.string :vendor_name
       t.timestamps null: false
     end
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150825140738) do
+ActiveRecord::Schema.define(version: 20151108164649) do
 
   create_table "customers", force: :cascade do |t|
     t.string   "name",            limit: 255,   null: false
@@ -55,15 +55,18 @@ ActiveRecord::Schema.define(version: 20150825140738) do
     t.integer  "sequence_number",        limit: 4,                   null: false
     t.boolean  "is_first_step",          limit: 1,   default: false, null: false
     t.boolean  "is_last_step",           limit: 1,   default: false, null: false
+    t.string   "vendor_name",            limit: 255
     t.datetime "created_at",                                         null: false
     t.datetime "updated_at",                                         null: false
     t.integer  "location_id",            limit: 4,                   null: false
+    t.integer  "vendor_id",              limit: 4
   end
 
   add_index "order_delivery_plan_processes", ["master_process_id"], name: "index_order_delivery_plan_processes_on_master_process_id", using: :btree
   add_index "order_delivery_plan_processes", ["order_delivery_plan_id"], name: "index_order_delivery_plan_processes_on_order_delivery_plan_id", using: :btree
   add_index "order_delivery_plan_processes", ["order_id"], name: "index_order_delivery_plan_processes_on_order_id", using: :btree
   add_index "order_delivery_plan_processes", ["order_product_id"], name: "index_order_delivery_plan_processes_on_order_product_id", using: :btree
+  add_index "order_delivery_plan_processes", ["vendor_id"], name: "index_order_delivery_plan_processes_on_vendor_id", using: :btree
 
   create_table "order_delivery_plans", force: :cascade do |t|
     t.integer  "order_id",         limit: 4, null: false
@@ -173,10 +176,17 @@ ActiveRecord::Schema.define(version: 20150825140738) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "vendors", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   add_foreign_key "order_delivery_plan_processes", "master_processes"
   add_foreign_key "order_delivery_plan_processes", "order_delivery_plans"
   add_foreign_key "order_delivery_plan_processes", "order_products"
   add_foreign_key "order_delivery_plan_processes", "orders"
+  add_foreign_key "order_delivery_plan_processes", "vendors"
   add_foreign_key "order_delivery_plans", "customers"
   add_foreign_key "order_delivery_plans", "order_products"
   add_foreign_key "order_delivery_plans", "orders"

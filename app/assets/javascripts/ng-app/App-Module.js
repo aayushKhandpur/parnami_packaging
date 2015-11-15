@@ -1,6 +1,7 @@
-var parnamiPackaging = angular.module('AngularRails', ['ngRoute',
+var parnamiPackaging = angular.module('AngularRails', [
         'templates',
 		'ui.router',
+		'ui',
 		'orderModule',
 		'UtilityModule',
 		'productModule',
@@ -8,7 +9,9 @@ var parnamiPackaging = angular.module('AngularRails', ['ngRoute',
 		'masterProductModule',
 		'locationModule',
 		'masterProcessModule',
-		'customerModule'
+		'customerModule',
+		'vendorModule',
+		'angularUtils.directives.dirPagination'
     ]);
 	
 	parnamiPackaging.config(function ($stateProvider,$httpProvider) {
@@ -21,6 +24,12 @@ var parnamiPackaging = angular.module('AngularRails', ['ngRoute',
             })
 			
 		});
+		
+		parnamiPackaging.filter("sanitize", ['$sce', function($sce) {
+			return function(htmlCode){
+				return $sce.trustAsHtml(htmlCode);
+			}
+		}]);
 		
 		parnamiPackaging.config(['$httpProvider',function($httpProvider) {
   var authToken;

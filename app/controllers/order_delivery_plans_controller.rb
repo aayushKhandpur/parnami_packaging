@@ -16,6 +16,10 @@ class OrderDeliveryPlansController < ApplicationController
 	def showByOrderId
 		@order_delivery_plans = OrderDeliveryPlan.all.where(order_id: params[:orderId])
 	end
+	
+	def showPlanByProductId
+		@order_delivery_plans = OrderDeliveryPlan.all.where(order_product_id: params[:order_product_id])
+	end
 
     def show
       @order_delivery_plan = OrderDeliveryPlan.find(params[:id])
