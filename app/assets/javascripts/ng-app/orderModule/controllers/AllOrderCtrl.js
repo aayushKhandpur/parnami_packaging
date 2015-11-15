@@ -59,5 +59,6 @@ orderModule.controller('allOrderCtrl', function ($scope,$location,allOrderMgr) {
 	
 	$scope.changeSearchAttribute = function(searchFilter) {
 		$scope.searchAttribute = searchFilter;
+		$scope.searchText = {customer_name :'',delivery_address :'',order_details: '',delivery_date: '', $ :''};
 	}
 });
