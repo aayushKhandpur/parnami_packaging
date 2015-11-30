@@ -42,6 +42,13 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rabl'
 gem 'oj'
 
+
+gem 'devise'
+gem 'omniauth'
+gem 'devise_token_auth', '0.1.31'
+
+gem 'rolify'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -66,4 +73,3 @@ group :development, :test do
   gem 'railroady'
   gem 'hirb'
 end
-

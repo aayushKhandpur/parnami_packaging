@@ -22,3 +22,4 @@
 //= require bower_components/angular-bootstrap/build/angular-ui
 //= require bower_components/angular-utils-pagination/dirPagination
 //= require_tree
+//= require ng-token-auth
