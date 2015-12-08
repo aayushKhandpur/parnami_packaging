@@ -38,8 +38,10 @@ orderModule.controller('allOrderCtrl', function ($scope,$location,allOrderMgr) {
 	
 	$scope.getAllOrders = function() {
 		allOrderMgr.getAllOrders(function(allOrders) {
-			if(allOrders.length > 0) 
+			if(allOrders.length > 0) {
 				$scope.allOrders = allOrders;
+				$scope.gridOptions = { data: 'allOrders' };
+			}
 			else
 				$scope.noOrderMsg = 'There is no Order present, please create on new button to create a new Order.';
 			$scope.applyChanges();

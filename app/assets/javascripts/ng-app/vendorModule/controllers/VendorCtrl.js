@@ -26,8 +26,9 @@ vendorModule.controller('vendorCtrl', function ($scope,$log,$location,vendorMgr)
 	$scope.loadDefaults();
 	
 	$scope.createLocation = function() {
+		console.log(JSON.stringify($scope.masterProduct));
 		vendorMgr.createLocation($scope.locationId,$scope.location,function(locationDetails) {
-			alert('Vendor is saved...!!');
+			$.toaster({ priority : 'success', title : 'Info', message : 'Vendor is Saved',width:'100%'});
 			$scope.loadDefaults();
 			console.log(JSON.stringify(locationDetails));
 			$scope.applyChanges();

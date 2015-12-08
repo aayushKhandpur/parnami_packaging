@@ -82,8 +82,28 @@ angular.module('orderModule')
 				errorMsg += '<ul><li>Billing Address cannot be empty</li></ul>' ;
 			if(order.delivery_date == null || order.delivery_date.length == 0)
 				errorMsg += '<ul><li>Delivery Date cannot be empty.</li></ul>' ;
-			if(order.order_details == null || order.order_details.length == 0)
-				errorMsg += '<ul><li>Order Details cannot be empty.</li></ul>' ;
+			return errorMsg;
+		}
+		
+		this.getProcessPlanById = function(id,planList) {
+			for(var counter = 0;counter < planList.length;counter++){
+				if(planList[counter].id == id)
+					return planList[counter];
+			}
+		}
+		
+		this.validateSplitQuantity = function(updatePlan,orderPlan) {
+			var errorMsg = '';
+			if(orderPlan.delivery_date == null || orderPlan.delivery_date.length == 0)
+				errorMsg += '<ul><li>Delivery Date cannot be empty</li></ul>' ;
+			if(orderPlan.quantity == null || orderPlan.quantity.length == 0)
+				errorMsg += '<ul><li>Quantity cannot be empty</li></ul>' ;
+			else if(parseInt(orderPlan.quantity) != orderPlan.quantity)
+				errorMsg += '<ul><li>Quantity must be Integer value</li></ul>';
+			else if(orderPlan.quantity <= 0)
+				errorMsg += '<ul><li>Quantity must be greater than zero</li></ul>';
+			else if(updatePlan.quantity - orderPlan.quantity <= 0)
+				errorMsg += '<ul><li>Quantity must be less than quantity to be splitted</li></ul>';
 			return errorMsg;
 		}
 		

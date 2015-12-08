@@ -7,6 +7,7 @@
 		<span style="color:#cc0000"><h4>Errors</h4></span>
 		<span ng-bind-html="orderErrorMsg | sanitize"><p>{{orderErrorMsg}}</p></span>
 	</div>
+	<div id='saveMessage'></div>
 	<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
 		<back-button data-toggle="tooltip" title="Click this button to go to previous screen"></back-button>
 		<button data-toggle="tooltip" title="Click this button to save the Order" class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="createOrder()" ng-show="!isOrderShown && showOrderMenu"><i class="fa fa-save"></i></button>
@@ -32,12 +33,6 @@
 					<input type="text" class="form-control" ng-model="customer_name" ng-disabled="true"/>
 				</div>
 			</div>
-			<div class="profile-info-row">
-				<div class="profile-info-name">Order Details</div>
-				<div class="profile-info-value">
-					<input type="text" class="form-control" ng-model="order.order_details" ng-disabled="isOrderShown"/>
-				</div>
-			</div>
 		</div>
 		<div class="col-md-3">
 			<div class="profile-info-row">
@@ -46,6 +41,8 @@
 					<input type="text" class="form-control" ng-model="mobile_number" ng-disabled="true"/>
 				</div>
 			</div>
+		</div>
+		<div class="col-md-3">
 			<div class="profile-info-row">
 				<div class="profile-info-name">Delivery Date</div>
 				<div class="profile-info-value">
@@ -58,16 +55,23 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	<div class="row" ng-show="showOrderMenu">
 		<div class="col-md-3">
 			<div class="profile-info-row">
-				<div class="profile-info-name">Delivery Address</div>
+				<div class="profile-info-name">Additional Details (Optional)</div>
 				<div class="profile-info-value">
-					<textarea class="form-control" rows="4" ng-model="order.delivery_address" ng-disabled="isOrderShown"></textarea>
+					<textarea rows="4" class="form-control" ng-model="order.order_details" ng-disabled="isOrderShown"/>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-3">
-			
+			<div class="profile-info-row">
+				<div class="profile-info-name">Delivery Address</div>
+				<div class="profile-info-value">
+					<textarea rows="4" class="form-control" ng-model="order.delivery_address" ng-disabled="isOrderShown"/>
+				</div>
+			</div>
 		</div>
 	</div>
 	<br />
@@ -142,7 +146,7 @@
 					</td>
 					<td style="width:25%">
 						<span class="col-md-6"><i class="fa fa-check" ng-show="productPlan.isEditable" ng-click="executeCRUDOperationForOrderPlan('add',productPlan)"></i><i class="fa fa-edit" ng-show="!productPlan.isEditable" ng-click="executeCRUDOperationForOrderPlan('edit',productPlan)"></i></span>
-						<span class="col-md-6"><i class="fa fa-ban" ng-show="productPlan.isEditable && productPlan.id == null" ng-click="executeCRUDOperationForOrderPlan('cancel',productPlan)"></i><i class="fa fa-chain-broken" ng-click="executeCRUDOperationForOrderPlan('split',productPlan)" ng-hide="true"></i><a style="margin-left:45px" href="#/productprocessplan/{{productPlan.order_id}}/{{productPlan.order_product_id}}/{{productPlan.id}}" ng-show="!productPlan.isEditable">Details</a></span>
+						<span class="col-md-6"><i class="fa fa-ban" ng-show="productPlan.isEditable && productPlan.id == null" ng-click="executeCRUDOperationForOrderPlan('cancel',productPlan)"></i><i class="fa fa-chain-broken" ng-click="executeCRUDOperationForOrderPlan('split',productPlan)" ng-show="!productPlan.isEditable"></i><a style="margin-left:25px" href="#/productprocessplan/{{productPlan.order_id}}/{{productPlan.order_product_id}}/{{productPlan.id}}" ng-show="!productPlan.isEditable">Details</a></span>
 					</td>
 				</tr>
 			</table>

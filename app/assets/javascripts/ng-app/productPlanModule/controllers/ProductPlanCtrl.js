@@ -60,7 +60,7 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 				orderPlanMgr.getPlanProcessByPlanId($scope.orderPlanId,function(data){
 					$scope.allPlanProcessList = data;
 					$scope.check = angular.copy(data);
-					alert('Order Plan Process is saved...!!!');
+					$.toaster({ priority : 'success', title : 'Info', message : 'Order Product Delivery Plan is Saved',width:'100%'});
 					$scope.applyChanges();
 				});
 				$scope.applyChanges();

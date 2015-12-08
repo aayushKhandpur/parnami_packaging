@@ -20,5 +20,7 @@
 //= require angular-rails-templates
 //= require select2
 //= require bower_components/angular-bootstrap/build/angular-ui
+//= require Other_JS/notify.min
+//= require Other_JS/jquery.toaster
 //= require bower_components/angular-utils-pagination/dirPagination
 //= require_tree

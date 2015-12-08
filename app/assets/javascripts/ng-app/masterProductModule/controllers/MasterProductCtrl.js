@@ -27,7 +27,7 @@ masterProductModule.controller('masterProductCtrl', function ($scope,$log,$locat
 	
 	$scope.createMasterProduct = function() {
 		masterProductMgr.createMasterProduct($scope.masterProductId,$scope.masterProduct,function(masterProductDetails) {
-			alert('Master Product is saved...!!');
+			$.toaster({ priority : 'success', title : 'Info', message : 'Master Product is Saved',width:'100%'});
 			$scope.loadDefaults();
 			console.log(JSON.stringify(masterProductDetails));
 			$scope.applyChanges();

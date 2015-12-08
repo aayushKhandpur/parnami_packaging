@@ -7,7 +7,10 @@ productModule.service('productMgr', function (orderPlanMgr,productSrv,orderSrv,m
 				newProduct.updated_at = new Date();
 				newProduct.order_id = orderId;
 				productSrv.insertProduct(newProduct,function(insertedProduct){
-					var orderPrice = insertedProduct.order_product.price_per_piece * insertedProduct.order_product.quantity;
+					var orderPrice;
+					if(insertedProduct.order_product.price == null)
+						orderPrice = 0;
+					orderPrice = insertedProduct.order_product.price * insertedProduct.order_product.quantity;
 					orderSrv.getOrderById(orderId,function(orderDetails){
 						orderDetails.order.order_price = orderPrice;
 						orderSrv.updateOrder(orderDetails.order,orderId,function(){
@@ -21,7 +24,11 @@ productModule.service('productMgr', function (orderPlanMgr,productSrv,orderSrv,m
 			else {
 				newProduct.updated_at = new Date();
 				productSrv.updateProduct(newProduct,function(updatedProduct){
-					var orderPrice = updatedProduct.order_product.price_per_piece * updatedProduct.order_product.quantity;
+					var orderPrice;
+					if(updatedProduct.order_product.price == null)
+						orderPrice = 0;
+					else
+						orderPrice = updatedProduct.order_product.price * updatedProduct.order_product.quantity;
 					orderSrv.getOrderById(orderId,function(orderDetails){
 						orderDetails.order.order_price = orderPrice;
 						orderSrv.updateOrder(orderDetails.order,orderId,function(){
@@ -62,18 +69,6 @@ productModule.service('productMgr', function (orderPlanMgr,productSrv,orderSrv,m
 				errorMsg += '<ul><li>Quantity must be Integer value</li></ul>';
 			else if(product.quantity <= 0)
 				errorMsg += '<ul><li>Quantity must be greater than zero</li></ul>';
-			if(product.price_per_kg == null || product.price_per_kg.length == 0)
-				errorMsg += '<ul><li>Price Per Kg cannot be blank</li></ul>';
-			else if(parseFloat(product.price_per_kg) != product.price_per_kg)
-				errorMsg += '<ul><li>Price Per Kg must be numeric</li></ul>';
-			if(product.price_per_piece == null || product.price_per_piece.length == 0)
-				errorMsg += '<ul><li>Price Per Piece cannot be blank</li></ul>';
-			else if(parseFloat(product.price_per_piece) != product.price_per_piece)
-				errorMsg += '<ul><li>Price Per Piece must be numeric</li></ul>';
-			if(product.size == null || product.size.length == 0)
-				errorMsg += '<ul><li>Product Size cannot be blank</li></ul>';
-			if(product.color == null || product.color.length == 0)
-				errorMsg += '<ul><li>Product Color cannot be blank</li></ul>';
 			return errorMsg;
 		}
     });

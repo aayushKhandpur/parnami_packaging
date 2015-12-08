@@ -17,6 +17,78 @@
 				</div>
 			</div>
 		</div>
+		<div class="col-md-3">
+			<div class="profile-info-row">
+				<div class="profile-info-name">Vendor Email</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control" ng-model="location.email_id" ng-disabled="isLocationShown"/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="profile-info-row">
+				<div class="profile-info-name">Mobile Number</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control" ng-model="location.mobile_number" ng-disabled="isLocationShown"/>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="profile-info-row">
+				<div class="profile-info-name">Landline Number</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control" ng-model="location.landline_number" ng-disabled="isLocationShown"/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="profile-info-row">
+				<div class="profile-info-name">Alternate Number</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control" ng-model="location.alternate_number" ng-disabled="isLocationShown"/>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="profile-info-row">
+				<div class="profile-info-name">Office Number</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control" ng-model="location.office_number" ng-disabled="isLocationShown"/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="profile-info-row">
+				<div class="profile-info-name">Billing Name</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control" ng-model="location.billing_name" ng-disabled="isLocationShown"/>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="profile-info-row">
+				<div class="profile-info-name">Vendor Company</div>
+				<div class="profile-info-value">
+					<input type="text" class="form-control" ng-model="location.company_name" ng-disabled="isLocationShown"/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="profile-info-row">
+				<div class="profile-info-name">Billing Address</div>
+				<div class="profile-info-value">
+					<textarea rows="4" class="form-control" ng-model="location.billing_address" ng-disabled="isLocationShown"/>
+				</div>
+			</div>
+		</div>
 	</div>
 	<br />
 	<div style="border-bottom: 1px solid #EEEEEE;">
@@ -27,9 +99,15 @@
 			<table class="table table-striped table-hover">
 				<tr>
 					<th>Vendor Name</th>
+					<th>Vendor Company Name</th>
+					<th>Mobile Number</th>
+					<th>Email Address</th>
 				</tr>
 				<tr ng-repeat="location in allLocations">
 					<td><a href="javascript:void(0)" ng-click="showLocation(location.id)">{{location.name}}</a></td>
+					<td>{{location.company_name}}</td>
+					<td>{{location.mobile_number}}</td>
+					<td>{{location.email_id}}</td>
 				</tr>
 			</table>
 		</div>

@@ -14,14 +14,16 @@
 ActiveRecord::Schema.define(version: 20151108164649) do
 
   create_table "customers", force: :cascade do |t|
-    t.string   "name",            limit: 255,   null: false
-    t.string   "email_id",        limit: 255
-    t.string   "mobile_number",   limit: 255,   null: false
-    t.string   "landline_number", limit: 255
-    t.string   "billing_name",    limit: 255
-    t.text     "billing_address", limit: 65535
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.string   "name",             limit: 255,   null: false
+    t.string   "email_id",         limit: 255
+    t.string   "mobile_number",    limit: 255,   null: false
+    t.string   "landline_number",  limit: 255
+    t.string   "billing_name",     limit: 255
+    t.text     "billing_address",  limit: 65535
+    t.text     "alternate_number", limit: 65535
+    t.text     "office_number",    limit: 65535
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   add_index "customers", ["mobile_number"], name: "index_customers_on_mobile_number", using: :btree
@@ -86,22 +88,17 @@ ActiveRecord::Schema.define(version: 20151108164649) do
   create_table "order_products", force: :cascade do |t|
     t.integer  "master_product_id",   limit: 4,                                  null: false
     t.integer  "order_id",            limit: 4,                                  null: false
-    t.string   "size",                limit: 255
+    t.decimal  "side",                            precision: 10
+    t.decimal  "length",                          precision: 10
+    t.decimal  "breadth",                         precision: 10
+    t.decimal  "price",                           precision: 10
     t.string   "color",               limit: 255
-    t.string   "print_type",          limit: 255
-    t.string   "ink_color",           limit: 255
+    t.string   "price_type",          limit: 255
+    t.string   "lamination_type",     limit: 255
     t.string   "gsm",                 limit: 255
-    t.string   "print_scheme",        limit: 255
     t.string   "font_pattern",        limit: 255
     t.string   "side_fabric_color",   limit: 255
-    t.string   "dori_color",          limit: 255
     t.boolean  "lamination",          limit: 1,                  default: false, null: false
-    t.boolean  "is_chain",            limit: 1,                  default: false, null: false
-    t.boolean  "is_dori",             limit: 1,                  default: false, null: false
-    t.boolean  "is_velcrow",          limit: 1,                  default: false, null: false
-    t.boolean  "is_tape",             limit: 1,                  default: false, null: false
-    t.decimal  "price_per_piece",                 precision: 10,                 null: false
-    t.decimal  "price_per_kg",                    precision: 10,                 null: false
     t.integer  "quantity",            limit: 4,                                  null: false
     t.string   "master_process_name", limit: 255
     t.datetime "created_at",                                                     null: false
@@ -177,10 +174,20 @@ ActiveRecord::Schema.define(version: 20151108164649) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "vendors", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "name",             limit: 255,   null: false
+    t.string   "email_id",         limit: 255
+    t.string   "mobile_number",    limit: 255,   null: false
+    t.string   "landline_number",  limit: 255
+    t.string   "billing_name",     limit: 255
+    t.text     "billing_address",  limit: 65535
+    t.text     "alternate_number", limit: 65535
+    t.text     "office_number",    limit: 65535
+    t.text     "company_name",     limit: 65535
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
+
+  add_index "vendors", ["mobile_number"], name: "index_vendors_on_mobile_number", using: :btree
 
   add_foreign_key "order_delivery_plan_processes", "master_processes"
   add_foreign_key "order_delivery_plan_processes", "order_delivery_plans"

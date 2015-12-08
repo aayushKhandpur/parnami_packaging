@@ -36,6 +36,6 @@ class CustomersController < ApplicationController
   private
 
   def customer_params
-    params.permit(:name, :email_id, :mobile_number, :landline_number, :billing_name, :billing_address)
+    params.permit(:name, :email_id, :mobile_number, :landline_number, :billing_name, :billing_address, :alternate_number, :office_number)
   end
 end

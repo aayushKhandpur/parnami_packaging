@@ -27,7 +27,7 @@ locationModule.controller('locationCtrl', function ($scope,$log,$location,locati
 	
 	$scope.createLocation = function() {
 		locationMgr.createLocation($scope.locationId,$scope.location,function(locationDetails) {
-			alert('Location is saved...!!');
+			$.toaster({ priority : 'success', title : 'Info', message : 'Location is Saved',width:'100%'});
 			$scope.loadDefaults();
 			console.log(JSON.stringify(locationDetails));
 			$scope.applyChanges();

@@ -10,6 +10,10 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 		$scope.allMasterProducts;
 		$scope.masterProductId;
 		$scope.productErrorMsg;
+		$scope.price_type = 'N/A';
+		$scope.lamination_type = 'Matt';
+		$scope.showPrice = false;
+		$scope.showLaminationType = false;
 		
 		
 		$scope.applyChanges = function()
@@ -37,6 +41,12 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 							$scope.product = productDetails.order_product;
 							$scope.masterProductId =  productDetails.order_product.master_product_id;
 							$scope.productName = productDetails.order_product.master_process_name;
+							$scope.price_type = productDetails.order_product.price_type;
+							$scope.lamination_type = productDetails.order_product.lamination_type;
+							if($scope.price_type != 'N/A')
+								$scope.showPrice = true;
+							if($scope.product.lamination)
+								$scope.showLaminationType = true;
 							$scope.isProductShown = true;
 							$scope.applyChanges();
 						});
@@ -50,6 +60,8 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 		$scope.createProduct = function(option) {
 			$scope.product.master_product_id = $scope.masterProductId;
 			$scope.product.master_process_name = $scope.productName;
+			$scope.product.price_type = $scope.price_type;
+			$scope.product.lamination_type = $scope.lamination_type;
 			//$scope.order_id = $scope.orderId;
 			var errorMsg = productMgr.validateProduct($scope.product);
 			if(errorMsg.length == 0) {
@@ -57,7 +69,7 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 					$scope.productId = productInserted.order_product.id;
 					$scope.isProductShown = true;
 					$scope.applyChanges();
-					alert('Your Product is Saved...!!!');
+					$.toaster({ priority : 'success', title : 'Info', message : 'Order Product is Saved',width:'100%'});
 					if(option == 'savereturn')
 						$location.path('/createorder/'+$scope.orderId);
 					else
@@ -91,6 +103,20 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 				}
 			}
 			$scope.productName = name;
+		}
+		
+		$scope.checkPrice = function(priceSelected) {
+			if(priceSelected != 'N/A')
+				$scope.showPrice = true;
+			else	
+				$scope.showPrice = false;
+		}
+		
+		$scope.checkLamination = function(isSelected) {
+			if(isSelected)
+				$scope.showLaminationType = true;
+			else
+				$scope.showLaminationType = false;
 		}
 		
     });

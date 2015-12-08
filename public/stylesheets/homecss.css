@@ -18,6 +18,10 @@
 		margin-top: 1px;
 		height: 33px !important;
 	}
+	myGrid {
+    width: 500px;
+    height: 250px;
+  }
   /*	.profile-info-row
 	{
 		display: table-row;

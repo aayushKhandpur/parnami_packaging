@@ -27,7 +27,7 @@ masterProcessModule.controller('masterProcessCtrl', function ($scope,$log,$locat
 	
 	$scope.createMasterProduct = function() {
 		masterProcessMgr.createMasterProduct($scope.masterProductId,$scope.masterProduct,function(masterProductDetails) {
-			alert('Master Process is saved...!!');
+			$.toaster({ priority : 'success', title : 'Info', message : 'Master Process is Saved',width:'100%'});
 			$scope.loadDefaults();
 			console.log(JSON.stringify(masterProductDetails));
 			$scope.applyChanges();

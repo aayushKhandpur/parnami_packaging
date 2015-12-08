@@ -27,7 +27,7 @@ customerModule.controller('customerCtrl', function ($scope,$log,$location,custom
 	
 	$scope.createMasterProduct = function() {
 		customerMgr.createMasterProduct($scope.masterProductId,$scope.masterProduct,function(masterProductDetails) {
-			alert('Customer is saved...!!');
+			$.toaster({ priority : 'success', title : 'Info', message : 'Customer is Saved',width:'100%'});
 			$scope.loadDefaults();
 			console.log(JSON.stringify(masterProductDetails));
 			$scope.applyChanges();

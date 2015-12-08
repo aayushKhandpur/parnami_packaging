@@ -56,7 +56,8 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 									order_product_id: angular.copy(data[0].productId),
 									quantity: 0,
 									isEditable: true,
-									delivery_date: ''
+									delivery_date: '',
+									splittedFromId: '' 
 								};
 							}
 							$scope.applyChanges();
@@ -80,7 +81,7 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 					$scope.order_date = orderInserted.order.delivery_date;
 					$scope.isOrderShown = true;
 					$scope.applyChanges();
-					alert('Your order is saved...');
+					$.toaster({ priority : 'success', title : 'Info', message : 'Your Order is Saved...you can now proceed to create Order Products',width:'100%'});
 					$location.path('/createorder/'+$scope.orderId);
 				});
 			}
@@ -89,25 +90,49 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 			}
 		}
 		
-		$scope.createOrderPlan = function(orderPlan) {
+		$scope.createOrderPlan = function(orderPlan,callbackFunction) {
 			orderPlan.order_id = $scope.orderId;
 			orderPlan.customer_id = $scope.customer_id;
-			orderMgr.validateOrderPlan(orderPlan,$scope.productList,function(errorMsg) {
-				if(errorMsg.length == 0) {
-					orderMgr.createOrderPlan(orderPlan,function(data){
-						orderMgr.getOrderPlanByOrderId($scope.orderId,function(planList) {
-							$scope.orderPlanDeliveryList = planList;
-							$scope.orderPlanErrorMsg = '';
-							$scope.applyChanges();
+			console.log('##'+orderPlan.splittedFromId);
+			if(orderPlan.splittedFromId == null || orderPlan.splittedFromId == '') {
+				orderMgr.validateOrderPlan(orderPlan,$scope.productList,function(errorMsg) {
+					if(errorMsg.length == 0) {
+						orderMgr.createOrderPlan(orderPlan,function(data){
+							orderMgr.getOrderPlanByOrderId($scope.orderId,function(planList) {
+								$scope.orderPlanDeliveryList = planList;
+								$scope.orderPlanErrorMsg = '';
+								$scope.applyChanges();
+							});$.toaster({ priority : 'success', title : 'Info', message : 'Order Product Plan is Saved',width:'100%'});
+							callbackFunction('success');
 						});
-						alert('Product Plan is saved...!!!');
+					}
+					else {
+						$scope.orderPlanErrorMsg = errorMsg;
+						$scope.applyChanges();
+						callbackFunction('failure');
+					}
+				});
+			}
+			else {
+				$scope.createAndUpdatePlan(orderPlan);
+			}
+		}
+		
+		$scope.createAndUpdatePlan = function(orderPlan) {
+			var updateOrderPlan = orderMgr.getProcessPlanById(orderPlan.splittedFromId,$scope.orderPlanDeliveryList);
+			var validateResult = orderMgr.validateSplitQuantity(updateOrderPlan,orderPlan);
+			if(validateResult.length == 0) {
+				updateOrderPlan.quantity = updateOrderPlan.quantity - orderPlan.quantity;
+				$scope.createOrderPlan(updateOrderPlan,function(updateResult) {
+					orderPlan.splittedFromId = '';
+					$scope.createOrderPlan(orderPlan,function(saveResult) {
 					});
-				}
-				else {
-					$scope.orderPlanErrorMsg = errorMsg;
-					$scope.applyChanges();
-				}
-			});
+				});
+			}
+			else {
+				$scope.orderPlanErrorMsg = validateResult;
+			}
+				
 		}
 		
 		$scope.navigateToProduct = function() {
@@ -169,6 +194,9 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 				$scope.createOrderPlan(orderPlan);
 			}
 			else if(actionPerformed == 'split') {
+				$scope.addOrderDeliveryPlan();
+				$scope.orderPlanDeliveryList[$scope.orderPlanDeliveryList.length - 1].splittedFromId = orderPlan.id;
+				$scope.orderPlanDeliveryList[$scope.orderPlanDeliveryList.length - 1].order_product_id = orderPlan.order_product_id;
 			}
 		}
     });

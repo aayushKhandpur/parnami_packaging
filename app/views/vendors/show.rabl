@@ -1,2 +1,2 @@
 object @vendor
-attributes :id, :name
+attributes :id, :name, :email_id, :mobile_number, :landline_number, :billing_name, :billing_address, :alternate_number, :office_number, :company_name

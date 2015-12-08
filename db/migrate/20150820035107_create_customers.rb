@@ -7,6 +7,8 @@ class CreateCustomers < ActiveRecord::Migration
       t.string :landline_number
       t.string :billing_name
       t.text :billing_address
+	  t.text :alternate_number
+	  t.text :office_number
 
       t.timestamps null: false
     end
