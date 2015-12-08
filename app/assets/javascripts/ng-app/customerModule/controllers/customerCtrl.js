@@ -3,7 +3,8 @@ customerModule.controller('customerCtrl', function ($scope,$log,$location,custom
 	$scope.masterProduct;
 	$scope.allMasterProducts;
 	$scope.masterProductId = null;
-	$scope.isMasterProductShown;
+	$scope.showList;
+	$scope.findView;
 	
 	
 	$scope.applyChanges = function() {
@@ -15,7 +16,8 @@ customerModule.controller('customerCtrl', function ($scope,$log,$location,custom
 		$scope.allMasterProducts = [];
 		$scope.masterProductId = null;
 		$scope.masterProduct = {};
-		$scope.isMasterProductShown = false;
+		$scope.showList = true;
+		$scope.findView = 'none';
 		customerMgr.getMasterProducts(function(masterProducts){
 			$.each(masterProducts,function(k,v) {
 				$scope.allMasterProducts.push(v.customer);
@@ -25,7 +27,7 @@ customerModule.controller('customerCtrl', function ($scope,$log,$location,custom
 	}
 	$scope.loadDefaults();
 	
-	$scope.createMasterProduct = function() {
+	$scope.createCustomer = function() {
 		customerMgr.createMasterProduct($scope.masterProductId,$scope.masterProduct,function(masterProductDetails) {
 			$.toaster({ priority : 'success', title : 'Info', message : 'Customer is Saved',width:'100%'});
 			$scope.loadDefaults();
@@ -43,8 +45,20 @@ customerModule.controller('customerCtrl', function ($scope,$log,$location,custom
 			}
 		}
 		$scope.masterProduct = masterProduct;
-		$scope.isMasterProductShown = true;
 		$scope.masterProductId = pId;
+		$scope.showList = false;
+		$scope.findView = 'showeditandview';
+	}
+	
+	$scope.showNewCustomer = function() {
+		$scope.showList = false;
+		$scope.findView = 'showSaveWithNewCustomer';
+		$scope.location = {};
+	}
+	
+	$scope.editCustomer = function() {
+		$scope.showList = false;
+		$scope.findView = 'showSaveWithOldCustomer';
 	}
 	
 });

@@ -3,7 +3,8 @@ locationModule.controller('locationCtrl', function ($scope,$log,$location,locati
 	$scope.location;
 	$scope.allLocations;
 	$scope.locationId = null;
-	$scope.isLocationShown;
+	$scope.findView;
+	$scope.showList;
 	
 	
 	$scope.applyChanges = function() {
@@ -15,7 +16,8 @@ locationModule.controller('locationCtrl', function ($scope,$log,$location,locati
 		$scope.allLocations = [];
 		$scope.locationId = null;
 		$scope.location = {};
-		$scope.isLocationShown = false;
+		$scope.findView = 'none';
+		$scope.showList = true;
 		locationMgr.getLocations(function(locations){
 			$.each(locations,function(k,v) {
 				$scope.allLocations.push(v.location);
@@ -43,8 +45,20 @@ locationModule.controller('locationCtrl', function ($scope,$log,$location,locati
 			}
 		}
 		$scope.location = location;
-		$scope.isLocationShown = true;
+		$scope.findView = 'showeditandview';
+		$scope.showList = false;
 		$scope.locationId = lId;
+	}
+	
+	$scope.showNewLocation = function() {
+		$scope.showList = false;
+		$scope.findView = 'showSaveWithNewLocation';
+		$scope.location = {};
+	}
+	
+	$scope.editLocation = function() {
+		$scope.showList = false;
+		$scope.findView = 'showSaveWithOldLocation';
 	}
 	
 });

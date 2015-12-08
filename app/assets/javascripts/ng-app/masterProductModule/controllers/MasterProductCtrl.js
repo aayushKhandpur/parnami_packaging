@@ -3,7 +3,8 @@ masterProductModule.controller('masterProductCtrl', function ($scope,$log,$locat
 	$scope.masterProduct;
 	$scope.allMasterProducts;
 	$scope.masterProductId = null;
-	$scope.isMasterProductShown;
+	$scope.findView;
+	$scope.showList;
 	
 	
 	$scope.applyChanges = function() {
@@ -15,7 +16,8 @@ masterProductModule.controller('masterProductCtrl', function ($scope,$log,$locat
 		$scope.allMasterProducts = [];
 		$scope.masterProductId = null;
 		$scope.masterProduct = {};
-		$scope.isMasterProductShown = false;
+		$scope.findView = 'none';
+		$scope.showList = true;
 		masterProductMgr.getMasterProducts(function(masterProducts){
 			$.each(masterProducts,function(k,v) {
 				$scope.allMasterProducts.push(v.master_product);
@@ -43,8 +45,20 @@ masterProductModule.controller('masterProductCtrl', function ($scope,$log,$locat
 			}
 		}
 		$scope.masterProduct = masterProduct;
-		$scope.isMasterProductShown = true;
 		$scope.masterProductId = pId;
+		$scope.findView = 'showeditandview';
+		$scope.showList = false;
+	}
+	
+	$scope.showNewProduct = function() {
+		$scope.showList = false;
+		$scope.findView = 'showSaveWithNewProduct';
+		$scope.location = {};
+	}
+	
+	$scope.editProduct = function() {
+		$scope.showList = false;
+		$scope.findView = 'showSaveWithOldProduct';
 	}
 	
 });

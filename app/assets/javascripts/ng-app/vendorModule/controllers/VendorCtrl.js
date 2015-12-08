@@ -3,7 +3,8 @@ vendorModule.controller('vendorCtrl', function ($scope,$log,$location,vendorMgr)
 	$scope.location;
 	$scope.allLocations;
 	$scope.locationId = null;
-	$scope.isLocationShown;
+	$scope.showList;
+	$scope.findView;
 	
 	
 	$scope.applyChanges = function() {
@@ -15,7 +16,8 @@ vendorModule.controller('vendorCtrl', function ($scope,$log,$location,vendorMgr)
 		$scope.allLocations = [];
 		$scope.locationId = null;
 		$scope.location = {};
-		$scope.isLocationShown = false;
+		$scope.showList = true;
+		$scope.findView = 'none';
 		vendorMgr.getLocations(function(locations){
 			$.each(locations,function(k,v) {
 				$scope.allLocations.push(v.vendor);
@@ -25,7 +27,7 @@ vendorModule.controller('vendorCtrl', function ($scope,$log,$location,vendorMgr)
 	}
 	$scope.loadDefaults();
 	
-	$scope.createLocation = function() {
+	$scope.createVendor = function() {
 		console.log(JSON.stringify($scope.masterProduct));
 		vendorMgr.createLocation($scope.locationId,$scope.location,function(locationDetails) {
 			$.toaster({ priority : 'success', title : 'Info', message : 'Vendor is Saved',width:'100%'});
@@ -44,8 +46,20 @@ vendorModule.controller('vendorCtrl', function ($scope,$log,$location,vendorMgr)
 			}
 		}
 		$scope.location = location;
-		$scope.isLocationShown = true;
 		$scope.locationId = lId;
+		$scope.findView = 'showeditandview';
+		$scope.showList = false;
+	}
+	
+	$scope.showNewVendor = function() {
+		$scope.showList = false;
+		$scope.findView = 'showSaveWithNewVendor';
+		$scope.location = {};
+	}
+	
+	$scope.editVendor = function() {
+		$scope.showList = false;
+		$scope.findView = 'showSaveWithOldVendor';
 	}
 	
 });
