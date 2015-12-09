@@ -2,6 +2,7 @@ var parnamiPackaging = angular.module('AngularRails', [
         'templates',
 		'ui.router',
 		'ui',
+    'ng-token-auth',
 		'orderModule',
 		'UtilityModule',
 		'productModule',
@@ -11,11 +12,18 @@ var parnamiPackaging = angular.module('AngularRails', [
 		'masterProcessModule',
 		'customerModule',
 		'vendorModule',
-		'angularUtils.directives.dirPagination',
-     'ng-token-auth'
+    'registrationModule',
+		'angularUtils.directives.dirPagination'
     ]);
 
-	parnamiPackaging.config(function ($stateProvider,$httpProvider) {
+	parnamiPackaging.config(function ($stateProvider,$httpProvider, $authProvider) {
+
+    $authProvider.configure({
+      apiUrl: '.'
+      //confirmationSuccessUrl: location.origin + '/#/profile',
+      //passwordResetSuccessUrl: location.origin + '/#/reset-password'
+    });
+
 
         $stateProvider
         		.state("index", {
@@ -23,11 +31,6 @@ var parnamiPackaging = angular.module('AngularRails', [
                 templateUrl: 'ng-app/WelcomePage.html',
                 controller: 'HomeCtrl'
             })
-            .state('signin', {
-                url: "/signin",
-                controller: "RegistrationCtrl",
-                templateUrl: "app/registration/views/registration.html"
-              })
 
 		});
 
