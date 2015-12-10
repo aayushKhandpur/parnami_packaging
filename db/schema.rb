@@ -98,7 +98,16 @@ ActiveRecord::Schema.define(version: 20151108164649) do
     t.string   "gsm",                 limit: 255
     t.string   "font_pattern",        limit: 255
     t.string   "side_fabric_color",   limit: 255
+    t.string   "print_type",          limit: 255
+    t.string   "ink_colour",          limit: 255
+    t.string   "print_scheme",        limit: 255
+    t.string   "dori_colour",         limit: 255
     t.boolean  "lamination",          limit: 1,                  default: false, null: false
+    t.boolean  "isFrontPatti",        limit: 1,                  default: false, null: false
+    t.boolean  "isChain",             limit: 1,                  default: false, null: false
+    t.boolean  "isVelcrow",           limit: 1,                  default: false, null: false
+    t.boolean  "isTape",              limit: 1,                  default: false, null: false
+    t.boolean  "isDori",              limit: 1,                  default: false, null: false
     t.integer  "quantity",            limit: 4,                                  null: false
     t.string   "master_process_name", limit: 255
     t.datetime "created_at",                                                     null: false

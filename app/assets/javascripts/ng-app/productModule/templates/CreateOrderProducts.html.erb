@@ -30,6 +30,12 @@
 							</select>
 						</div>
 					</div>
+					<div class="col-md-3"> 
+						<div class="profile-info-name">Quantity</div>
+						<div class="profile-info-value">
+							<input type="text" class="form-control" ng-model="product.quantity" ng-disabled="isProductShown"/>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -84,14 +90,14 @@
 			</div>
 			<div class="panel-body">
 				<div class="row">
-					<div class="col-md-3"> 
-						<div class="profile-info-name">Font Patti</div>
-						<div class="profile-info-value">
-							<input type="checkbox" ng-model="product.font_pattern" ng-disabled="isProductShown"/>
+					<div class="col-md-3">
+						<div class="profile-info-row">
+							<div class="profile-info-name">Color</div>
+							<div class="profile-info-value">
+								<input type="text" class="form-control" ng-model="product.color" ng-disabled="isProductShown"/>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
 					<div class="col-md-3">
 						<div class="profile-info-row">
 							<div class="profile-info-name">Side Fabric</div>
@@ -100,11 +106,124 @@
 							</div>
 						</div>
 					</div>
+				</div>
+				<div class="row">
 					<div class="col-md-3">
 						<div class="profile-info-row">
-							<div class="profile-info-name">Color</div>
+							<div class="profile-info-name">Ink Color</div>
 							<div class="profile-info-value">
-								<input type="text" class="form-control" ng-model="product.color" ng-disabled="isProductShown"/>
+								<input type="text" class="form-control" ng-model="product.ink_colour" ng-disabled="isProductShown"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="profile-info-row">
+							<div class="profile-info-name">Print Type</div>
+							<div class="profile-info-value">
+								<input type="text" class="form-control" ng-model="product.print_type" ng-disabled="isProductShown"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="profile-info-row">
+							<div class="profile-info-name">Print Scheme</div>
+							<div class="profile-info-value">
+								<input type="text" class="form-control" ng-model="product.print_scheme" ng-disabled="isProductShown"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				 <h3 class="panel-title">Quantity and Price Information</h3>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-3">
+						<div class="profile-info-row">
+							<div class="profile-info-name">Price Type</div>
+							<div class="profile-info-value">
+								<select class="form-control"  ng-model="price_type" ng-disabled="isProductShown" ng-change="checkPrice(price_type)">
+									<option>N/A</option>
+									<option>Per Kg</option>
+									<option>Per Piece</option>
+									<option>Per Kg + Per Piece</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3" ng-show="showPrice">
+						<div class="profile-info-row">
+							<div class="profile-info-name">Price</div>
+							<div class="profile-info-value">
+								<input type="text" class="form-control" ng-model="product.price" ng-disabled="isProductShown"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				 <h3 class="panel-title">Additional Information</h3>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-3">
+						<div class="profile-info-row">
+							<div class="profile-info-name">Dori</div>
+							<div class="profile-info-value">
+								<input type="checkbox"  ng-model="product.isDori" ng-disabled="isProductShown"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="profile-info-row">
+							<div class="profile-info-name">Dori Colour</div>
+							<div class="profile-info-value">
+								<input type="text" class="form-control" ng-model="product.dori_colour" ng-disabled="isProductShown"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="profile-info-row">
+							<div class="profile-info-name">Front Patti</div>
+							<div class="profile-info-value">
+								<input type="checkbox" ng-model="product.isFrontPatti" ng-disabled="isProductShown"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="profile-info-row">
+							<div class="profile-info-name">Chain</div>
+							<div class="profile-info-value">
+								<input type="checkbox" ng-model="product.isChain" ng-disabled="isProductShown"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="profile-info-row">
+							<div class="profile-info-name">Velcrow</div>
+							<div class="profile-info-value">
+								<input type="checkbox" ng-model="product.isVelcrow" ng-disabled="isProductShown"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="profile-info-row">
+							<div class="profile-info-name">Tape</div>
+							<div class="profile-info-value">
+								<input type="checkbox"  ng-model="product.isTape" ng-disabled="isProductShown"/>
 							</div>
 						</div>
 					</div>
@@ -124,44 +243,6 @@
 									<option>Matt</option>
 									<option>Gloss</option>
 								</select>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
-		<div class="panel panel-success">
-			<div class="panel-heading">
-				 <h3 class="panel-title">Quantity and Price Information</h3>
-			</div>
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-md-3"> 
-						<div class="profile-info-name">Quantity</div>
-						<div class="profile-info-value">
-							<input type="text" class="form-control" ng-model="product.quantity" ng-disabled="isProductShown"/>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="profile-info-row">
-							<div class="profile-info-name">Price Type</div>
-							<div class="profile-info-value">
-								<select class="form-control"  ng-model="price_type" ng-disabled="isProductShown" ng-change="checkPrice(price_type)">
-									<option>N/A</option>
-									<option>Per Kg</option>
-									<option>Per Piece</option>
-									<option>Per Kg + Per Piece</option>
-								</select>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3" ng-show="showPrice">
-						<div class="profile-info-row">
-							<div class="profile-info-name">Price</div>
-							<div class="profile-info-value">
-								<input type="text" class="form-control" ng-model="product.price" ng-disabled="isProductShown"/>
 							</div>
 						</div>
 					</div>
