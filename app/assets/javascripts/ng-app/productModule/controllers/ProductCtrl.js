@@ -1,4 +1,4 @@
-productModule.controller('productCtrl', function ($scope,$log,$location,utilitySrv,$stateParams,productMgr) {
+productModule.controller('productCtrl', function ($scope,$log,$location,utilitySrv,$stateParams,productMgr,$state) {
         
 		$scope.productName;
 		$scope.product = {};
@@ -71,12 +71,12 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 					$scope.applyChanges();
 					$.toaster({ priority : 'success', title : 'Info', message : 'Order Product is Saved',width:'100%'});
 					if(option == 'savereturn')
-						$location.path('/createorder/'+$scope.orderId);
+						$state.go('index.createorder',{orderId: $scope.orderId});
 					else
 					{	console.log('khghINNNNNNNNNNNNNNNNNN');
 						$scope.productId = 'new';
 						$scope.loadDefaults();
-						$location.path('/orderproducts/'+$scope.orderId+'/new');
+						$state.go('index.neworderproducts',{orderId:$scope.orderId,productId:'new'});
 					}
 				});
 			}

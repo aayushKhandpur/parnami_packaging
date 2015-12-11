@@ -7,7 +7,7 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 		$scope.productList = [];
 		$scope.orderPlanDeliveryList = [];
 		$scope.customer_name;
-		$scope.showProductOrDeliveryPlan = 'showProducts';
+		$scope.showProductOrDeliveryPlan = 'showOrder';
 		$scope.allCustomers = [];
 		$scope.customerSelected ;
 		$scope.showOrderMenu;
