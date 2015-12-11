@@ -2,6 +2,7 @@ var parnamiPackaging = angular.module('AngularRails', [
         'templates',
 		'ui.router',
 		'ui',
+		'indexModule',
 		'orderModule',
 		'UtilityModule',
 		'productModule',
@@ -19,8 +20,8 @@ var parnamiPackaging = angular.module('AngularRails', [
         $stateProvider
 		.state("index", {
 				url: '/index',
-                templateUrl: 'ng-app/WelcomePage.html',
-                controller: 'HomeCtrl'
+                templateUrl: 'ng-app/indexModule/templates/Index.html',
+                controller: 'indexCtrl'
             })
 			
 		});

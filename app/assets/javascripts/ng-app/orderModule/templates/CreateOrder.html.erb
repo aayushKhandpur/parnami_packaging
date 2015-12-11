@@ -101,7 +101,7 @@
 						<th>Size</th>
 					</tr>
 					<tr ng-repeat="product in productList">
-						<td><a href="#/orderproducts/{{orderId}}/{{product.order_product.id}}">{{product.order_product.master_process_name}}</a></td>
+						<td><a ui-sref="index.neworderproducts({orderId:orderId,productId:product.order_product.id})" >{{product.order_product.master_process_name}}</a></td>
 						<td>{{product.order_product.quantity}}</td>
 						<td>{{product.order_product.color}}</td>
 						<td>{{product.order_product.size}}</td>
@@ -146,7 +146,7 @@
 					</td>
 					<td style="width:25%">
 						<span class="col-md-6"><i class="fa fa-check" ng-show="productPlan.isEditable" ng-click="executeCRUDOperationForOrderPlan('add',productPlan)"></i><i class="fa fa-edit" ng-show="!productPlan.isEditable" ng-click="executeCRUDOperationForOrderPlan('edit',productPlan)"></i></span>
-						<span class="col-md-6"><i class="fa fa-ban" ng-show="productPlan.isEditable && productPlan.id == null" ng-click="executeCRUDOperationForOrderPlan('cancel',productPlan)"></i><i class="fa fa-chain-broken" ng-click="executeCRUDOperationForOrderPlan('split',productPlan)" ng-show="!productPlan.isEditable"></i><a style="margin-left:25px" href="#/productprocessplan/{{productPlan.order_id}}/{{productPlan.order_product_id}}/{{productPlan.id}}" ng-show="!productPlan.isEditable">Details</a></span>
+						<span class="col-md-6"><i class="fa fa-ban" ng-show="productPlan.isEditable && productPlan.id == null" ng-click="executeCRUDOperationForOrderPlan('cancel',productPlan)"></i><i class="fa fa-chain-broken" ng-click="executeCRUDOperationForOrderPlan('split',productPlan)" ng-show="!productPlan.isEditable"></i><a style="margin-left:25px" ui-sref="index.productprocessplan({orderId:productPlan.order_id,productId:productPlan.order_product_id,orderPlanId:productPlan.id})" ng-show="!productPlan.isEditable">Details</a></span>
 					</td>
 				</tr>
 			</table>

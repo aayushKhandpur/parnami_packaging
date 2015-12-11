@@ -1,4 +1,4 @@
-orderModule.controller('allOrderCtrl', function ($scope,$location,allOrderMgr) {
+orderModule.controller('allOrderCtrl', function ($scope,$location,allOrderMgr,$state) {
 	
 	$scope.allOrders = [];
 	$scope.noOrderMsg = '';
@@ -51,7 +51,7 @@ orderModule.controller('allOrderCtrl', function ($scope,$location,allOrderMgr) {
 	$scope.getAllOrders();	
 	
 	$scope.createNewOrder = function() {
-		$location.path('/createorder/new');
+		$state.go('index.createorder',{orderId: 'new'});
 	}
 	
 	$scope.sort = function(keyname){

@@ -1,4 +1,4 @@
-orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$stateParams,$timeout) {
+orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$stateParams,$timeout,$state) {
 	
 		$scope.order = {};
 		$scope.mobile_number;
@@ -136,7 +136,7 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 		}
 		
 		$scope.navigateToProduct = function() {
-			$location.path('/orderproducts/'+$scope.orderId+'/new');
+			$state.go('index.neworderproducts',{orderId:$scope.orderId,productId:'new'});
 		}
 		
 		$scope.editOrder = function() {

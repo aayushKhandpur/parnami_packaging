@@ -1,6 +1,6 @@
 productPlanModule.config(function ($stateProvider) {
         $stateProvider
-            .state('productprocessplan', {
+            .state('index.productprocessplan', {
 				url: '/productprocessplan/:orderId/:productId/:orderPlanId',
                 templateUrl: 'ng-app/productPlanModule/templates/CreateProcessPlan.html',
                 controller: 'productPlanCtrl'
