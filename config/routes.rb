@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount_devise_token_auth_for 'User', at: '/auth'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -14,7 +15,7 @@ Rails.application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
     resources :customers, :locations, :master_products, :master_processes, :orders, :order_products,
         :order_transactions, :order_delivery_plans, :order_delivery_plan_processes, :vendors
-		
+
 	get 'order_delivery_plans_custom/:orderId', :to => 'order_delivery_plans#showByOrderId'
 	get 'order_products_custom/:orderId', :to => 'order_products#showProductByOrderId'
 	get 'order_delivery_plan_byproductid/:order_product_id' , :to => 'order_delivery_plans#showPlanByProductId'

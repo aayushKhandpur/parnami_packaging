@@ -24,3 +24,5 @@
 //= require Other_JS/jquery.toaster
 //= require bower_components/angular-utils-pagination/dirPagination
 //= require_tree
+//= require angular-cookie.min
+//= require ng-token-auth
