@@ -5,7 +5,7 @@ registrationModule.controller('RegistrationCtrl', ['$scope', '$location', '$auth
 	$scope.loginUser = function() {
 		$auth.submitLogin($scope.registrationModel)
 		.then(function(resp) {
-			alert("SUCCESS");
+			$location.path("/index/allorders");
 			})
 		.catch(function(resp) {
 	     alert("ERROR");
