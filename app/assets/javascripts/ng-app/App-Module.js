@@ -14,6 +14,7 @@ var parnamiPackaging = angular.module('AngularRails', [
 		'customerModule',
 		'vendorModule',
     'registrationModule',
+    'transactionModule',
 		'angularUtils.directives.dirPagination'
     ]);
 

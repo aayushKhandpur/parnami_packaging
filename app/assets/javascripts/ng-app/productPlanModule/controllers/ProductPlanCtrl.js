@@ -1,16 +1,16 @@
-productPlanModule.controller('productPlanCtrl', function ($scope,$log,$stateParams,orderPlanMgr,$location) {
-		
+productPlanModule.controller('productPlanCtrl', function ($scope,$log,$stateParams,orderPlanMgr,$location,processOneLocationMgr) {
+
 		$scope.orderPlan = {};
 		$scope.orderId = $stateParams.orderId;
 		$scope.productId = $stateParams.productId;
 		$scope.orderPlanId = $stateParams.orderPlanId;
-		
+
 		$scope.allPlanProcessList = [];
 		$scope.locationPicklist = [];
 		$scope.processPicklist = [];
 		$scope.vendorPicklist = [];
 		$scope.check = [];
-		
+
 		$scope.loadDefaults = function() {
 			orderPlanMgr.getPicklistData(function(locationList,processList,vendorList){
 				console.log('12qw'+JSON.stringify(vendorList));
@@ -43,13 +43,13 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 				$scope.applyChanges();
 			});
 		}
-		
+
 		$scope.loadDefaults();
-		
+
 		$scope.editPlan = function() {
 			$scope.isPlanShown = false;
 		}
-		
+
 		$scope.createPlanStatus = function(planProcess) {
 			planProcess.sequence_number = orderPlanMgr.getSequenceNumber($scope.allPlanProcessList);
 			console.log('num is'+planProcess.sequence_number);
@@ -66,12 +66,12 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 				$scope.applyChanges();
 			});
 		}
-		
+
 		$scope.applyChanges = function() {
 		   if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest')
 			   $scope.$apply();
 	    }
-		
+
 		$scope.locationChanged = function(planProcess) {
 			var name;
 			for(var counter = 0;counter < $scope.locationPicklist.length; counter++) {
@@ -87,7 +87,7 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 				planProcess.vendor_id = '';
 			}
 		}
-		
+
 		$scope.processChanged = function(planProcess) {
 			for(var counter = 0;counter < $scope.processPicklist.length; counter++) {
 				if($scope.processPicklist[counter].id == planProcess.master_process_id) {
@@ -96,11 +96,11 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 				}
 			}
 		}
-		
+
 		$scope.addOrderPlanProcess = function() {
 			$scope.allPlanProcessList.push(angular.copy($scope.orderPlanProcessTemplate));
 		}
-		
+
 		$scope.deleteOrderPlanProcess = function(planProcessId) {
 			orderPlanMgr.deletePlanProcess(planProcessId,function(data) {
 				orderPlanMgr.getPlanProcessByPlanId($scope.orderPlanId,function(data){
@@ -111,8 +111,8 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 			});
 			$scope.applyChanges();
 		}
-		
-		
+
+
 		$scope.executeCRUDOperation = function(actionPerformed,planProcess) {
 			if(actionPerformed == 'cancel')
 				$scope.allPlanProcessList.splice($scope.allPlanProcessList.length -1,1);
@@ -124,4 +124,32 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 			else if(actionPerformed == 'delete')
 				$scope.deleteOrderPlanProcess(planProcess.id);
 		}
+
+		$scope.initiateOrder = function()
+		{
+			var orderTransactionDetails = {};
+			var lName = '';
+			var lId = $scope.allPlanProcessList[0].location_id;
+			$log.info('Location lIst'+JSON.stringify($scope.locationPicklist));
+			$log.info('Location Id'+lId);
+			$.each($scope.locationPicklist,function(k,v){
+				if(lId == v.id)
+				{
+					lName = v.name;
+				}
+			});
+			$log.info('Location Name'+lName);
+			orderTransactionDetails.order_id = $scope.orderId;
+			orderTransactionDetails.order_product_id = $scope.productId;
+			orderTransactionDetails.order_delivery_plan_id = $scope.orderPlanId;
+			orderTransactionDetails.order_delivery_plan_process_id = $scope.allPlanProcessList[0].id;
+			orderTransactionDetails.status = 'In Process';
+			orderTransactionDetails.process_start_date = new Date();
+			orderTransactionDetails.quantity_recieved = $scope.orderPlan.quantity;
+			orderTransactionDetails.process_end_date= $scope.orderPlan.delivery_date;
+			orderTransactionDetails.lName = lName;
+			//$log.info(JSON.stringify($scope.allPlanProcessList));
+			processOneLocationMgr.insertProcessOneLocation(orderTransactionDetails);
+		}
+
     });

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151130070337) do
+ActiveRecord::Schema.define(version: 20160327140656) do
 
   create_table "customers", force: :cascade do |t|
     t.string   "name",             limit: 255,   null: false
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20151130070337) do
     t.integer  "sequence_number",        limit: 4,                   null: false
     t.boolean  "is_first_step",          limit: 1,   default: false, null: false
     t.boolean  "is_last_step",           limit: 1,   default: false, null: false
+    t.string   "vendor_name",            limit: 255
     t.datetime "created_at",                                         null: false
     t.datetime "updated_at",                                         null: false
     t.integer  "location_id",            limit: 4,                   null: false
@@ -121,6 +122,7 @@ ActiveRecord::Schema.define(version: 20151130070337) do
     t.date     "process_start_date",                                     null: false
     t.date     "process_end_date",                                       null: false
     t.integer  "order_delivery_plan_process_id", limit: 4,               null: false
+    t.integer  "order_delivery_plan_id",         limit: 4,               null: false
     t.integer  "order_id",                       limit: 4,               null: false
     t.integer  "master_product_id",              limit: 4,               null: false
     t.integer  "quantity_recieved",              limit: 4,               null: false
@@ -128,11 +130,13 @@ ActiveRecord::Schema.define(version: 20151130070337) do
     t.integer  "quantity_transfered",            limit: 4,   default: 0, null: false
     t.integer  "quantity_waste",                 limit: 4,   default: 0, null: false
     t.string   "status",                         limit: 255,             null: false
+    t.string   "lName",                          limit: 255,             null: false
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
   end
 
   add_index "order_transactions", ["master_product_id"], name: "index_order_transactions_on_master_product_id", using: :btree
+  add_index "order_transactions", ["order_delivery_plan_id"], name: "index_order_transactions_on_order_delivery_plan_id", using: :btree
   add_index "order_transactions", ["order_delivery_plan_process_id"], name: "index_order_transactions_on_order_delivery_plan_process_id", using: :btree
   add_index "order_transactions", ["order_id"], name: "index_order_transactions_on_order_id", using: :btree
   add_index "order_transactions", ["order_product_id"], name: "index_order_transactions_on_order_product_id", using: :btree
@@ -151,6 +155,22 @@ ActiveRecord::Schema.define(version: 20151130070337) do
   add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree
   add_index "orders", ["delivery_date"], name: "index_orders_on_delivery_date", using: :btree
   add_index "orders", ["order_date"], name: "index_orders_on_order_date", using: :btree
+
+  create_table "roles", force: :cascade do |t|
+    t.string   "name",          limit: 255
+    t.integer  "resource_id",   limit: 4
+    t.string   "resource_type", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
+
+  create_table "roles_users", id: false, force: :cascade do |t|
+    t.integer "user_id", limit: 4, null: false
+    t.integer "role_id", limit: 4, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "provider",               limit: 255,                null: false
@@ -181,6 +201,13 @@ ActiveRecord::Schema.define(version: 20151130070337) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
 
+  create_table "users_roles", id: false, force: :cascade do |t|
+    t.integer "user_id", limit: 4
+    t.integer "role_id", limit: 4
+  end
+
+  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
+
   create_table "vendors", force: :cascade do |t|
     t.string   "name",             limit: 255,   null: false
     t.string   "email_id",         limit: 255
@@ -209,6 +236,7 @@ ActiveRecord::Schema.define(version: 20151130070337) do
   add_foreign_key "order_products", "orders"
   add_foreign_key "order_transactions", "master_products"
   add_foreign_key "order_transactions", "order_delivery_plan_processes"
+  add_foreign_key "order_transactions", "order_delivery_plans"
   add_foreign_key "order_transactions", "order_products"
   add_foreign_key "order_transactions", "orders"
   add_foreign_key "orders", "customers"
