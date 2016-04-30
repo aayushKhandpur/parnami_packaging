@@ -42,6 +42,6 @@ class OrderTransactionsController < ApplicationController
   private
 
   def order_transaction_params
-    params.permit(:order_id, :order_product_id, :master_product_id, :order_delivery_plan_process_id, :process_end_date, :process_start_date, :quantity_waste, :quantity_recieved, :quantity_transfered, :quantity_forwarded, :status)
+    params.permit(:order_id, :order_product_id, :master_product_id, :order_delivery_plan_id, :lName, :order_delivery_plan_process_id, :process_end_date, :process_start_date, :quantity_waste, :quantity_recieved, :quantity_transfered, :quantity_forwarded, :status)
   end
 end

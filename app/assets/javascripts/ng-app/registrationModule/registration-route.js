@@ -5,4 +5,9 @@ registrationModule.config(function ($stateProvider) {
                 templateUrl: 'ng-app/registrationModule/views/registration.html',
                 controller: 'RegistrationCtrl'
             })
+            .state('signup', {
+				url: '/signup',
+                templateUrl: 'ng-app/registrationModule/views/newuser.html',
+                controller: 'NewUserCtrl'
+            })
 });

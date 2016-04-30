@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+      <div ng-form="SignUpForm" on-navigate-away-strategy='none' >
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <h2> Register </h2>
+          </div>
+        </div>
+
+        <div class="form-group" >
+          <label>Email:</label>
+          <input type="email" name="email" ng-model="registrationForm.email" class="form-control input-lg" placeholder="Email address"  required>
+        </div>
+        <div class="form-group">
+          <label>Password:</label>
+          <input type="password" name="password" ng-model="registrationForm.password" class="form-control input-lg" placeholder="Password"  required>
+        </div>
+
+        <div class="form-group">
+          <label>Confirm Password:</label>
+          <input type="password" name="confirmpassword" ng-model="registrationForm.password_confirmation" class="form-control input-lg" placeholder="Confirm Password"  required>
+        </div>
+
+        <div class="form-group">
+          <label>Role:</label>
+          <input type="userrole" name="userrole" ng-model="uRole" class="form-control input-lg" placeholder="User Role"  required>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-8 col-md-4">
+            <button type="submit" ng-click="registerUser()" class="btn btn-default btn-block btn-lg"  > Register </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
