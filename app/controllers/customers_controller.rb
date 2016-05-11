@@ -17,7 +17,7 @@ class CustomersController < ApplicationController
   def create
     @customer = Customer.new(customer_params)
     if !@customer.valid?
-      render json: {errors: customer.errors.full_messages}, status: 400
+      render json: {errors: @customer.errors.full_messages}, status: 400
     end
     @customer.save
   end

@@ -79,6 +79,11 @@
 		</div>
 	</div>
 	<div ng-show="findView == 'showSaveWithNewCustomer' || findView == 'showSaveWithOldCustomer'">
+		<div class="alert alert-danger col-md-12" ng-show="customerErrorMsg.length > 0">
+			<span style="color:#cc0000"><h4>Errors</h4></span>
+			<span ng-bind-html="customerErrorMsg | sanitize"><p>{customerErrorMsg}}</p></span>
+		</div>
+
 		<div class="row">
 			<div class="col-md-3">
 				<div class="profile-info-row">

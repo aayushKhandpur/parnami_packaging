@@ -1,7 +1,7 @@
 customerModule.service('customerMgr', function (customerSrv) {
-	
+
 	var self = this;
-	
+
 	this.getMasterProducts = function(callbackFunction) {
 		customerSrv.getAllCustomers(function(allMasterProducts) {
 			callbackFunction(allMasterProducts);
@@ -22,5 +22,12 @@ customerModule.service('customerMgr', function (customerSrv) {
 				callbackFunction(data);
 			});
 		}
+	}
+
+	this.validateCustomer = function(customer){
+		var errorMsg = '';
+		if(customer.mobile_number == null || order.mobile_number.length == 0)
+			errorMsg += "<ul><li>Mobile Number can't be blank</li></ul>" ;
+			return errorMsg;
 	}
 });
