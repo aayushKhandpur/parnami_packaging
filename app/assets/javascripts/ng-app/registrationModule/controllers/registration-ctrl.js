@@ -10,10 +10,12 @@ registrationModule.controller('RegistrationCtrl', ['$scope', '$location', '$auth
 			http.success(function(successData){
 					$log.info(JSON.stringify(successData));
 					var role = successData.c.role;
-					if(role.name == 'Admin')
+					if(role.name == 'Admin'|| role.name == 'admin' ){
 						$location.path("/index/allorders");
-					else if(role.name == 'Guest')
+					}
+					else if(role.name == 'Guest' || role.name == 'guest'){
 						$location.path("/signup");
+					}
 			});
 
 			})

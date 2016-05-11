@@ -1,18 +1,18 @@
 orderModule.controller('allOrderCtrl', function ($scope,$location,allOrderMgr,$state) {
-	
+
 	$scope.allOrders = [];
 	$scope.noOrderMsg = '';
 	$scope.sortKey = 'customer_name';
 	$scope.reverse;
 	$scope.searchAttribute = '$';
 	$scope.searchText = {customer_name :'',delivery_address :'',order_details: '',delivery_date: '', $ :''};
-	
+
 	$scope.applyChanges = function()
 	{
 	   if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest')
 		   $scope.$apply();
 	}
-	
+
 	$scope.searchAttributeList = [
 		{
 			'name':'All',
@@ -35,7 +35,7 @@ orderModule.controller('allOrderCtrl', function ($scope,$location,allOrderMgr,$s
 			'id':'delivery_date'
 		}
 	];
-	
+
 	$scope.getAllOrders = function() {
 		allOrderMgr.getAllOrders(function(allOrders) {
 			if(allOrders.length > 0) {
@@ -47,18 +47,18 @@ orderModule.controller('allOrderCtrl', function ($scope,$location,allOrderMgr,$s
 			$scope.applyChanges();
 		});
 	}
-	
-	$scope.getAllOrders();	
-	
+
+	$scope.getAllOrders();
+
 	$scope.createNewOrder = function() {
 		$state.go('index.createorder',{orderId: 'new'});
 	}
-	
+
 	$scope.sort = function(keyname){
-        $scope.sortKey = keyname; 
+        $scope.sortKey = keyname;
         $scope.reverse = !$scope.reverse;
     }
-	
+
 	$scope.changeSearchAttribute = function(searchFilter) {
 		$scope.searchAttribute = searchFilter;
 		$scope.searchText = {customer_name :'',delivery_address :'',order_details: '',delivery_date: '', $ :''};

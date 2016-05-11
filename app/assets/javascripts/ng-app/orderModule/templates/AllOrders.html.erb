@@ -30,23 +30,23 @@
 				</div>
 			</div>
 		</div>
-		<br /> 
+		<br />
 		<div>
 		<div class="row">
 			<div class="col-md-12">
-				<table class="table table-striped table-hover">
+				<table class="table table-border table-hover">
 					<tr>
 						<th ng-click="sort('customer_name')">Customer Name <span class="fa fa-chevron-up" ng-show="sortKey=='customer_name'" ng-class="{'fa fa-chevron-down':reverse,'fa fa-chevron-up':!reverse}"></span></th>
 						<th ng-click="sort('delivery_date')">Delivery Date <span class="fa fa-chevron-up" ng-show="sortKey=='delivery_date'" ng-class="{'fa fa-chevron-down':reverse,'fa fa-chevron-up':!reverse}"></span></th>
 						<th ng-click="sort('delivery_address')">Address <span class="fa fa-chevron-up" ng-show="sortKey=='delivery_address'" ng-class="{'fa fa-chevron-down':reverse,'fa fa-chevron-up':!reverse}"></span></th>
 						<th ng-click="sort('order_details')">Order Details <span class="fa fa-chevron-up" ng-show="sortKey=='order_details'" ng-class="{'fa fa-chevron-down':reverse,'fa fa-chevron-up':!reverse}"></span></th>
 					</tr>
-					<tr ng-show="(allOrders | filter:searchText).length == 0">
+					<tr ng-show="(allOrders | filter:searchText[searchAttribute]).length == 0">
 						<td colspan="4">
 							<p class="alert alert-info">oops ! No Order found with this search</p>
 						</td>
 					</tr>
-					<tr dir-paginate="order in allOrders |orderBy:sortKey:reverse |filter: searchText |itemsPerPage:5">
+					<tr dir-paginate="order in allOrders |orderBy:sortKey:reverse |filter: searchText[searchAttribute] |itemsPerPage:5">
 						<td><a ui-sref="index.createorder({orderId:order.id})">{{order.customer_name}}</a></td>
 						<td>{{order.delivery_date}}</td>
 						<td>{{order.delivery_address}}</td>

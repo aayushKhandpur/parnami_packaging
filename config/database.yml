@@ -15,7 +15,7 @@ development:
   database: parnami_packaging
   pool: 5
   username: root
-  password:
+  password: root
   host: localhost
   port: 3306
 
@@ -29,7 +29,7 @@ test:
   database: parnami_packaging
   pool: 5
   username: root
-  password: 
+  password: root
   host: localhost
   port: 3306
 
