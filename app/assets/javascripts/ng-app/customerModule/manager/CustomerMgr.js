@@ -26,7 +26,7 @@ customerModule.service('customerMgr', function (customerSrv) {
 
 	this.validateCustomer = function(customer){
 		var errorMsg = '';
-		if(customer.mobile_number == null || order.mobile_number.length == 0)
+		if(customer.mobile_number == null || customer.mobile_number.length == 0)
 			errorMsg += "<ul><li>Mobile Number can't be blank</li></ul>" ;
 			return errorMsg;
 	}

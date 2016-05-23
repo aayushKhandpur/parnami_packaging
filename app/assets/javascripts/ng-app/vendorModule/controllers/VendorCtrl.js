@@ -5,13 +5,14 @@ vendorModule.controller('vendorCtrl', function ($scope,$log,$location,vendorMgr)
 	$scope.locationId = null;
 	$scope.showList;
 	$scope.findView;
-	
-	
+	$scope.vendorErrorMsg ='';
+
+
 	$scope.applyChanges = function() {
 	   if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest')
 		   $scope.$apply();
 	}
-	
+
 	$scope.loadDefaults = function() {
 		$scope.allLocations = [];
 		$scope.locationId = null;
@@ -26,17 +27,21 @@ vendorModule.controller('vendorCtrl', function ($scope,$log,$location,vendorMgr)
 		});
 	}
 	$scope.loadDefaults();
-	
+
 	$scope.createVendor = function() {
-		console.log(JSON.stringify($scope.masterProduct));
-		vendorMgr.createLocation($scope.locationId,$scope.location,function(locationDetails) {
-			$.toaster({ priority : 'success', title : 'Info', message : 'Vendor is Saved',width:'100%'});
-			$scope.loadDefaults();
-			console.log(JSON.stringify(locationDetails));
-			$scope.applyChanges();
-		});
+		var errorMsg = vendorMgr.validateVendor($scope.location);
+		if(errorMsg.length == 0){
+			vendorMgr.createLocation($scope.locationId,$scope.location,function(locationDetails) {
+				$.toaster({ priority : 'success', title : 'Info', message : 'Vendor is Saved',width:'100%'});
+				$scope.loadDefaults();
+				console.log(JSON.stringify(locationDetails));
+				$scope.applyChanges();
+			});
+		}else{
+			$scope.vendorErrorMsg = errorMsg;
+		}
 	}
-	
+
 	$scope.showLocation = function(lId) {
 		var location = {};
 		for(var counter = 0;counter < $scope.allLocations.length;counter++) {
@@ -50,16 +55,16 @@ vendorModule.controller('vendorCtrl', function ($scope,$log,$location,vendorMgr)
 		$scope.findView = 'showeditandview';
 		$scope.showList = false;
 	}
-	
+
 	$scope.showNewVendor = function() {
 		$scope.showList = false;
 		$scope.findView = 'showSaveWithNewVendor';
 		$scope.location = {};
 	}
-	
+
 	$scope.editVendor = function() {
 		$scope.showList = false;
 		$scope.findView = 'showSaveWithOldVendor';
 	}
-	
+
 });

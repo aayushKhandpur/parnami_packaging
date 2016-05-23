@@ -1,7 +1,7 @@
 vendorModule.service('vendorMgr', function (vendorSrv) {
-	
+
 	var self = this;
-	
+
 	this.getLocations = function(callbackFunction) {
 		vendorSrv.getLocations(function(allLocations) {
 			self.allLocations = allLocations;
@@ -24,4 +24,12 @@ vendorModule.service('vendorMgr', function (vendorSrv) {
 			});
 		}
 	}
+
+	this.validateVendor = function(vendor){
+		var errorMsg = '';
+		if(vendor.mobile_number == null || vendor.mobile_number.length == 0)
+			errorMsg += "<ul><li>Mobile Number can't be blank</li></ul>" ;
+			return errorMsg;
+	}
+
 });
