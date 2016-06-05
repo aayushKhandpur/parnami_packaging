@@ -11,4 +11,11 @@ transactionModule.service('processOneLocationMgr', function ($log,proceesOneLoca
 		});
 	}
 
+	this.getTransactions = function(orderId,callbackFunction)
+	{
+		proceesOneLocationSrv.getTransactionsByOrderId(orderId,function(data){
+			callbackFunction(data)
+		});
+	}
+
 });

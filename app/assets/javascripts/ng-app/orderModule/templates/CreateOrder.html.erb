@@ -6,6 +6,7 @@
 				<li role="presentation" class="active"><a href="javascript:void(0)" ng-click="toggleTab('showOrder')">Order</a></li>
 			  <li role="presentation"><a href="javascript:void(0)" ng-click="toggleTab('showProducts')">Order Products</a></li>
 			  <li role="presentation"><a href="javascript:void(0)" ng-click="toggleTab('showDeliveryPlan')">Order Delivery Plan</a></li>
+				<li role="presentation"><a href="javascript:void(0)" ng-click="toggleTab('showOrderTransaction')">Order Transactions</a></li>
 			</ul>
 		</div>
 	</div>
@@ -150,6 +151,47 @@
 						<span class="col-md-6"><i class="fa fa-check" ng-show="productPlan.isEditable" ng-click="executeCRUDOperationForOrderPlan('add',productPlan)"></i><i class="fa fa-edit" ng-show="!productPlan.isEditable" ng-click="executeCRUDOperationForOrderPlan('edit',productPlan)"></i></span>
 						<span class="col-md-6"><i class="fa fa-ban" ng-show="productPlan.isEditable && productPlan.id == null" ng-click="executeCRUDOperationForOrderPlan('cancel',productPlan)"></i><i class="fa fa-chain-broken" ng-click="executeCRUDOperationForOrderPlan('split',productPlan)" ng-show="!productPlan.isEditable"></i><a style="margin-left:25px" ui-sref="index.productprocessplan({orderId:productPlan.order_id,productId:productPlan.order_product_id,orderPlanId:productPlan.id})" ng-show="!productPlan.isEditable">Details</a></span>
 					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+
+	<div ng-show="showProductOrDeliveryPlan == 'showOrderTransaction'">
+		<div style="border-bottom: 1px solid #EEEEEE;">
+			<h3>Order Transactions</h3>
+		</div>
+		<div class="col-md-12 alert alert-danger" role="alert" ng-show="orderTransactionList.length == 0" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+			<label style="font-weight:normal;">There is no order transactions created.</label>
+		</div>
+		<div class="alert alert-danger col-md-12" ng-show="orderPlanErrorMsg.length > 0">
+			<span style="color:#cc0000"><h4>Errors</h4></span>
+						<span ng-bind-html="orderPlanErrorMsg | sanitize"><p>{{orderPlanErrorMsg}}</p></span>
+				</div>
+		<br />
+		<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+			<table ng-hide="orderTransactionList.length == 0" class="table table-striped table-hover">
+				<tr>
+					<th>Order Id</th>
+					<th>Location Name</th>
+					<th>Process Start Date</th>
+					<th>Delivery Date</th>
+					<th>Quantity Received</th>
+					<th>Quantity Forwarded</th>
+					<th>Quantity Transfered</th>
+					<th>Quantity Wasted</th>
+					<th>Status</th>
+				</tr>
+				<tr ng-repeat="orderTransaction in orderTransactionList">
+					<td>{{orderTransaction.order_transaction.order_id}}</td>
+					<td>{{orderTransaction.order_transaction.lName}}</td>
+					<td>{{orderTransaction.order_transaction.process_start_date}}</td>
+					<td>{{orderTransaction.order_transaction.process_end_date}}</td>
+					<td>{{orderTransaction.order_transaction.quantity_recieved}}</td>
+					<td>{{orderTransaction.order_transaction.quantity_forwarded}}</td>
+					<td>{{orderTransaction.order_transaction.quantity_transfered}}</td>
+					<td>{{orderTransaction.order_transaction.quantity_waste}}</td>
+					<td>{{orderTransaction.order_transaction.status}}</td>
 				</tr>
 			</table>
 		</div>

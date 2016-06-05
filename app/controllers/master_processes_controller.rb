@@ -3,7 +3,7 @@ class MasterProcessesController < ApplicationController
       def index
         @processes = MasterProcess.all
       end
-	  
+
 	  def show
         @process = MasterProcess.find(params[:id])
       end
@@ -11,7 +11,7 @@ class MasterProcessesController < ApplicationController
       def create
         @master_process = MasterProcess.new(master_process_params)
         if !@master_process.valid?
-          render json: {errors: master_process.errors.full_messages}, status: 400
+          render json: {errors: @master_process.errors.full_messages}, status: 400
         end
         @master_process.save
       end

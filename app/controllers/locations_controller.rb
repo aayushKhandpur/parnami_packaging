@@ -3,7 +3,7 @@ class LocationsController < ApplicationController
     def index
       @locations = Location.all
     end
-	
+
 	def show
 		@location = Location.find(params[:id])
 	end
@@ -11,7 +11,7 @@ class LocationsController < ApplicationController
     def create
       @location = Location.new(location_params)
       if !@location.valid?
-        render json: {errors: location.errors.full_messages}, status: 400
+        render json: {errors: @location.errors.full_messages}, status: 400
       end
       @location.save
     end

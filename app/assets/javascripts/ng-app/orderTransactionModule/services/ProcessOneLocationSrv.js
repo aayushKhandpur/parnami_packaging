@@ -15,5 +15,21 @@ transactionModule.service('proceesOneLocationSrv', function ($http) {
 		});
 	}
 
+	this.getTransactionsByOrderId = function(orderId,callbackFunction)
+	{
+		var httpRequest = $http.get('/order_transactions/'+orderId);
+		httpRequest.success(function(data){
+			console.log('success');
+			console.log(JSON.stringify(data));
+			callbackFunction(data);
+		});
+		httpRequest.error(function(data){
+			console.log(JSON.stringify(data));
+		});
+	}
+
+
+
+
 
 });

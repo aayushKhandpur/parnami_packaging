@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     if !@order.valid?
-      render json: {errors: order.errors.full_messages}, status: 400
+      render json: {errors: @order.errors.full_messages}, status: 400
     end
     @order.save
   end

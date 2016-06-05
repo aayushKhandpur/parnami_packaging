@@ -3,7 +3,7 @@ class MasterProductsController < ApplicationController
     def index
       @products = MasterProduct.all
     end
-	
+
 	def show
     @master_product = MasterProduct.find(params[:id])
 	end
@@ -11,7 +11,7 @@ class MasterProductsController < ApplicationController
     def create
       @master_products = MasterProduct.new(master_product_params)
       if !@master_products.valid?
-        render json: {errors: master_products.errors.full_messages}, status: 400
+        render json: {errors: @master_products.errors.full_messages}, status: 400
       end
       @master_products.save
     end

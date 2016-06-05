@@ -2,7 +2,7 @@ class VendorsController < ApplicationController
   def index
       @vendors = Vendor.all
     end
-	
+
 	def show
 		@vendor = Vendor.find(params[:id])
 	end
@@ -10,7 +10,7 @@ class VendorsController < ApplicationController
     def create
       @vendor = Vendor.new(vendor_params)
       if !@vendor.valid?
-        render json: {errors: location.errors.full_messages}, status: 400
+        render json: {errors: @vendor.errors.full_messages}, status: 400
       end
       @vendor.save
     end

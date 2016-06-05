@@ -12,11 +12,11 @@ class OrderDeliveryPlansController < ApplicationController
         @order_delivery_plans = order_delivery_plans.where(order_product_id: params[:order_product_id])
       end
     end
-	
+
 	def showByOrderId
 		@order_delivery_plans = OrderDeliveryPlan.all.where(order_id: params[:orderId])
 	end
-	
+
 	def showPlanByProductId
 		@order_delivery_plans = OrderDeliveryPlan.all.where(order_product_id: params[:order_product_id])
 	end
@@ -28,7 +28,7 @@ class OrderDeliveryPlansController < ApplicationController
     def create
       @order_delivery_plan = OrderDeliveryPlan.new(order_delivery_plan_params)
       if !@order_delivery_plan.valid?
-        render json: {errors: order_delivery_plan.errors.full_messages}, status: 400
+        render json: {errors: @order_delivery_plan.errors.full_messages}, status: 400
       end
       @order_delivery_plan.save
     end

@@ -1,4 +1,39 @@
 <%= stylesheet_link_tag "homecss" %>
 <div class="container-fluid">
-	Hello World
+	<div class="row col-md-12 col-sm-12 col-xs-12" style="margin-top:10px">
+
+		<div class="col-md-6 col-sm-12 col-xs-12">
+			<div>
+				<label>Order Name: </label>
+				<span>Kanha</span>
+			</div>
+			<div>
+				<label>Quantity Received: </label>
+				<span>500</span>
+			</div>
+		</div>
+		<div class="col-md-6 col-sm-12 col-xs-12">
+			<div style="text-align:right">
+				<label>Received Date: </label>
+				<span>12-09-2016</span>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid well col-sm-12 col-xs-12">
+		<form class="form-horizontal">
+
+				<div class="form-group">
+					<label>Quantity Wasted</label>
+					<input type="number"class="form-control"></input>
+				</div>
+				<div class="form-group">
+					<label>Quantity Forwarded</label>
+					<input type="number" class="form-control"></input>
+				</div>
+
+				<div style="form-group" style="margin-top:20px">
+					<button class="btn btn-success" type="submit">Submit</button>
+				</div>
+			</form>
+	</div>
 </div>

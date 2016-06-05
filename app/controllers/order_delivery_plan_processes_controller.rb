@@ -23,7 +23,7 @@ class OrderDeliveryPlanProcessesController < ApplicationController
       def create
         @order_delivery_plan_process = OrderDeliveryPlanProcess.new(order_delivery_plan_process_params)
         if !@order_delivery_plan_process.valid?
-          render json: {errors: order_delivery_plan_process.errors.full_messages}, status: 400
+          render json: {errors: @order_delivery_plan_process.errors.full_messages}, status: 400
         end
         @order_delivery_plan_process.save
       end
@@ -38,7 +38,7 @@ class OrderDeliveryPlanProcessesController < ApplicationController
         @order_delivery_plan_process.destroy
         render json: {deleted: true}, status: 200
       end
-	  
+
 
       private
 

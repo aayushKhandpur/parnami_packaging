@@ -14,7 +14,7 @@ class OrderProductsController < ApplicationController
     def create
       @order_product = OrderProduct.new(order_product_params)
       if !@order_product.valid?
-        render json: {errors: order_product.errors.full_messages}, status: 400
+        render json: {errors: @order_product.errors.full_messages}, status: 400
       end
       @order_product.save
     end
@@ -29,7 +29,7 @@ class OrderProductsController < ApplicationController
       @order_product.destroy
       render json: {deleted: true}, status: 200
     end
-	
+
 	def showProductByOrderId
 		 @order_products = OrderProduct.all.where(order_id: params[:orderId])
 	end

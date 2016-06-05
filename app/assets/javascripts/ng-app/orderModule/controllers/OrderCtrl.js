@@ -1,5 +1,5 @@
-orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$stateParams,$timeout,$state) {
-	
+orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$stateParams,$timeout,$state,processOneLocationMgr) {
+
 		$scope.order = {};
 		$scope.mobile_number;
 		$scope.isOrderShown = false;
@@ -16,13 +16,14 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 		$scope.order_date;
 		$scope.orderErrorMsg = '';
 		$scope.orderPlanErrorMsg = '';
-		
+		$scope.orderTransactionList = [];
+
 		$scope.applyChanges = function()
 	    {
 		   if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest')
 			   $scope.$apply();
 	    }
-		
+
 		$scope.loadDefaults = function() {
 			$scope.showOrderMenu = false;
 			orderMgr.getAllCustomers(function(data) {
@@ -30,7 +31,7 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 					v.customer.nameNumberAddress = v.customer.name+','+v.customer.mobile_number+','+v.customer.billing_address;
 					$scope.allCustomers.push(v.customer);
 				});
-				
+
 				if($scope.orderId == 'new'){
 				}
 				else {
@@ -57,20 +58,28 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 									quantity: 0,
 									isEditable: true,
 									delivery_date: '',
-									splittedFromId: '' 
+									splittedFromId: ''
 								};
 							}
 							$scope.applyChanges();
 						});
+						processOneLocationMgr.getTransactions($scope.orderId,function(data){
+							console.log(data);
+							if(data.length > 0){
+								$scope.orderTransactionList = data;
+								console.log(JSON.stringify($scope.orderTransactionList));
+							}
+						})
+
 						$scope.applyChanges();
 					});
 				}
 				$scope.applyChanges();
 			});
 		}
-		
+
 		$scope.loadDefaults();
-		
+
 		$scope.createOrder = function() {
 			var errorMsg = orderMgr.validateOrder($scope.order);
 			if(errorMsg.length == 0) {
@@ -89,7 +98,7 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 				$scope.orderErrorMsg = errorMsg;
 			}
 		}
-		
+
 		$scope.createOrderPlan = function(orderPlan,callbackFunction) {
 			orderPlan.order_id = $scope.orderId;
 			orderPlan.customer_id = $scope.customer_id;
@@ -117,7 +126,7 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 				$scope.createAndUpdatePlan(orderPlan);
 			}
 		}
-		
+
 		$scope.createAndUpdatePlan = function(orderPlan) {
 			var updateOrderPlan = orderMgr.getProcessPlanById(orderPlan.splittedFromId,$scope.orderPlanDeliveryList);
 			var validateResult = orderMgr.validateSplitQuantity(updateOrderPlan,orderPlan);
@@ -132,21 +141,21 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 			else {
 				$scope.orderPlanErrorMsg = validateResult;
 			}
-				
+
 		}
-		
+
 		$scope.navigateToProduct = function() {
 			$state.go('index.neworderproducts',{orderId:$scope.orderId,productId:'new'});
 		}
-		
+
 		$scope.editOrder = function() {
 			$scope.isOrderShown = false;
 		}
-		
+
 		$scope.toggleTab = function(tabChosen) {
 			$scope.showProductOrDeliveryPlan = tabChosen;
 		}
-		
+
 		$scope.addOrderDeliveryPlan = function() {
 			var orderPlan = (angular.copy($scope.orderDeliveryPlanTemplate));
 			$scope.orderPlanDeliveryList.push(orderPlan);
@@ -154,7 +163,7 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 				$scope.addDatePicker();
 			},50);
 		}
-		
+
 		$scope.updateMobileAndAddress = function() {
 			if($scope.customerSelected != null) {
 				$scope.order.customer_id = $scope.customerSelected.id;

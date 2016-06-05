@@ -17,13 +17,13 @@ class OrderTransactionsController < ApplicationController
   end
 
   def show
-    @order_transaction = OrderTransaction.find(params[:id])
+    @order_transaction = OrderTransaction.where(order_id: params[:id])
   end
 
   def create
     @order_transaction = OrderTransaction.new(order_transaction_params)
     if !@order_transaction.valid?
-      render json: {errors: order_transaction.errors.full_messages}, status: 400
+      render json: {errors: @order_transaction.errors.full_messages}, status: 400
     end
     @order_transaction.save
   end

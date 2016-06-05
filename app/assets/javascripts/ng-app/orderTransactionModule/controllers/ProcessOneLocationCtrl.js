@@ -5,6 +5,6 @@ transactionModule.controller('processLocationCtrl', function ($scope,$log,$locat
 	   if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest')
 		   $scope.$apply();
 	}
-	
+
 
 });
