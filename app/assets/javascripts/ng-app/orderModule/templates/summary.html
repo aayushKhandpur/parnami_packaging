@@ -1,0 +1,141 @@
+<style>
+  .header{
+    text-transform: uppercase;
+    font-weight: bolder;
+  }
+</style>
+<div class="panel panel-default" style="margin:20px">
+    <div class="panel-heading header">ORDER DETAIL
+      <span>
+        <a ui-sref="index.createorder({orderId:order.id})">
+          <span class="glyphicon glyphicon-edit"></span>
+        </a>
+      </span>
+      </div>
+    <div class="panel-body">
+      <table class="table table-bordered">
+        <tr>
+          <th style="width:20%">Order Id</th>
+          <td>{{order.id}}</td>
+          <th style="width:20%">Customer Name</th>
+          <td>{{customer_name}}</td>
+        </tr>
+        <tr>
+          <th>Mobile Number</th>
+          <td>{{mobile_number}}</td>
+          <th>Delivery Date</th>
+          <td>{{order.delivery_date}}</td>
+        </tr>
+        <tr>
+          <th>Delievery Address</th>
+          <td colspan="3">{{order.delivery_address}}</td>
+        </tr>
+      </table>
+    </div>
+</div>
+<div class="panel panel-default" style="margin:20px">
+    <div class="panel-heading header">ORDER PRODUCTS
+      <span>
+        <a ui-sref="index.createorder({orderId:order.id})">
+          <span class="glyphicon glyphicon-edit"></span>
+        </a>
+      </span>
+    </div>
+    <div class="panel-body">
+      <table ng-hide="productList.length == 0" class="table table-bordered table-hover">
+        <tr>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Color</th>
+          <th>Size</th>
+        </tr>
+        <tr ng-repeat="product in productList">
+          <td><a ui-sref="index.neworderproducts({orderId:orderId,productId:product.order_product.id})" >{{product.order_product.master_process_name}}</a></td>
+          <td>{{product.order_product.quantity}}</td>
+          <td>{{product.order_product.color}}</td>
+          <td>{{product.order_product.size}}</td>
+        </tr>
+      </table>
+    </div>
+</div>
+<div class="panel panel-default" style="margin:20px">
+    <div class="panel-heading header">Order Delievery Plans
+      <span>
+        <a ui-sref="index.createorder({orderId:order.id})">
+          <span class="glyphicon glyphicon-edit"></span>
+        </a>
+      </span>
+    </div>
+    <div class="panel-body">
+      <table ng-hide="orderPlanDeliveryList.length == 0" class="table table-bordered table-hover">
+				<tr>
+					<th>Order Product</th>
+					<th>Quantity</th>
+					<th>Delivery Date</th>
+				</tr>
+				<tr ng-repeat="productPlan in orderPlanDeliveryList">
+					<td style="width:25%">{{productPlan.order_product_id}}</td>
+					<td style="width:25%">{{productPlan.quantity}}</td>
+					<td style="width:25%">{{productPlan.delivery_date}}</td>
+				</tr>
+			</table>
+    </div>
+</div>
+<!-- <div class="panel panel-default" style="margin:20px">
+    <div class="panel-heading">Order Delivery Plan Process
+      <span>
+        <a href="#">
+          <span class="glyphicon glyphicon-edit"></span>
+        </a>
+      </span>
+    </div>
+    <div class="panel-body">
+      <table class="table table-bordered">
+        <tr>
+          <th>Process Name</td>
+          <th>Location Name</td>
+          <th>Vendor Name</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+</div> -->
+<div class="panel panel-default" style="margin:20px">
+    <div class="panel-heading header">Order Transactions
+      <span>
+        <a ui-sref="index.createorder({orderId:order.id})">
+          <span class="glyphicon glyphicon-edit"></span>
+        </a>
+      </span>
+    </div>
+    <div class="panel-body">
+      <table ng-hide="orderTransactionList.length == 0" class="table table-bordered table-hover">
+        <tr>
+          <th>Order Id</th>
+          <th>Location Name</th>
+          <th>Process Start Date</th>
+          <th>Delivery Date</th>
+          <th>Quantity Received</th>
+          <th>Quantity Forwarded</th>
+          <th>Quantity Transfered</th>
+          <th>Quantity Wasted</th>
+          <th>Status</th>
+        </tr>
+        <tr ng-repeat="orderTransaction in orderTransactionList">
+          <td>{{orderTransaction.order_transaction.order_id}}</td>
+          <td>{{orderTransaction.order_transaction.lName}}</td>
+          <td>{{orderTransaction.order_transaction.process_start_date}}</td>
+          <td>{{orderTransaction.order_transaction.process_end_date}}</td>
+          <td>{{orderTransaction.order_transaction.quantity_recieved}}</td>
+          <td>{{orderTransaction.order_transaction.quantity_forwarded}}</td>
+          <td>{{orderTransaction.order_transaction.quantity_transfered}}</td>
+          <td>{{orderTransaction.order_transaction.quantity_waste}}</td>
+          <td>{{orderTransaction.order_transaction.status}}</td>
+        </tr>
+      </table>
+    </div>
+</div>

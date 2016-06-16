@@ -10,5 +10,10 @@ orderModule.config(function ($stateProvider) {
                 templateUrl: 'ng-app/orderModule/templates/AllOrders.html',
                 controller: 'allOrderCtrl'
             })
-			
+            .state('index.summary', {
+              url: '/summary/:orderId',
+                      templateUrl: 'ng-app/orderModule/templates/summary.html',
+                      controller: 'orderCtrl'
+                  })
+
 		});

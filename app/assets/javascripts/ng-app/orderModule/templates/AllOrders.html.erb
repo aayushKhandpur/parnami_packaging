@@ -47,7 +47,7 @@
 						</td>
 					</tr>
 					<tr dir-paginate="order in allOrders |orderBy:sortKey:reverse |filter: searchText[searchAttribute] |itemsPerPage:5">
-						<td><a ui-sref="index.createorder({orderId:order.id})">{{order.customer_name}}</a></td>
+						<td><a ui-sref="index.summary({orderId:order.id})">{{order.customer_name}}</a></td>
 						<td>{{order.delivery_date}}</td>
 						<td>{{order.delivery_address}}</td>
 						<td>{{order.order_details}}</td>
