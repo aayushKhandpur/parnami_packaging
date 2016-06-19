@@ -1,4 +1,21 @@
 <%= stylesheet_link_tag "homecss" %>
+<style media="screen">
+
+  .valdr-message {
+    display: none;
+  }
+
+  .valdr-message.ng-invalid.ng-touched.ng-dirty,
+  .form-submitted .valdr-message.ng-invalid {
+    display: inline;
+    color: red;
+    margin-top: -2px;
+  }
+
+  .form-group {
+    margin-bottom: 8px;
+  }
+</style>
 <div class="container-fluid">
 	<div style="border-bottom: 1px solid #EEEEEE;">
 		<h3>Location</h3>
@@ -6,13 +23,14 @@
 	<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
 		<back-button data-toggle="tooltip" title="Click this button to go to previous screen"></back-button>
 		<button data-toggle="tooltip" title="Click this button to create new Location" class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="showNewLocation()" ng-show="showList"><i class="fa fa-plus-square"></i></button>
-		<button data-toggle="tooltip" title="Click this button to create save Location" class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="createLocation()" ng-show="findView == 'showSaveWithNewLocation' || findView == 'showSaveWithOldLocation'"><i class="fa fa-save"></i></button>
+		<button data-toggle="tooltip" title="Click this button to create save Location" class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="createLocation(form)" ng-show="findView == 'showSaveWithNewLocation' || findView == 'showSaveWithOldLocation'"><i class="fa fa-save"></i></button>
 		<button data-toggle="tooltip" title="Click this button to create edit Location" class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="editLocation()" ng-show="findView == 'showeditandview' "><i class="fa fa-edit"></i></button>
 	</div>
 	<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;" ng-show="findView == 'showeditandview'">
 		<h4>Details of Location</h4>
 	</div>
 	<div class="row" ng-show="findView == 'showeditandview'">
+
 		<div class="col-md-3">
 			<label>Location Name:</label>
 		</div>
@@ -21,14 +39,19 @@
 		</div>
 	</div>
 	<div class="row" ng-show="findView == 'showSaveWithNewLocation' || findView == 'showSaveWithOldLocation'">
+		<div ng-class="{ 'form-submitted': formSubmitted }">
+		<form name="form" valdr-type="LocationUpdate" novalidate on-navigate-away-strategy='none' >
 		<div class="col-md-3">
 			<div class="profile-info-row">
 				<div class="profile-info-name">Location Name</div>
-				<div class="profile-info-value">
-					<input type="text" class="form-control" ng-model="location.name" />
+				<div valdr-form-group class="profile-info-value">
+					<input type="text" name="name" class="form-control" ng-model="location.name" />
+					<span ng-show="errorMsg.length!=0 && location.name!=null" style="color:red;">{{errorMsg}}</span>
 				</div>
 			</div>
 		</div>
+	</form>
+</div>
 	</div>
 	<br />
 	<div style="border-bottom: 1px solid #EEEEEE;" ng-show="showList">
@@ -39,9 +62,11 @@
 			<table class="table table-striped table-hover">
 				<tr>
 					<th>Location Name</th>
+					<th></th>
 				</tr>
 				<tr ng-repeat="location in allLocations">
 					<td><a href="javascript:void(0)" ng-click="showLocation(location.id)">{{location.name}}</a></td>
+					<td><a href="" ng-click="deleteLocation(location.id)" ><span class="glyphicon glyphicon-remove-sign"></span></a></td>
 				</tr>
 			</table>
 		</div>

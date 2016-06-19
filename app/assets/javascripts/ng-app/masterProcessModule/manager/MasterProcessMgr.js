@@ -1,7 +1,7 @@
 masterProcessModule.service('masterProcessMgr', function (masterProcessSrv) {
-	
+
 	var self = this;
-	
+
 	this.getMasterProducts = function(callbackFunction) {
 		masterProcessSrv.getProcesses(function(allMasterProducts) {
 			callbackFunction(allMasterProducts);
@@ -22,5 +22,12 @@ masterProcessModule.service('masterProcessMgr', function (masterProcessSrv) {
 				callbackFunction(data);
 			});
 		}
+	}
+
+	this.deleteProcess = function(masterProductId,callbackFunction){
+		masterProcessSrv.deleteProcess(masterProductId,function(data) {
+			console.log(data);
+			callbackFunction();
+		})
 	}
 });

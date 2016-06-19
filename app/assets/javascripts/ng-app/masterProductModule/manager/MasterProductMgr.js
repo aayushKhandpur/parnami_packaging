@@ -1,7 +1,7 @@
 masterProductModule.service('masterProductMgr', function (masterProductSrv) {
-	
+
 	var self = this;
-	
+
 	this.getMasterProducts = function(callbackFunction) {
 		masterProductSrv.getMasterProducts(function(allMasterProducts) {
 			callbackFunction(allMasterProducts);
@@ -22,5 +22,11 @@ masterProductModule.service('masterProductMgr', function (masterProductSrv) {
 				callbackFunction(data);
 			});
 		}
+	}
+	this.deleteProduct = function(masterProductId,callbackFunction){
+		masterProductSrv.deleteProduct(masterProductId,function(data) {
+			console.log(data);
+			callbackFunction();
+		})
 	}
 });

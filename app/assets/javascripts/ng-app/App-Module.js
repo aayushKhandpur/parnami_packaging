@@ -15,7 +15,8 @@ var parnamiPackaging = angular.module('AngularRails', [
 		'vendorModule',
     'registrationModule',
     'transactionModule',
-		'angularUtils.directives.dirPagination'
+		'angularUtils.directives.dirPagination',
+    'valdr'
     ]);
 
 	parnamiPackaging.config(function ($stateProvider,$httpProvider, $authProvider) {

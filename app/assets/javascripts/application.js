@@ -26,3 +26,5 @@
 //= require_tree
 //= require angular-cookie.min
 //= require ng-token-auth
+//= require valdr/valdr
+//= require valdr/valdr-message

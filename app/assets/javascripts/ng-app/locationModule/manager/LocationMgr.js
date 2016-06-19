@@ -1,7 +1,7 @@
 locationModule.service('locationMgr', function (locationSrv) {
-	
+
 	var self = this;
-	
+
 	this.getLocations = function(callbackFunction) {
 		locationSrv.getLocations(function(allLocations) {
 			self.allLocations = allLocations;
@@ -23,5 +23,12 @@ locationModule.service('locationMgr', function (locationSrv) {
 				callbackFunction(data);
 			});
 		}
+	}
+
+	this.deleteLocation = function(locationId,callbackFunction){
+		locationSrv.deleteLocation(locationId,function(data) {
+			console.log(data);
+			callbackFunction();
+		})
 	}
 });
