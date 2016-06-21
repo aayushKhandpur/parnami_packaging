@@ -17,6 +17,7 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 		$scope.orderErrorMsg = '';
 		$scope.orderPlanErrorMsg = '';
 		$scope.orderTransactionList = [];
+		$scope.billing_name;
 
 		$scope.applyChanges = function()
 	    {
@@ -28,7 +29,7 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 			$scope.showOrderMenu = false;
 			orderMgr.getAllCustomers(function(data) {
 				$.each(data,function(k,v){
-					v.customer.nameNumberAddress = v.customer.name+','+v.customer.mobile_number+','+v.customer.billing_address;
+					v.customer.nameNumber = v.customer.name+', '+v.customer.mobile_number;
 					$scope.allCustomers.push(v.customer);
 				});
 
@@ -44,6 +45,7 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 						var cust = orderMgr.getCustomerByIdFromList(orderDetails.orderProperty.order.customer_id,$scope.allCustomers);
 						$scope.mobile_number = cust.mobile_number;
 						$scope.customer_name = cust.name;
+						$scope.billing_name = cust.billing_name;
 						$scope.showOrderMenu = true;
 						$scope.order_date = $scope.order.delivery_date;
 						$scope.customer_id = cust.id;
@@ -171,12 +173,14 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 				$scope.mobile_number = $scope.customerSelected.mobile_number;
 				$scope.order.delivery_address = $scope.customerSelected.billing_address;
 				$scope.showOrderMenu = true;
+				$scope.billing_name = $scope.customerSelected.billing_name;
 			}
 			else {
 				$scope.customer_name = '';
 				$scope.mobile_number = '';
 				$scope.order.delivery_address = '';
 				$scope.showOrderMenu = false;
+				$scope.billing_name = '';
 			}
 		}
 		$scope.addDatePicker = function() {

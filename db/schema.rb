@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160327140656) do
+ActiveRecord::Schema.define(version: 20160621180802) do
 
   create_table "customers", force: :cascade do |t|
     t.string   "name",             limit: 255,   null: false
     t.string   "email_id",         limit: 255
     t.string   "mobile_number",    limit: 255,   null: false
     t.string   "landline_number",  limit: 255
-    t.string   "billing_name",     limit: 255
+    t.string   "billing_name",     limit: 255,   null: false
     t.text     "billing_address",  limit: 65535
     t.text     "alternate_number", limit: 65535
     t.text     "office_number",    limit: 65535

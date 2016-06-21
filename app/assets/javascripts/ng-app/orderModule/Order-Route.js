@@ -5,13 +5,13 @@ orderModule.config(function ($stateProvider) {
                 templateUrl: 'ng-app/orderModule/templates/CreateOrder.html',
                 controller: 'orderCtrl'
             })
-			.state('index.allorders', {
-				url: '/allorders',
+			.state('index.orders', {
+				url: '/orders',
                 templateUrl: 'ng-app/orderModule/templates/AllOrders.html',
                 controller: 'allOrderCtrl'
             })
             .state('index.summary', {
-              url: '/summary/:orderId',
+              url: '/orders/:orderId',
                       templateUrl: 'ng-app/orderModule/templates/summary.html',
                       controller: 'orderCtrl'
                   })

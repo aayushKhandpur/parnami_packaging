@@ -13,19 +13,19 @@
 	<div ui-grid="{ data: allOrders }" class="myGrid"></div>
 	<div ng-hide="allOrders.length == 0">
 		<div class="row">
-			<div class="col-md-3">
+			<!-- <div class="col-md-3">
 				<div class="profile-info-row">
 					<div class="profile-info-name">Search By:</div>
 					<div class="profile-info-value">
 						<select class="form-control" ng-change="changeSearchAttribute(searchAttribute)" ng-model="searchAttribute" ng-options="parameter.id as parameter.name for parameter in searchAttributeList" />
 					</div>
 				</div>
-			</div>
-			<div class="col-md-3">
+			</div> -->
+			<div class="col-md-6">
 				<div class="profile-info-row">
-					<div class="profile-info-name">Search Text:</div>
+					<div class="profile-info-name">Search Order:</div>
 					<div class="profile-info-value">
-						<input type="text" class="form-control" ng-model="searchText[searchAttribute]"/>
+						<input type="text" class="form-control" ng-model="searchText[searchAttribute]" placeholder="Search Order"/>
 					</div>
 				</div>
 			</div>
@@ -38,9 +38,8 @@
 					<tr>
 						<th ng-click="sort('customer_name')">Customer Name <span class="fa fa-chevron-up" ng-show="sortKey=='customer_name'" ng-class="{'fa fa-chevron-down':reverse,'fa fa-chevron-up':!reverse}"></span></th>
 						<th ng-click="sort('delivery_date')">Delivery Date <span class="fa fa-chevron-up" ng-show="sortKey=='delivery_date'" ng-class="{'fa fa-chevron-down':reverse,'fa fa-chevron-up':!reverse}"></span></th>
-						<th ng-click="sort('delivery_address')">Address <span class="fa fa-chevron-up" ng-show="sortKey=='delivery_address'" ng-class="{'fa fa-chevron-down':reverse,'fa fa-chevron-up':!reverse}"></span></th>
-						<th ng-click="sort('order_details')">Order Details <span class="fa fa-chevron-up" ng-show="sortKey=='order_details'" ng-class="{'fa fa-chevron-down':reverse,'fa fa-chevron-up':!reverse}"></span></th>
-					</tr>
+						<th ng-click="sort('billing_name')">Delivery Name <span class="fa fa-chevron-up" ng-show="sortKey=='billing_name'" ng-class="{'fa fa-chevron-down':reverse,'fa fa-chevron-up':!reverse}"></span></th>
+
 					<tr ng-show="(allOrders | filter:searchText[searchAttribute]).length == 0">
 						<td colspan="4">
 							<p class="alert alert-info">oops ! No Order found with this search</p>
@@ -48,16 +47,17 @@
 					</tr>
 					<tr dir-paginate="order in allOrders |orderBy:sortKey:reverse |filter: searchText[searchAttribute] |itemsPerPage:5">
 						<td><a ui-sref="index.summary({orderId:order.id})">{{order.customer_name}}</a></td>
-						<td>{{order.delivery_date}}</td>
-						<td>{{order.delivery_address}}</td>
-						<td>{{order.order_details}}</td>
+						<td>{{order.delivery_date | date:'dd-MMM-yyyy'}}</td>
+						<td>{{order.billing_name}}</td>
 					</tr>
 				</table>
+				<div style="text-align:center">
 				 <dir-pagination-controls
 					max-size="5"
 					direction-links="true"
 					boundary-links="true" >
 				</dir-pagination-controls>
+				</div>
 			</div>
 		</div>
 	</div>

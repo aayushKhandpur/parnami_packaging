@@ -27,8 +27,10 @@
           <td>{{order.delivery_date}}</td>
         </tr>
         <tr>
+          <th>Delivery Name</th>
+          <td>{{billing_name}}</td>
           <th>Delievery Address</th>
-          <td colspan="3">{{order.delivery_address}}</td>
+          <td>{{order.delivery_address}}</td>
         </tr>
       </table>
     </div>
@@ -47,13 +49,13 @@
           <th>Product Name</th>
           <th>Quantity</th>
           <th>Color</th>
-          <th>Size</th>
+          <th>Price</th>
         </tr>
         <tr ng-repeat="product in productList">
           <td><a ui-sref="index.neworderproducts({orderId:orderId,productId:product.order_product.id})" >{{product.order_product.master_process_name}}</a></td>
           <td>{{product.order_product.quantity}}</td>
           <td>{{product.order_product.color}}</td>
-          <td>{{product.order_product.size}}</td>
+          <td>{{product.order_product.price}}</td>
         </tr>
       </table>
     </div>
