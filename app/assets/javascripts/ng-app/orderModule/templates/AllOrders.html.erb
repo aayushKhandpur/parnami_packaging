@@ -38,7 +38,7 @@
 					<tr>
 						<th ng-click="sort('customer_name')">Customer Name <span class="fa fa-chevron-up" ng-show="sortKey=='customer_name'" ng-class="{'fa fa-chevron-down':reverse,'fa fa-chevron-up':!reverse}"></span></th>
 						<th ng-click="sort('delivery_date')">Delivery Date <span class="fa fa-chevron-up" ng-show="sortKey=='delivery_date'" ng-class="{'fa fa-chevron-down':reverse,'fa fa-chevron-up':!reverse}"></span></th>
-						<th ng-click="sort('billing_name')">Delivery Name <span class="fa fa-chevron-up" ng-show="sortKey=='billing_name'" ng-class="{'fa fa-chevron-down':reverse,'fa fa-chevron-up':!reverse}"></span></th>
+						<th ng-click="sort('billing_name')">Billing Name <span class="fa fa-chevron-up" ng-show="sortKey=='billing_name'" ng-class="{'fa fa-chevron-down':reverse,'fa fa-chevron-up':!reverse}"></span></th>
 
 					<tr ng-show="(allOrders | filter:searchText[searchAttribute]).length == 0">
 						<td colspan="4">

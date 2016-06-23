@@ -36,7 +36,7 @@
 		<div class="row" ng-show="showOrderMenu">
 			<div class="col-md-3">
 				<div class="profile-info-row">
-					<div class="profile-info-name">Customer Name</div>
+					<div class="profile-info-name">Customer Name *</div>
 					<div class="profile-info-value">
 						<input type="text" class="form-control" ng-model="customer_name" ng-disabled="true"/>
 					</div>
@@ -44,7 +44,7 @@
 			</div>
 			<div class="col-md-3">
 				<div class="profile-info-row">
-					<div class="profile-info-name">Mobile Number</div>
+					<div class="profile-info-name">Mobile Number *</div>
 					<div class="profile-info-value">
 						<input type="text" class="form-control" ng-model="mobile_number" ng-disabled="true"/>
 					</div>
@@ -52,7 +52,7 @@
 			</div>
 			<div class="col-md-3">
 				<div class="profile-info-row">
-					<div class="profile-info-name">Delivery Date</div>
+					<div class="profile-info-name">Delivery Date *</div>
 					<div class="profile-info-value">
 						<div class='input-group date orderdatepicker'>
 							<input type='text' class="form-control"  ng-model="order.delivery_date" ng-disabled="isOrderShown"/>
@@ -67,15 +67,7 @@
 		<div class="row" ng-show="showOrderMenu">
 			<div class="col-md-3">
 				<div class="profile-info-row">
-					<div class="profile-info-name">Additional Details (Optional)</div>
-					<div class="profile-info-value">
-						<textarea rows="4" class="form-control" ng-model="order.order_details" ng-disabled="isOrderShown"/>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="profile-info-row">
-					<div class="profile-info-name">Delivery Address</div>
+					<div class="profile-info-name">Delivery Address *</div>
 					<div class="profile-info-value">
 						<textarea rows="4" class="form-control" ng-model="order.delivery_address" ng-disabled="isOrderShown"/>
 					</div>
@@ -83,9 +75,17 @@
 			</div>
 				<div class="col-md-3">
 					<div class="profile-info-row">
-						<div class="profile-info-name">Delivery Name</div>
+						<div class="profile-info-name">Billing Name *</div>
 						<div class="profile-info-value">
 							<textarea rows="4" class="form-control" ng-model="billing_name" ng-disabled="isOrderShown"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="profile-info-row">
+						<div class="profile-info-name">Additional Details (Optional)</div>
+						<div class="profile-info-value">
+							<textarea rows="4" class="form-control" ng-model="order.order_details" ng-disabled="isOrderShown"/>
 						</div>
 					</div>
 				</div>
