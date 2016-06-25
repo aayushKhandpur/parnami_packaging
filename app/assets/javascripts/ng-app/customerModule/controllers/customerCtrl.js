@@ -56,6 +56,8 @@ customerModule.controller('customerCtrl', function ($scope,$log,$location,custom
 		$scope.masterProductId = pId;
 		$scope.showList = false;
 		$scope.findView = 'showeditandview';
+		var path = '/index/customers/' + pId ;
+		$location.path(path);
 	}
 
 	$scope.showNewCustomer = function() {
@@ -67,6 +69,10 @@ customerModule.controller('customerCtrl', function ($scope,$log,$location,custom
 	$scope.editCustomer = function() {
 		$scope.showList = false;
 		$scope.findView = 'showSaveWithOldCustomer';
+	}
+
+	$scope.go = function ( path ) {
+  	$location.path( path );
 	}
 
 });
