@@ -18,7 +18,7 @@
       </tr>
       <tr ng-repeat="master in allMasterProducts">
         <td>{{master.id}}</td>
-        <td><a href="javascript:void(0)" ng-click="go('/index/customers/{{master.id}}')">{{master.name}}</a></td>
+        <td><a href="javascript:void(0)" ng-href="/#/index/customers/{{master.id}}">{{master.name}}</a></td>
         <td>{{master.email_id}}</td>
         <td>{{master.mobile_number}}</td>
         <td>{{master.billing_name}}</td>

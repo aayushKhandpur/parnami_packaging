@@ -5,16 +5,23 @@ customerModule.config(function ($stateProvider) {
 			templateUrl: 'ng-app/customerModule/templates/Customer.html',
 			controller: 'customerCtrl'
 		})
+		.state('index.customers.all', {
+			url: '/',
+			templateUrl: 'ng-app/customerModule/templates/all_customers.html',
+		})
 		.state('index.customers.create', {
 			url: '/create',
 			templateUrl: 'ng-app/customerModule/templates/customer_create.html',
 		})
 		.state('index.customers.edit', {
-			url: '/{{master.id}}',
+			url: '/:customerId',
 			templateUrl: 'ng-app/customerModule/templates/customer_edit.html',
+			controller: 'customerDetailCtrl',
+			resolve: {
+				customerId: ['$stateParams',function($stateParams){
+					return $stateParams['customerId'];
+				}]
+			}
 		})
-		.state('index.customers.all', {
-			url: '/',
-			templateUrl: 'ng-app/customerModule/templates/all_customers.html',
-		})
+
 });

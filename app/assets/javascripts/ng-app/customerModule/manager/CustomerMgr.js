@@ -30,4 +30,10 @@ customerModule.service('customerMgr', function (customerSrv) {
 			errorMsg += "<ul><li>Mobile Number can't be blank</li></ul>" ;
 			return errorMsg;
 	}
+	this.getCustomerById = function(customerId,callbackFunction) {
+		customerSrv.getCustomerById(customerId,function(masterProducts) {
+			callbackFunction(masterProducts);
+		});
+	}
+
 });

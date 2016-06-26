@@ -1,34 +1,18 @@
-customerModule.controller('customerCtrl', function ($scope,$log,$location,customerMgr) {
+customerModule.controller('customerDetailCtrl', function ($scope,$log,$location,customerMgr,customerId) {
 
 	$scope.masterProduct;
-	$scope.allMasterProducts;
-	$scope.masterProductId = null;
-	$scope.showList;
-	$scope.findView;
+	$scope.masterProductId = customerId;
 	$scope.customerErrorMsg ='';
+  $scope.findView = 'detailView';
 
+  $scope.getCustomer = function (customerId) {
+    customerMgr.getCustomerById(customerId,function(customerDetails) {
+      $scope.masterProduct = customerDetails.customer;
+    });
+  }
+  $scope.getCustomer($scope.masterProductId);
 
-	$scope.applyChanges = function() {
-	   if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest')
-		   $scope.$apply();
-	}
-
-	$scope.loadDefaults = function() {
-		$scope.allMasterProducts = [];
-		$scope.masterProductId = null;
-		$scope.masterProduct = {};
-		$scope.showList = true;
-		$scope.findView = 'none';
-		customerMgr.getMasterProducts(function(masterProducts){
-			$.each(masterProducts,function(k,v) {
-				$scope.allMasterProducts.push(v.customer);
-			});
-			$scope.applyChanges();
-		});
-	}
-	$scope.loadDefaults();
-
-	$scope.createCustomer = function(form) {
+	$scope.updateCustomer = function( form ) {
 		if(form.$invalid){
 				$scope.formSubmitted=true;
 				return;
@@ -36,43 +20,19 @@ customerModule.controller('customerCtrl', function ($scope,$log,$location,custom
 		var errorMsg = customerMgr.validateCustomer($scope.masterProduct);
 		if(errorMsg.length == 0){
 			customerMgr.createMasterProduct($scope.masterProductId,$scope.masterProduct,function(masterProductDetails) {
-				$.toaster({ priority : 'success', title : 'Info', message : 'Customer is Saved',width:'100%'});
+				$.toaster({ priority : 'success', title : 'Info', message : 'Customer is Updated',width:'100%'});
 				$scope.loadDefaults();
 				$scope.applyChanges();
-				$scope.go('/index/customers/')
 			});
+      $scope.go('/index/customers/')
 		}else{
 			$scope.customerErrorMsg = errorMsg;
 		}
-
-
 	}
 
-	$scope.showMasterProduct = function(pId) {
-		var masterProduct = {};
-		for(var counter = 0;counter < $scope.allMasterProducts.length;counter++) {
-			if($scope.allMasterProducts[counter].id == pId) {
-				masterProduct = $scope.allMasterProducts[counter];
-				break;
-			}
-		}
-		$scope.masterProduct = masterProduct;
-		$scope.masterProductId = pId;
-		$scope.showList = false;
-		$scope.findView = 'showeditandview';
-		var path = '/index/customers/' + pId ;
-		$location.path(path);
-	}
-
-	$scope.showNewCustomer = function() {
-		$scope.showList = false;
-		$scope.findView = 'showSaveWithNewCustomer';
-		$scope.location = {};
-	}
 
 	$scope.editCustomer = function() {
-		$scope.showList = false;
-		$scope.findView = 'showSaveWithOldCustomer';
+		$scope.findView = 'editView';
 	}
 
 	$scope.go = function ( path ) {
@@ -80,11 +40,10 @@ customerModule.controller('customerCtrl', function ($scope,$log,$location,custom
 	}
 
 });
-
 angular.module('AngularRails').config(['valdrProvider','CONTACT_NUMBER_REGEXP','EMAIL_REGEXP','CONTACT_NUMBER_REGEXP2', function(valdrProvider,CONTACT_NUMBER_REGEXP,EMAIL_REGEXP,CONTACT_NUMBER_REGEXP2) {
 
   valdrProvider.addConstraints({
-    "CustomerCreate": {
+    "CustomerUpdate": {
 			'mobileNumber': {
 				'required': {
 					'message': 'Mobile number is required'
