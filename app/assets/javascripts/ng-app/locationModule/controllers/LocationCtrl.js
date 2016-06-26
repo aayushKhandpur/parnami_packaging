@@ -3,7 +3,7 @@ locationModule.controller('locationCtrl', function ($scope,$log,$location,locati
 	$scope.location;
 	$scope.allLocations;
 	$scope.locationId = null;
-	$scope.findView;
+	$scope.findView = 'detailView';
 	$scope.showList;
 
 
@@ -49,8 +49,8 @@ locationModule.controller('locationCtrl', function ($scope,$log,$location,locati
 				locationMgr.createLocation($scope.locationId,$scope.location,function(locationDetails) {
 					$.toaster({ priority : 'success', title : 'Info', message : 'Location is Saved',width:'100%'});
 					$scope.loadDefaults();
-					console.log(JSON.stringify(locationDetails));
 					$scope.applyChanges();
+					$scope.go('index/locations/');
 				});
 			}
 
@@ -74,11 +74,7 @@ locationModule.controller('locationCtrl', function ($scope,$log,$location,locati
 		$scope.showList = false;
 		$scope.findView = 'showSaveWithNewLocation';
 		$scope.location = {};
-	}
-
-	$scope.editLocation = function() {
-		$scope.showList = false;
-		$scope.findView = 'showSaveWithOldLocation';
+		$scope.go('/index/locations/create')
 	}
 
 	$scope.deleteLocation = function(locationId){
@@ -89,6 +85,10 @@ locationModule.controller('locationCtrl', function ($scope,$log,$location,locati
 			$scope.applyChanges();
 		});
 	}
+
+	$scope.go = function ( path ) {
+  	$location.path( path );
+	};
 
 });
 

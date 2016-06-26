@@ -13,7 +13,6 @@ locationModule.service('locationMgr', function (locationSrv) {
 			location.created_at = new Date();
 			location.updated_at = new Date();
 			locationSrv.insertLocation(location,function(data) {
-				console.log(JSON.stringify(data));
 				callbackFunction(data);
 			});
 		}
@@ -27,8 +26,13 @@ locationModule.service('locationMgr', function (locationSrv) {
 
 	this.deleteLocation = function(locationId,callbackFunction){
 		locationSrv.deleteLocation(locationId,function(data) {
-			console.log(data);
 			callbackFunction();
+		})
+	}
+
+	this.getLocationById = function(locationId,callbackFunction){
+		locationSrv.getLocationById(locationId,function(data) {
+			callbackFunction(data.location);
 		})
 	}
 });

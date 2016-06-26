@@ -12,7 +12,6 @@ masterProductModule.service('masterProductMgr', function (masterProductSrv) {
 			masterProduct.created_at = new Date();
 			masterProduct.updated_at = new Date();
 			masterProductSrv.insertMasterProduct(masterProduct,function(data) {
-				console.log('data'+JSON.stringify(data));
 				callbackFunction(data);
 			});
 		}
@@ -25,8 +24,13 @@ masterProductModule.service('masterProductMgr', function (masterProductSrv) {
 	}
 	this.deleteProduct = function(masterProductId,callbackFunction){
 		masterProductSrv.deleteProduct(masterProductId,function(data) {
-			console.log(data);
 			callbackFunction();
+		})
+	}
+
+	this.getMasterProductById = function(masterProductId,callbackFunction){
+		masterProductSrv.getMasterProductById(masterProductId,function(data) {
+			callbackFunction(data);
 		})
 	}
 });

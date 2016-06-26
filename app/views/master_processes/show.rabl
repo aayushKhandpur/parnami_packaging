@@ -1,2 +1,2 @@
 object @process
-attributes :id, :name
+attributes :id, :name, :description
