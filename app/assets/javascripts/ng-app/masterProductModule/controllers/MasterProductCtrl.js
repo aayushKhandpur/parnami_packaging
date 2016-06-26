@@ -49,8 +49,8 @@ masterProductModule.controller('masterProductCtrl', function ($scope,$log,$locat
 				masterProductMgr.createMasterProduct($scope.masterProductId,$scope.masterProduct,function(masterProductDetails) {
 					$.toaster({ priority : 'success', title : 'Info', message : 'Master Product is Saved',width:'100%'});
 					$scope.loadDefaults();
-					console.log(JSON.stringify(masterProductDetails));
 					$scope.applyChanges();
+					$scope.go('/index/product/')
 				});
 			}
 	}
@@ -88,6 +88,10 @@ masterProductModule.controller('masterProductCtrl', function ($scope,$log,$locat
 			$scope.applyChanges();
 		});
 	}
+
+	$scope.go = function ( path ) {
+    $location.path( path );
+  };
 
 });
 

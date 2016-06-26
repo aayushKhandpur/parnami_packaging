@@ -87,6 +87,10 @@ masterProcessModule.controller('masterProcessCtrl', function ($scope,$log,$locat
 		});
 	}
 
+	$scope.go = function ( path ) {
+		$location.path( path );
+	};
+
 });
 
 
