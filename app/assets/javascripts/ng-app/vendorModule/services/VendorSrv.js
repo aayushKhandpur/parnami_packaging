@@ -1,5 +1,5 @@
 vendorModule.factory('vendorSrv', function ($http) {
-        
+
 	return {
 		getLocations: function(callbackFunction) {
 			var httpRequest = $http.get('/vendors');
@@ -14,7 +14,7 @@ vendorModule.factory('vendorSrv', function ($http) {
 			var httpRequest = $http.post('/vendors',location);
 			httpRequest.success(function(data){
 				callbackFunction(data);
-			
+
 			});
 			httpRequest.error(function(data){
 				console.log(JSON.stringify(data));
@@ -24,12 +24,21 @@ vendorModule.factory('vendorSrv', function ($http) {
 			var httpRequest = $http.put('/vendors/'+locationId,location);
 			httpRequest.success(function(data){
 				callbackFunction(data);
-			
+
 			});
 			httpRequest.error(function(data){
 				console.log(JSON.stringify(data));
 			});
-		}
-	};	
-		
+		},
+    getVendorById: function(vendorId,callbackFunction) {
+      var httpRequest = $http.get('/vendors/'+vendorId);
+      httpRequest.success(function(data){
+        callbackFunction(data);
+      });
+      httpRequest.error(function(data){
+        console.log(JSON.stringify(data));
+      });
+    }
+	};
+
 });

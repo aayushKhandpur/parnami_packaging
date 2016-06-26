@@ -32,4 +32,11 @@ vendorModule.service('vendorMgr', function (vendorSrv) {
 			return errorMsg;
 	}
 
+
+		this.getVendorById = function(vendorId,callbackFunction){
+			vendorSrv.getVendorById(vendorId,function(data) {
+				callbackFunction(data.vendor);
+			})
+		}
+
 });
