@@ -53,10 +53,14 @@
                 <td>{{location.office_number}}</td>
             </tr>
             <tr>
-                <th>Billing Address</th>
-                <td>{{location.billing_address}}</td>
+                <th>Company Name</th>
+                <td>{{location.company_name}}</td>
                 <th>Email</th>
                 <td>{{location.email_id}}</td>
+            </tr>
+            <tr>
+              <th>Billing Address</th>
+              <td colspan="3">{{location.billing_address}}</td>
             </tr>
         </table>
     </div>
@@ -134,6 +138,14 @@
                         <div class="profile-info-name">Billing Name *</div>
                         <div valdr-form-group class="profile-info-value">
                             <input type="text" name="billingName" class="form-control" ng-model="location.billing_name"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Vendor Company</div>
+                        <div valdr-form-group class="profile-info-value">
+                            <input type="text" name="vendorCompany" class="form-control" ng-model="location.company_name"/>
                         </div>
                     </div>
                 </div>
