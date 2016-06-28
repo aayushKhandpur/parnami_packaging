@@ -1,9 +1,9 @@
-orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$stateParams,$timeout,$state,processOneLocationMgr) {
+orderModule.controller('orderDetailCtrl', function ($scope,$log,$location,orderMgr,$stateParams,$timeout,$state,processOneLocationMgr,orderId) {
 
 		$scope.order = {};
 		$scope.mobile_number;
 		$scope.isOrderShown = false;
-		$scope.orderId;
+		$scope.orderId = orderId;
 		$scope.productList = [];
 		$scope.orderPlanDeliveryList = [];
 		$scope.customer_name;
@@ -18,70 +18,78 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 		$scope.orderPlanErrorMsg = '';
 		$scope.orderTransactionList = [];
 		$scope.billing_name;
-console.log($stateParams);
-		$scope.applyChanges = function()
-	    {
-		   if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest')
-			   $scope.$apply();
-	    }
 
-		$scope.loadDefaults = function() {
-			$scope.showOrderMenu = false;
-			orderMgr.getAllCustomers(function(data) {
-				$.each(data,function(k,v){
-					v.customer.nameNumber = v.customer.name+', '+v.customer.mobile_number;
-					$scope.allCustomers.push(v.customer);
-				});
 
-				if($scope.orderId == 'new'){
+
+    	$scope.getOrder = function (orderId) {
+    		orderMgr.getOrderById(orderId,function(orderDetails) {
+    			$scope.order = orderDetails.order;
+    		});
+    	}
+    	$scope.getOrder($scope.orderId);
+
+			$scope.applyChanges = function()
+				{
+				 if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest')
+					 $scope.$apply();
 				}
-				else {
-					orderMgr.loadDefaults($scope.orderId,function(orderDetails,customerDetails) {
-						console.log('####'+JSON.stringify(orderDetails));
-						$scope.order = orderDetails.orderProperty.order;
-						$scope.productList = orderDetails.productList;
-						console.log('2dd'+JSON.stringify(orderDetails.orderDeliveryPlanList));
-						$scope.orderPlanDeliveryList = orderDetails.orderDeliveryPlanList;
-						var cust = orderMgr.getCustomerByIdFromList(orderDetails.orderProperty.order.customer_id,$scope.allCustomers);
-						$scope.mobile_number = cust.mobile_number;
-						$scope.customer_name = cust.name;
-						$scope.billing_name = cust.billing_name;
-						$scope.showOrderMenu = true;
-						$scope.order_date = $scope.order.delivery_date;
-						$scope.customer_id = cust.id;
-						$scope.isOrderShown = true;
-						console.log('@!@33'+JSON.stringify(customerDetails));
-						orderMgr.getOrderProductById($scope.orderId,function(data){
-							$scope.allOrderProducts = data;
-							$scope.addDatePicker();
-							if(data.length > 0) {
-								$scope.orderDeliveryPlanTemplate = {
-									order_product_id: angular.copy(data[0].productId),
-									quantity: 0,
-									isEditable: true,
-									delivery_date: '',
-									splittedFromId: ''
-								};
-							}
+
+			$scope.loadDefaults = function() {
+				$scope.showOrderMenu = false;
+				orderMgr.getAllCustomers(function(data) {
+					$.each(data,function(k,v){
+						v.customer.nameNumber = v.customer.name+', '+v.customer.mobile_number;
+						$scope.allCustomers.push(v.customer);
+					});
+
+					if($scope.orderId == 'new'){
+					}
+					else {
+						orderMgr.loadDefaults($scope.orderId,function(orderDetails,customerDetails) {
+							console.log('####'+JSON.stringify(orderDetails));
+							$scope.order = orderDetails.orderProperty.order;
+							$scope.productList = orderDetails.productList;
+							console.log('2dd'+JSON.stringify(orderDetails.orderDeliveryPlanList));
+							$scope.orderPlanDeliveryList = orderDetails.orderDeliveryPlanList;
+							var cust = orderMgr.getCustomerByIdFromList(orderDetails.orderProperty.order.customer_id,$scope.allCustomers);
+							$scope.mobile_number = cust.mobile_number;
+							$scope.customer_name = cust.name;
+							$scope.billing_name = cust.billing_name;
+							$scope.showOrderMenu = true;
+							$scope.order_date = $scope.order.delivery_date;
+							$scope.customer_id = cust.id;
+							$scope.isOrderShown = true;
+							console.log('@!@33'+JSON.stringify(customerDetails));
+							orderMgr.getOrderProductById($scope.orderId,function(data){
+								$scope.allOrderProducts = data;
+								$scope.addDatePicker();
+								if(data.length > 0) {
+									$scope.orderDeliveryPlanTemplate = {
+										order_product_id: angular.copy(data[0].productId),
+										quantity: 0,
+										isEditable: true,
+										delivery_date: '',
+										splittedFromId: ''
+									};
+								}
+								$scope.applyChanges();
+							});
+							processOneLocationMgr.getTransactions($scope.orderId,function(data){
+								console.log(data);
+								if(data.length > 0){
+									$scope.orderTransactionList = data;
+									console.log(JSON.stringify($scope.orderTransactionList));
+								}
+							})
+
 							$scope.applyChanges();
 						});
-						processOneLocationMgr.getTransactions($scope.orderId,function(data){
-							console.log(data);
-							if(data.length > 0){
-								$scope.orderTransactionList = data;
-								console.log(JSON.stringify($scope.orderTransactionList));
-							}
-						})
+					}
+					$scope.applyChanges();
+				});
+			}
 
-						$scope.applyChanges();
-					});
-				}
-				$scope.applyChanges();
-			});
-		}
-
-		$scope.loadDefaults();
-
+			$scope.loadDefaults();
 		$scope.createOrder = function() {
 			var errorMsg = orderMgr.validateOrder($scope.order);
 			if(errorMsg.length == 0) {

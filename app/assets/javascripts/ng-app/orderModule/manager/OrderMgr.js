@@ -1,9 +1,9 @@
 angular.module('orderModule')
     .service('orderMgr', function (orderSrv,utilitySrv,productPlanSrv,productSrv,customerSrv,orderPlanMgr) {
-	
+
 		var orderDetails = {};
         var self = this;
-		
+
 		this.createOrder = function(newOrder,orderId,getInsertedOrder) {
 			if(orderId == 'new') {
 				newOrder.order_date =  newOrder.delivery_date;
@@ -35,7 +35,7 @@ angular.module('orderModule')
 				});
 			});
 		}
-		
+
 		this.getOrderPlanByOrderId =  function(orderId,callbackFunction) {
 			var allPrderPlans = [];
 			productPlanSrv.getOrderPlanDeliveryByOrderId(orderId,function(orderDeliveryPlan) {
@@ -46,13 +46,13 @@ angular.module('orderModule')
 				callbackFunction(allPrderPlans);
 			});
 		}
-		
+
 		this.getAllCustomers = function(callbackFunction) {
 			customerSrv.getAllCustomers(function(data){
 				callbackFunction(data);
 			});
 		}
-		
+
 		this.getCustomerByIdFromList = function(customerId,list) {
 			var customer = {};
 			for(var counter = 0;counter < list.length; counter++) {
@@ -63,19 +63,19 @@ angular.module('orderModule')
 			}
 			return customer;
 		}
-		
+
 		this.getOrderProductById = function(orderId,callbackFunction) {
 			orderPlanMgr.getOrderProductsByOrderId(orderId,function(data) {
 				callbackFunction(data);
 			});
 		}
-		
+
 		this.createOrderPlan = function(orderPlan,callbackFunction) {
 			orderPlanMgr.createPlan(orderPlan,function(data) {
 				callbackFunction(data);
 			});
 		}
-		
+
 		this.validateOrder = function(order) {
 			var errorMsg = '';
 			if(order.delivery_address == null || order.delivery_address.length == 0)
@@ -84,14 +84,14 @@ angular.module('orderModule')
 				errorMsg += '<ul><li>Delivery Date cannot be empty.</li></ul>' ;
 			return errorMsg;
 		}
-		
+
 		this.getProcessPlanById = function(id,planList) {
 			for(var counter = 0;counter < planList.length;counter++){
 				if(planList[counter].id == id)
 					return planList[counter];
 			}
 		}
-		
+
 		this.validateSplitQuantity = function(updatePlan,orderPlan) {
 			var errorMsg = '';
 			if(orderPlan.delivery_date == null || orderPlan.delivery_date.length == 0)
@@ -106,7 +106,7 @@ angular.module('orderModule')
 				errorMsg += '<ul><li>Quantity must be less than quantity to be splitted</li></ul>';
 			return errorMsg;
 		}
-		
+
 		this.validateOrderPlan = function(orderPlan,productList,callbackFunction) {
 			var errorMsg = '';
 			var maximumQuantity;
@@ -140,5 +140,11 @@ angular.module('orderModule')
 				callbackFunction(errorMsg);
 			});
 		}
-		
+
+    this.getOrderById = function(orderId,callbackFunction){
+      orderSrv.getOrderById(orderId,function(data) {
+        callbackFunction(data);
+      })
+    }
+
     });

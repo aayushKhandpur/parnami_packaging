@@ -1,5 +1,7 @@
-<%= stylesheet_link_tag "homecss" %>
 <div class="container-fluid">
+  <div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+		<back-button data-toggle="tooltip" title="Click this button to go to previous screen"></back-button>
+	</div>
 	<div class="row" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
 		<div class="col-md-12">
 			<ul class="nav nav-tabs">
@@ -10,7 +12,9 @@
 			</ul>
 		</div>
 	</div>
-	<div ng-show="showProductOrDeliveryPlan == 'showOrder'">
+  <ui-view></ui-view>
+</div>
+	<!-- <div ng-show="showProductOrDeliveryPlan == 'showOrder'">
 		<div class="alert alert-danger col-md-12" ng-show="orderErrorMsg.length > 0">
 			<span style="color:#cc0000"><h4>Errors</h4></span>
 			<span ng-bind-html="orderErrorMsg | sanitize"><p>{{orderErrorMsg}}</p></span>
@@ -204,6 +208,5 @@
 				</tr>
 			</table>
 		</div>
-	</div>
-</div>
+	</div> -->
 <%= javascript_include_tag "homejs" %>

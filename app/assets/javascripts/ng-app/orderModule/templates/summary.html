@@ -4,10 +4,13 @@
     font-weight: bolder;
   }
 </style>
-<div class="panel panel-default" style="margin:20px">
+<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+  <back-button data-toggle="tooltip" title="Click this button to go to previous screen"></back-button>
+</div>
+<div class="panel panel-default" style="margin:20px;margin-top:60px">
     <div class="panel-heading header">ORDER DETAIL
       <span>
-        <a ui-sref="index.createorder({orderId:order.id})">
+        <a ui-href="/#/index/order/{{order.id}}/">
           <span class="glyphicon glyphicon-edit"></span>
         </a>
       </span>
