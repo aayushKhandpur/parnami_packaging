@@ -18,7 +18,6 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 		$scope.orderPlanErrorMsg = '';
 		$scope.orderTransactionList = [];
 		$scope.billing_name;
-console.log($stateParams);
 		$scope.applyChanges = function()
 	    {
 		   if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest')
@@ -33,7 +32,7 @@ console.log($stateParams);
 					$scope.allCustomers.push(v.customer);
 				});
 
-				if($scope.orderId == 'new'){
+				if(angular.isUndefined($scope.orderId)){
 				}
 				else {
 					orderMgr.loadDefaults($scope.orderId,function(orderDetails,customerDetails) {
@@ -212,4 +211,10 @@ console.log($stateParams);
 				$scope.orderPlanDeliveryList[$scope.orderPlanDeliveryList.length - 1].order_product_id = orderPlan.order_product_id;
 			}
 		}
+
+
+		$scope.go = function ( path ) {
+			$location.path( path );
+		};
+		
     });

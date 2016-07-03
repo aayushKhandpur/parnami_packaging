@@ -2,7 +2,7 @@ indexModule.controller('indexCtrl', ['$scope', '$location', '$auth', function ($
 
 	$auth.validateUser()
 	.then(function(resp) {
-		$location.path("/index/orders");
+		$location.path("/index/order/");
 	})
 	.catch(function(resp) {
 		 $location.path("/signin");

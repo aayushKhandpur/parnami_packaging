@@ -7,10 +7,10 @@
 <div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
   <back-button data-toggle="tooltip" title="Click this button to go to previous screen"></back-button>
 </div>
-<div class="panel panel-default" style="margin:20px;margin-top:60px">
+<div class="panel panel-default" style="margin-top:60px">
     <div class="panel-heading header">ORDER DETAIL
       <span>
-        <a ui-href="/#/index/order/{{order.id}}/">
+        <a ng-href="/#/index/{{order.id}}/edit">
           <span class="glyphicon glyphicon-edit"></span>
         </a>
       </span>
@@ -38,7 +38,7 @@
       </table>
     </div>
 </div>
-<div class="panel panel-default" style="margin:20px">
+<div class="panel panel-default" >
     <div class="panel-heading header">ORDER PRODUCTS
       <span>
         <a ui-sref="index.createorder({orderId:order.id})">
@@ -63,7 +63,7 @@
       </table>
     </div>
 </div>
-<div class="panel panel-default" style="margin:20px">
+<div class="panel panel-default">
     <div class="panel-heading header">Order Delievery Plans
       <span>
         <a ui-sref="index.createorder({orderId:order.id})">
@@ -109,7 +109,7 @@
       </table>
     </div>
 </div> -->
-<div class="panel panel-default" style="margin:20px">
+<div class="panel panel-default" >
     <div class="panel-heading header">Order Transactions
       <span>
         <a ui-sref="index.createorder({orderId:order.id})">

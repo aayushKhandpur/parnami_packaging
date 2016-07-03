@@ -11,7 +11,7 @@ registrationModule.controller('RegistrationCtrl', ['$scope', '$location', '$auth
 					$log.info(JSON.stringify(successData));
 					var role = successData.c.role;
 					if(role.name == 'Admin'|| role.name == 'admin' ){
-						$location.path("/index/orders");
+						$location.path("/index/order/");
 					}
 					else if(role.name == 'Guest' || role.name == 'guest'){
 						$location.path("/signup");

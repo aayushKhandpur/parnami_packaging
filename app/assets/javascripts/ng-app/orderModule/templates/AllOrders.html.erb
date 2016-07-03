@@ -1,7 +1,7 @@
 <%= stylesheet_link_tag "homecss" %>
 	<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
 		<back-button data-toggle="tooltip" title="Click this button to go to previous screen"></back-button>
-		<button data-toggle="tooltip" title="Click this button to create the Order" class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="createNewOrder()"><i class="fa fa-plus-square"></i></button>
+		<button data-toggle="tooltip" title="Click this button to create the Order" class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="go('/index/order/create')"><i class="fa fa-plus-square"></i></button>
 	</div>
 	<div class="alert alert-info col-md-12" ng-show="noOrderMsg.length > 0">
 		<span ng-bind-html="noOrderMsg | sanitize"><p>{{noOrderMsg}}</p></span>
