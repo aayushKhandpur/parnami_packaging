@@ -2,8 +2,8 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 
 		$scope.order = {};
 		$scope.mobile_number;
-		$scope.isOrderShown = false;
-		$scope.orderId;
+		$scope.isOrderShown = false
+		$scope.orderId = $stateParams.orderId;
 		$scope.productList = [];
 		$scope.orderPlanDeliveryList = [];
 		$scope.customer_name;
@@ -32,7 +32,8 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 					$scope.allCustomers.push(v.customer);
 				});
 
-				if(angular.isUndefined($scope.orderId)){
+				if($scope.orderId == 'new'){
+					console.log("here");
 				}
 				else {
 					orderMgr.loadDefaults($scope.orderId,function(orderDetails,customerDetails) {
@@ -84,6 +85,7 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 		$scope.createOrder = function() {
 			var errorMsg = orderMgr.validateOrder($scope.order);
 			if(errorMsg.length == 0) {
+				console.log($scope.orderId);
 				orderMgr.createOrder($scope.order,$scope.orderId,function(orderInserted){
 					console.log(JSON.stringify(orderInserted));
 					console.log('###'+orderInserted.order.id);
@@ -92,7 +94,7 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 					$scope.isOrderShown = true;
 					$scope.applyChanges();
 					$.toaster({ priority : 'success', title : 'Info', message : 'Your Order is Saved...you can now proceed to create Order Products',width:'100%'});
-					$location.path('/createorder/'+$scope.orderId);
+					$location.path('/index/order/'+$scope.orderId+'/order_product');
 				});
 			}
 			else {
@@ -165,14 +167,14 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 			},50);
 		}
 
-		$scope.updateMobileAndAddress = function() {
-			if($scope.customerSelected != null) {
-				$scope.order.customer_id = $scope.customerSelected.id;
-				$scope.customer_name = $scope.customerSelected.name;
-				$scope.mobile_number = $scope.customerSelected.mobile_number;
-				$scope.order.delivery_address = $scope.customerSelected.billing_address;
+		$scope.updateMobileAndAddress = function(customerSelected) {
+			if(customerSelected != null) {
+				$scope.order.customer_id = customerSelected.id;
+				$scope.customer_name = customerSelected.name;
+				$scope.mobile_number = customerSelected.mobile_number;
+				$scope.order.delivery_address = customerSelected.billing_address;
 				$scope.showOrderMenu = true;
-				$scope.billing_name = $scope.customerSelected.billing_name;
+				$scope.billing_name = customerSelected.billing_name;
 			}
 			else {
 				$scope.customer_name = '';
@@ -216,5 +218,5 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 		$scope.go = function ( path ) {
 			$location.path( path );
 		};
-		
+
     });

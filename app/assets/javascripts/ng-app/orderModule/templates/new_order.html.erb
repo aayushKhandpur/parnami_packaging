@@ -1,0 +1,82 @@
+<div >
+  <div class="alert alert-danger col-md-12" ng-show="orderErrorMsg.length > 0">
+    <span style="color:#cc0000"><h4>Errors</h4></span>
+    <span ng-bind-html="orderErrorMsg | sanitize"><p>{{orderErrorMsg}}</p></span>
+  </div>
+  <div id='saveMessage'></div>
+  <div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+    <button data-toggle="tooltip" title="Click this button to save the Order" class="btn btn-default col-md-1"  ng-click="createOrder()" ng-show="!isOrderShown && showOrderMenu"><i class="fa fa-save"></i></button>
+    <button data-toggle="tooltip" title="Click this button to edit the Order" class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="editOrder()" ng-show="isOrderShown"><i class="fa fa-edit"></i></button>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="profile-info-row">
+        <div class="profile-info-name">Select Customer</div>
+        <div class="profile-info-value">
+          <select class="form-control select2" ng-model="customerSelected" ng-options="customers as customers.nameNumber for customers in allCustomers" ng-change="updateMobileAndAddress(customerSelected)">
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="row" ng-show="showOrderMenu">
+    <div class="col-md-3">
+      <div class="profile-info-row">
+        <div class="profile-info-name">Customer Name *</div>
+        <div class="profile-info-value">
+          <input type="text" class="form-control" ng-model="customer_name" ng-disabled="true"/>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="profile-info-row">
+        <div class="profile-info-name">Mobile Number *</div>
+        <div class="profile-info-value">
+          <input type="text" class="form-control" ng-model="mobile_number" ng-disabled="true"/>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="profile-info-row">
+        <div class="profile-info-name">Delivery Date *</div>
+        <div class="profile-info-value">
+          <div class='input-group date orderdatepicker'>
+            <input type='text' class="form-control"  ng-model="order.delivery_date" ng-disabled="isOrderShown"/>
+            <span class="input-group-addon" >
+            <span class="fa fa-calendar"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" ng-show="showOrderMenu">
+    <div class="col-md-3">
+      <div class="profile-info-row">
+        <div class="profile-info-name">Delivery Address *</div>
+        <div class="profile-info-value">
+          <textarea rows="4" class="form-control" ng-model="order.delivery_address" ng-disabled="isOrderShown"/>
+        </div>
+      </div>
+    </div>
+      <div class="col-md-3">
+        <div class="profile-info-row">
+          <div class="profile-info-name">Billing Name *</div>
+          <div class="profile-info-value">
+            <textarea rows="4" class="form-control" ng-model="billing_name" ng-disabled="isOrderShown"/>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="profile-info-row">
+          <div class="profile-info-name">Additional Details (Optional)</div>
+          <div class="profile-info-value">
+            <textarea rows="4" class="form-control" ng-model="order.order_details" ng-disabled="isOrderShown"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+<%= javascript_include_tag "homejs" %>

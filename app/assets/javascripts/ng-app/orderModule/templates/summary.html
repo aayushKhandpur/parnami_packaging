@@ -10,7 +10,7 @@
 <div class="panel panel-default" style="margin-top:60px">
     <div class="panel-heading header">ORDER DETAIL
       <span>
-        <a ng-href="/#/index/{{order.id}}/edit">
+        <a ng-href="/#/index/order/{{order.id}}/order">
           <span class="glyphicon glyphicon-edit"></span>
         </a>
       </span>
@@ -38,16 +38,16 @@
       </table>
     </div>
 </div>
-<div class="panel panel-default" >
+<div class="panel panel-default" ng-hide="productList.length == 0">
     <div class="panel-heading header">ORDER PRODUCTS
       <span>
-        <a ui-sref="index.createorder({orderId:order.id})">
+        <a ng-href="/#/index/order/{{order.id}}/order_product">
           <span class="glyphicon glyphicon-edit"></span>
         </a>
       </span>
     </div>
     <div class="panel-body">
-      <table ng-hide="productList.length == 0" class="table table-bordered table-hover">
+      <table  class="table table-bordered table-hover">
         <tr>
           <th>Product Name</th>
           <th>Quantity</th>
@@ -63,16 +63,16 @@
       </table>
     </div>
 </div>
-<div class="panel panel-default">
+<div class="panel panel-default" ng-hide="orderPlanDeliveryList.length == 0">
     <div class="panel-heading header">Order Delievery Plans
       <span>
-        <a ui-sref="index.createorder({orderId:order.id})">
+        <a ng-href="/#/index/order/{{order.id}}/order_delivery">
           <span class="glyphicon glyphicon-edit"></span>
         </a>
       </span>
     </div>
     <div class="panel-body">
-      <table ng-hide="orderPlanDeliveryList.length == 0" class="table table-bordered table-hover">
+      <table  class="table table-bordered table-hover">
 				<tr>
 					<th>Order Product</th>
 					<th>Quantity</th>
@@ -109,10 +109,10 @@
       </table>
     </div>
 </div> -->
-<div class="panel panel-default" >
+<div class="panel panel-default" ng-hide="orderTransactionList.length == 0">
     <div class="panel-heading header">Order Transactions
       <span>
-        <a ui-sref="index.createorder({orderId:order.id})">
+        <a ng-href="/#/index/order/{{order.id}}/order_transaction">
           <span class="glyphicon glyphicon-edit"></span>
         </a>
       </span>
