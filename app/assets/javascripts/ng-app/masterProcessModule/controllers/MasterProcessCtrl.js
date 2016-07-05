@@ -47,8 +47,8 @@ masterProcessModule.controller('masterProcessCtrl', function ($scope,$log,$locat
 				masterProcessMgr.createMasterProduct($scope.masterProductId,$scope.masterProduct,function(masterProductDetails) {
 					$.toaster({ priority : 'success', title : 'Info', message : 'Master Process is Saved',width:'100%'});
 					$scope.loadDefaults();
-					console.log(JSON.stringify(masterProductDetails));
 					$scope.applyChanges();
+					$scope.go('/index/process/')
 				});
 			}
 	}
