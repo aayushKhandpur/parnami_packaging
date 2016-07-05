@@ -73,7 +73,8 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 					if(option == 'savereturn')
 						$state.go('index.order.create.order_delivery',{orderId: $scope.orderId});
 					else
-					{	console.log('khghINNNNNNNNNNNNNNNNNN');
+					{
+						console.log('khghINNNNNNNNNNNNNNNNNN');
 						$scope.productId = 'new';
 						$scope.loadDefaults();
 						$state.go('index.order.create.order_delivery',{orderId:$scope.orderId,productId:'new'});

@@ -1,26 +1,40 @@
 <div class="container-fluid">
-  <div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
-		<back-button data-toggle="tooltip" title="Click this button to go to previous screen"></back-button>
-	</div>
-	<div class="row" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
-		<div class="col-md-12">
-			<ul class="nav nav-tabs nav-tab-striped">
-                <li ui-sref-active="active"><a ui-sref=".order" aria-controls="order" >&nbsp; Order </a></li>
-                <li ui-sref-active="active" ><a ui-sref=".order_product" aria-controls="order_product" >&nbsp; Order Product </a></li>
-                <li ui-sref-active="active" ><a ui-sref=".order_delivery" aria-controls="order_delivery" > &nbsp;  Order Delivery </a></li>
-                <li ui-sref-active="active" ><a ui-sref=".order_transaction" aria-controls="order_transaction" > &nbsp;  Order Transactions </a></li>
+    <div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+        <back-button data-toggle="tooltip" title="Click this button to go to previous screen"></back-button>
+    </div>
+    <div class="row" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs nav-tab-striped">
+                <li ui-sref-active="active">
+                    <a ui-sref=".order" aria-controls="order">&nbsp; Order
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref=".order_product" aria-controls="order_product">&nbsp; Order Product
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref=".order_delivery" aria-controls="order_delivery">
+                        &nbsp; Order Delivery
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref=".order_transaction" aria-controls="order_transaction">
+                        &nbsp; Order Transactions
+                    </a>
+                </li>
                 <!-- <li ng-if="student.can_view_placement_drives" ui-sref-active="active" ><a ui-sref=".drives" aria-controls="profile" > <i class="fa fa-ticket"></i>&nbsp; Placement Drives </a></li>
 
 				<li role="presentation" class="active"><a href="javascript:void(0)" ng-click="toggleTab('showOrder')">Order</a></li>
 			  <li role="presentation"><a href="javascript:void(0)" ng-click="toggleTab('showProducts')">Order Products</a></li>
 			  <li role="presentation"><a href="javascript:void(0)" ng-click="toggleTab('showDeliveryPlan')">Order Delivery Plan</a></li>
 				<li role="presentation"><a href="javascript:void(0)" ng-click="toggleTab('showOrderTransaction')">Order Transactions</a></li> -->
-			</ul>
-		</div>
-	</div>
-  <ui-view></ui-view>
+            </ul>
+        </div>
+    </div>
+    <ui-view></ui-view>
 </div>
-	<!-- <div ng-show="showProductOrDeliveryPlan == 'showOrder'">
+<!-- <div ng-show="showProductOrDeliveryPlan == 'showOrder'">
 		<div class="alert alert-danger col-md-12" ng-show="orderErrorMsg.length > 0">
 			<span style="color:#cc0000"><h4>Errors</h4></span>
 			<span ng-bind-html="orderErrorMsg | sanitize"><p>{{orderErrorMsg}}</p></span>

@@ -1,89 +1,93 @@
 <style>
-  .header{
-    text-transform: uppercase;
-    font-weight: bolder;
-  }
+    .header {
+        text-transform: uppercase;
+        font-weight: bolder;
+    }
 </style>
 <div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
-  <back-button data-toggle="tooltip" title="Click this button to go to previous screen"></back-button>
+    <back-button data-toggle="tooltip" title="Click this button to go to previous screen"></back-button>
 </div>
 <div class="panel panel-default" style="margin-top:60px">
     <div class="panel-heading header">ORDER DETAIL
-      <span>
+        <span>
         <a ng-href="/#/index/order/{{order.id}}/order">
           <span class="glyphicon glyphicon-edit"></span>
         </a>
-      </span>
-      </div>
+        </span>
+    </div>
     <div class="panel-body">
-      <table class="table table-bordered">
-        <tr>
-          <th style="width:20%">Order Id</th>
-          <td>{{order.id}}</td>
-          <th style="width:20%">Customer Name</th>
-          <td>{{customer_name}}</td>
-        </tr>
-        <tr>
-          <th>Mobile Number</th>
-          <td>{{mobile_number}}</td>
-          <th>Delivery Date</th>
-          <td>{{order.delivery_date}}</td>
-        </tr>
-        <tr>
-          <th>Billing Name</th>
-          <td>{{billing_name}}</td>
-          <th>Delievery Address</th>
-          <td>{{order.delivery_address}}</td>
-        </tr>
-      </table>
+        <table class="table table-bordered">
+            <tr>
+                <th style="width:20%">Order Id</th>
+                <td>{{order.id}}</td>
+                <th style="width:20%">Customer Name</th>
+                <td>{{customer_name}}</td>
+            </tr>
+            <tr>
+                <th>Mobile Number</th>
+                <td>{{mobile_number}}</td>
+                <th>Delivery Date</th>
+                <td>{{order.delivery_date}}</td>
+            </tr>
+            <tr>
+                <th>Billing Name</th>
+                <td>{{billing_name}}</td>
+                <th>Delievery Address</th>
+                <td>{{order.delivery_address}}</td>
+            </tr>
+        </table>
     </div>
 </div>
 <div class="panel panel-default" ng-hide="productList.length == 0">
     <div class="panel-heading header">ORDER PRODUCTS
-      <span>
+        <span>
         <a ng-href="/#/index/order/{{order.id}}/order_product">
           <span class="glyphicon glyphicon-edit"></span>
         </a>
-      </span>
+        </span>
     </div>
     <div class="panel-body">
-      <table  class="table table-bordered table-hover">
-        <tr>
-          <th>Product Name</th>
-          <th>Quantity</th>
-          <th>Color</th>
-          <th>Price</th>
-        </tr>
-        <tr ng-repeat="product in productList">
-          <td><a ui-sref="index.neworderproducts({orderId:orderId,productId:product.order_product.id})" >{{product.order_product.master_process_name}}</a></td>
-          <td>{{product.order_product.quantity}}</td>
-          <td>{{product.order_product.color}}</td>
-          <td>{{product.order_product.price}}</td>
-        </tr>
-      </table>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Color</th>
+                <th>Price</th>
+            </tr>
+            <tr ng-repeat="product in productList">
+                <td><a ui-sref="index.neworderproducts({orderId:orderId,productId:product.order_product.id})">{{product.order_product.master_process_name}}</a></td>
+                <td>{{product.order_product.quantity}}</td>
+                <td>{{product.order_product.color}}</td>
+                <td>{{product.order_product.price}}</td>
+            </tr>
+        </table>
     </div>
 </div>
 <div class="panel panel-default" ng-hide="orderPlanDeliveryList.length == 0">
     <div class="panel-heading header">Order Delievery Plans
-      <span>
+        <span>
         <a ng-href="/#/index/order/{{order.id}}/order_delivery">
           <span class="glyphicon glyphicon-edit"></span>
         </a>
-      </span>
+        </span>
     </div>
     <div class="panel-body">
-      <table  class="table table-bordered table-hover">
-				<tr>
-					<th>Order Product</th>
-					<th>Quantity</th>
-					<th>Delivery Date</th>
-				</tr>
-				<tr ng-repeat="productPlan in orderPlanDeliveryList">
-					<td style="width:25%">{{productPlan.order_product_id}}</td>
-					<td style="width:25%">{{productPlan.quantity}}</td>
-					<td style="width:25%">{{productPlan.delivery_date}}</td>
-				</tr>
-			</table>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>Order Product</th>
+                <th>Quantity</th>
+                <th>Delivery Date</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="productPlan in orderPlanDeliveryList">
+                <td style="width:25%">{{getProductName(productPlan.order_product_id)}}</td>
+                <td style="width:25%">{{productPlan.quantity}}</td>
+                <td style="width:25%">{{productPlan.delivery_date}}</td>
+                <td>
+                    <button class="btn btn-default"><a ng-href="/#/index/order/{{order.id}}/order-products/{{productPlan.order_product_id}}/delivery-plans/{{productPlan.id}}/process">Process</a></button>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
 <!-- <div class="panel panel-default" style="margin:20px">
@@ -111,36 +115,34 @@
 </div> -->
 <div class="panel panel-default" ng-hide="orderTransactionList.length == 0">
     <div class="panel-heading header">Order Transactions
-      <span>
+        <span>
         <a ng-href="/#/index/order/{{order.id}}/order_transaction">
           <span class="glyphicon glyphicon-edit"></span>
         </a>
-      </span>
+        </span>
     </div>
     <div class="panel-body">
-      <table ng-hide="orderTransactionList.length == 0" class="table table-bordered table-hover">
-        <tr>
-          <th>Order Id</th>
-          <th>Location Name</th>
-          <th>Process Start Date</th>
-          <th>Delivery Date</th>
-          <th>Quantity Received</th>
-          <th>Quantity Forwarded</th>
-          <th>Quantity Transfered</th>
-          <th>Quantity Wasted</th>
-          <th>Status</th>
-        </tr>
-        <tr ng-repeat="orderTransaction in orderTransactionList">
-          <td>{{orderTransaction.order_transaction.order_id}}</td>
-          <td>{{orderTransaction.order_transaction.lName}}</td>
-          <td>{{orderTransaction.order_transaction.process_start_date}}</td>
-          <td>{{orderTransaction.order_transaction.process_end_date}}</td>
-          <td>{{orderTransaction.order_transaction.quantity_recieved}}</td>
-          <td>{{orderTransaction.order_transaction.quantity_forwarded}}</td>
-          <td>{{orderTransaction.order_transaction.quantity_transfered}}</td>
-          <td>{{orderTransaction.order_transaction.quantity_waste}}</td>
-          <td>{{orderTransaction.order_transaction.status}}</td>
-        </tr>
-      </table>
+        <table ng-hide="orderTransactionList.length == 0" class="table table-bordered table-hover">
+            <tr>
+                <th>Product Name</th>
+                <th>Location Name</th>
+                <th>Process Start Date</th>
+                <th>Quantity Received</th>
+                <th>Delivery Date</th>
+                <th>Quantity Forwarded</th>
+                <th>Quantity Wasted</th>
+                <th>Status</th>
+            </tr>
+            <tr ng-repeat="orderTransaction in orderTransactionList">
+                <td>{{getProductName(orderTransaction.order_transaction.order_product_id)}}</td>
+                <td>{{orderTransaction.order_transaction.lName}}</td>
+                <td>{{orderTransaction.order_transaction.process_start_date}}</td>
+                <td>{{orderTransaction.order_transaction.quantity_recieved}}</td>
+                <td>{{orderTransaction.order_transaction.process_end_date}}</td>
+                <td>{{orderTransaction.order_transaction.quantity_forwarded}}</td>
+                <td>{{orderTransaction.order_transaction.quantity_waste}}</td>
+                <td><span class="label" ng-class="orderTransaction.order_transaction.status == 'In Process' ? 'label-info' : 'label-success'">{{orderTransaction.order_transaction.status}}</span></td>
+            </tr>
+        </table>
     </div>
 </div>
