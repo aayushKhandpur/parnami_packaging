@@ -15,6 +15,7 @@
 //= require jquery-ui
 //= require bower_components/angular/angular.min
 //= require bower_components/angular-ui-router/release/angular-ui-router.min
+//= require bower_components/angular/angular-animate.min
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
 //= require angular-rails-templates
@@ -28,3 +29,6 @@
 //= require ng-token-auth
 //= require valdr/valdr
 //= require valdr/valdr-message
+//= require loading/loading-bar
+//= require sweet-alerts/sweetalert.min.js
+//= require sweet-alerts/ngSweetAlert.js

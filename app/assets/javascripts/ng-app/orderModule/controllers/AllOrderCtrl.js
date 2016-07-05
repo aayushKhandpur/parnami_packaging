@@ -49,7 +49,7 @@ orderModule.controller('allOrderCtrl', function ($scope,$location,allOrderMgr,$s
 	$scope.getAllOrders();
 
 	$scope.createNewOrder = function() {
-		$state.go('index.createorder',{orderId: 'new'});
+		$state.go('index.order.create.order',{orderId: 'new'});
 	}
 
 	$scope.sort = function(keyname){
