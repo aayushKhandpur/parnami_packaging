@@ -40,6 +40,7 @@
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
+						<th>Sequence Number</th>
 						<th>Process Name</th>
 						<th>Location Name</th>
 						<th>Vendor Name</th>
@@ -48,10 +49,11 @@
 				</thead>
 				<tbody ui:sortable ng:model="check">
 					<tr ng-repeat="process in allPlanProcessList" style="cursor:move;">
-						<td style="width:25%"><select class="form-control" ng-model="process.master_process_id" ng-options="masterProcess.id as masterProcess.name for masterProcess in processPicklist" ng-disabled="!process.isEditable" ng-change="processChanged(process)"/></td>
-						<td style="width:25%"><select class="form-control" ng-model="process.location_id" ng-options="loc.id as loc.name for loc in locationPicklist" ng-disabled="!process.isEditable" ng-change="locationChanged(process)"/></td>
-						<td style="width:25%"><select class="form-control" ng-model="process.vendor_id" ng-options="vendor.id as vendor.name for vendor in vendorPicklist" ng-disabled="!process.isEditable" ng-show="process.vendor_id != null && process.vendor_id.length != 0"/><label style="font-weight: normal !important;padding-left: 15px;" ng-show="process.vendor_id == null || process.vendor_id.length == 0">Not Applicable</label></td>
-						<td style="width:25%">
+						<td style="width:20%">{{process.sequence_number}}</td>
+						<td style="width:20%"><select class="form-control" ng-model="process.master_process_id" ng-options="masterProcess.id as masterProcess.name for masterProcess in processPicklist" ng-disabled="!process.isEditable" ng-change="processChanged(process)"/></td>
+						<td style="width:20%"><select class="form-control" ng-model="process.location_id" ng-options="loc.id as loc.name for loc in locationPicklist" ng-disabled="!process.isEditable" ng-change="locationChanged(process)"/></td>
+						<td style="width:20%"><select class="form-control" ng-model="process.vendor_id" ng-options="vendor.id as vendor.name for vendor in vendorPicklist" ng-disabled="!process.isEditable" ng-show="process.vendor_id != null && process.vendor_id.length != 0"/><label style="font-weight: normal !important;padding-left: 15px;" ng-show="process.vendor_id == null || process.vendor_id.length == 0">Not Applicable</label></td>
+						<td style="width:20%">
 							<span style="cursor:default;" class="col-md-6"><i class="fa fa-check" ng-show="process.isEditable" ng-click="executeCRUDOperation('add',process)"></i><i class="fa fa-edit" ng-show="!process.isEditable" ng-click="executeCRUDOperation('edit',process)"></i></span>
 							<span style="cursor:default;" class="col-md-6"><i class="fa fa-trash" ng-show="!process.isEditable" ng-click="executeCRUDOperation('delete',process)"></i><i class="fa fa-ban" ng-show="process.isEditable && process.id == null" ng-click="executeCRUDOperation('cancel',process)"></i></span>
 						</td>

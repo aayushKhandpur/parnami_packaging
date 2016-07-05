@@ -30,3 +30,5 @@
 //= require valdr/valdr
 //= require valdr/valdr-message
 //= require loading/loading-bar
+//= require sweet-alerts/sweetalert.min.js
+//= require sweet-alerts/ngSweetAlert.js

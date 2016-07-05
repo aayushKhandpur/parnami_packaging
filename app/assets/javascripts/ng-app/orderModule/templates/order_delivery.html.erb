@@ -46,7 +46,7 @@
                         <i class="fa fa-edit" ng-show="!productPlan.isEditable" ng-click="executeCRUDOperationForOrderPlan('edit',productPlan)"></i>
                     </span>
                     <span class="col-md-6">
-                        <i class="fa fa-ban" ng-show="productPlan.isEditable && productPlan.id == null" ng-click="executeCRUDOperationForOrderPlan('cancel',productPlan)"></i>
+                        <i class="fa fa-trash" ng-show="productPlan.isEditable && productPlan.id == null" ng-click="executeCRUDOperationForOrderPlan('cancel',productPlan)"></i>
                         <i class="fa fa-chain-broken" ng-click="executeCRUDOperationForOrderPlan('split',productPlan)" ng-show="!productPlan.isEditable"></i>
                         <a style="margin-left:25px" ui-sref="index.productprocessplan({orderId:productPlan.order_id,productId:productPlan.order_product_id,orderPlanId:productPlan.id})" ng-show="!productPlan.isEditable">Details</a>
                     </span>

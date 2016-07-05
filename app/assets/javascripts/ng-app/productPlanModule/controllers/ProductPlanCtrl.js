@@ -1,4 +1,4 @@
-productPlanModule.controller('productPlanCtrl', function ($scope,$log,$stateParams,orderPlanMgr,$location,processOneLocationMgr) {
+productPlanModule.controller('productPlanCtrl', function ($scope,$log,$stateParams,orderPlanMgr,$location,processOneLocationMgr,SweetAlert) {
 
 		$scope.orderPlan = {};
 		$scope.orderId = $stateParams.orderId;
@@ -122,7 +122,21 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 				$scope.createPlanStatus(planProcess);
 			}
 			else if(actionPerformed == 'delete')
-				$scope.deleteOrderPlanProcess(planProcess.id);
+			SweetAlert.swal({
+				 title: "Delete Order Delivery Plan Process!!",
+				 text: "Are you sure you want to delete order delivery plan process?",
+				 type: "warning",
+				 showCancelButton: true,
+				 confirmButtonColor: "#DD6B55",confirmButtonText: "Yes, delete it!",
+				 cancelButtonText: "Cancel",
+				 closeOnConfirm: true,
+				 closeOnCancel: true },
+				 function(isConfirm){
+						if (isConfirm) {
+							$scope.deleteOrderPlanProcess(planProcess.id);
+						}
+					});
+
 		}
 
 		$scope.initiateOrder = function()

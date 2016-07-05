@@ -1,4 +1,4 @@
-orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$stateParams,$timeout,$state,processOneLocationMgr) {
+orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$stateParams,$timeout,$state,processOneLocationMgr,SweetAlert) {
 
 		$scope.order = {};
 		$scope.mobile_number;
@@ -202,8 +202,22 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 		}
 		$scope.executeCRUDOperationForOrderPlan = function(actionPerformed,orderPlan) {
 			if(actionPerformed == 'cancel') {
-				$scope.orderPlanDeliveryList.splice($scope.orderPlanDeliveryList.length -1,1);
-				$scope.orderPlanErrorMsg = '';
+				SweetAlert.swal({
+					 title: "Delete Order Delivery Plan!!",
+					 text: "Are you sure you want to delete order delivery plan?",
+					 type: "warning",
+					 showCancelButton: true,
+					 confirmButtonColor: "#DD6B55",confirmButtonText: "Yes, delete it!",
+					 cancelButtonText: "Cancel",
+					 closeOnConfirm: true,
+					 closeOnCancel: true },
+					 function(isConfirm){
+							if (isConfirm) {
+								$scope.orderPlanDeliveryList.splice($scope.orderPlanDeliveryList.length -1,1);
+								$scope.orderPlanErrorMsg = '';
+							}
+						});
+
 			}
 			else if(actionPerformed == 'edit') {
 				orderPlan.isEditable = true;
