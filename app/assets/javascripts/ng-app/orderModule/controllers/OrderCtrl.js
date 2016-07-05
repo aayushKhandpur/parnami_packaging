@@ -82,7 +82,11 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 
 		$scope.loadDefaults();
 
-		$scope.createOrder = function() {
+		$scope.createOrder = function(form) {
+			if(form.$invalid){
+					$scope.formSubmitted=true;
+					return;
+			}
 			var errorMsg = orderMgr.validateOrder($scope.order);
 			if(errorMsg.length == 0) {
 				console.log($scope.orderId);
@@ -220,3 +224,42 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 		};
 
     });
+
+
+		angular.module('AngularRails').config(['valdrProvider','CONTACT_NUMBER_REGEXP','EMAIL_REGEXP','CONTACT_NUMBER_REGEXP2', function(valdrProvider,CONTACT_NUMBER_REGEXP,EMAIL_REGEXP,CONTACT_NUMBER_REGEXP2) {
+
+		  valdrProvider.addConstraints({
+		    "OrderCreate": {
+					'customerName': {
+						'required': {
+							'message': 'Customer name is required'
+						}
+					},
+					'mobileNumber': {
+						'required': {
+							'message': 'Mobile number is required'
+						},
+						"pattern": {
+							 "value": CONTACT_NUMBER_REGEXP,
+							 "message": "Mobile number is not valid"
+						}
+					},
+					'deliveryDate': {
+						'required': {
+							'message': 'Delivery date is required'
+						}
+					},
+					'address': {
+						'required': {
+							'message': 'Address is required'
+						}
+					},
+					'billingName': {
+						'required': {
+							'message': 'Billing name is required'
+						}
+					},
+
+		    }
+		  });
+		}]);

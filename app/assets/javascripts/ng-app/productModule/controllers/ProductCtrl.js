@@ -57,7 +57,11 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 
 		$scope.loadDefaults();
 
-		$scope.createProduct = function(option) {
+		$scope.createProduct = function(option,form) {
+			if(form.$invalid){
+					$scope.formSubmitted=true;
+					return;
+			}
 			$scope.product.master_product_id = $scope.masterProductId;
 			$scope.product.master_process_name = $scope.productName;
 			$scope.product.price_type = $scope.price_type;
@@ -121,3 +125,51 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 		}
 
     });
+
+
+		angular.module('AngularRails').config(['valdrProvider','NUMBER_REGEXP', function(valdrProvider,NUMBER_REGEXP) {
+
+			valdrProvider.addConstraints({
+				"OrderProductCreate": {
+					'name': {
+						'required': {
+							'message': 'Product name is required'
+						}
+					},
+					'quantity': {
+						'required': {
+							'message': 'Quantity is required'
+						},
+						"pattern": {
+							 "value": NUMBER_REGEXP,
+							 "message": "Quantity is not valid"
+						}
+					},
+					'quantityUnit': {
+						'required': {
+							'message': 'Quantity unit is required'
+						}
+					},
+					'color': {
+						'required': {
+							'message': 'Color is required'
+						}
+					},
+					'price': {
+						'required': {
+							'message': 'Price is required'
+						},
+						"pattern": {
+							 "value": NUMBER_REGEXP,
+							 "message": "Price is not valid"
+						}
+					},
+					'priceType': {
+						'required': {
+							'message': 'Price type is required'
+						}
+					},
+
+				}
+			});
+		}]);
