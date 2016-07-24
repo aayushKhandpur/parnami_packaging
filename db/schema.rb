@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160621180802) do
+ActiveRecord::Schema.define(version: 20160724170908) do
 
   create_table "customers", force: :cascade do |t|
     t.string   "name",             limit: 255,   null: false
@@ -86,12 +86,12 @@ ActiveRecord::Schema.define(version: 20160621180802) do
   add_index "order_delivery_plans", ["order_product_id"], name: "index_order_delivery_plans_on_order_product_id", using: :btree
 
   create_table "order_products", force: :cascade do |t|
-    t.integer  "master_product_id",   limit: 4,                                  null: false
-    t.integer  "order_id",            limit: 4,                                  null: false
+    t.integer  "master_product_id",   limit: 4,                                            null: false
+    t.integer  "order_id",            limit: 4,                                            null: false
     t.decimal  "side",                            precision: 10
     t.decimal  "length",                          precision: 10
     t.decimal  "breadth",                         precision: 10
-    t.decimal  "price",                           precision: 10
+    t.decimal  "price",                           precision: 16, scale: 2
     t.string   "color",               limit: 255
     t.string   "price_type",          limit: 255
     t.string   "lamination_type",     limit: 255
@@ -102,16 +102,17 @@ ActiveRecord::Schema.define(version: 20160621180802) do
     t.string   "ink_colour",          limit: 255
     t.string   "print_scheme",        limit: 255
     t.string   "dori_colour",         limit: 255
-    t.boolean  "lamination",          limit: 1,                  default: false, null: false
-    t.boolean  "isFrontPatti",        limit: 1,                  default: false, null: false
-    t.boolean  "isChain",             limit: 1,                  default: false, null: false
-    t.boolean  "isVelcrow",           limit: 1,                  default: false, null: false
-    t.boolean  "isTape",              limit: 1,                  default: false, null: false
-    t.boolean  "isDori",              limit: 1,                  default: false, null: false
-    t.integer  "quantity",            limit: 4,                                  null: false
+    t.boolean  "lamination",          limit: 1,                            default: false, null: false
+    t.boolean  "isFrontPatti",        limit: 1,                            default: false, null: false
+    t.boolean  "isChain",             limit: 1,                            default: false, null: false
+    t.boolean  "isVelcrow",           limit: 1,                            default: false, null: false
+    t.boolean  "isTape",              limit: 1,                            default: false, null: false
+    t.boolean  "isDori",              limit: 1,                            default: false, null: false
+    t.decimal  "quantity",                        precision: 16, scale: 2,                 null: false
     t.string   "master_process_name", limit: 255
-    t.datetime "created_at",                                                     null: false
-    t.datetime "updated_at",                                                     null: false
+    t.datetime "created_at",                                                               null: false
+    t.datetime "updated_at",                                                               null: false
+    t.string   "quantity_unit",       limit: 255
   end
 
   add_index "order_products", ["master_product_id"], name: "index_order_products_on_master_product_id", using: :btree

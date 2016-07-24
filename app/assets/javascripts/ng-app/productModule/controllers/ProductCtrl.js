@@ -127,7 +127,7 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
     });
 
 
-		angular.module('AngularRails').config(['valdrProvider','NUMBER_REGEXP', function(valdrProvider,NUMBER_REGEXP) {
+		angular.module('AngularRails').config(['valdrProvider','NUMBER_REGEXP2', function(valdrProvider,NUMBER_REGEXP2) {
 
 			valdrProvider.addConstraints({
 				"OrderProductCreate": {
@@ -141,7 +141,7 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 							'message': 'Quantity is required'
 						},
 						"pattern": {
-							 "value": NUMBER_REGEXP,
+							 "value": NUMBER_REGEXP2,
 							 "message": "Quantity is not valid"
 						}
 					},
@@ -160,7 +160,7 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 							'message': 'Price is required'
 						},
 						"pattern": {
-							 "value": NUMBER_REGEXP,
+							 "value": NUMBER_REGEXP2,
 							 "message": "Price is not valid"
 						}
 					},

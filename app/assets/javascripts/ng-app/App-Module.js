@@ -19,7 +19,8 @@ var parnamiPackaging = angular.module('AngularRails', [
     'valdr',
     'angular-loading-bar',
     'ngAnimate',
-    'oitozero.ngSweetAlert'
+    'oitozero.ngSweetAlert',
+    'ui.bootstrap'
     ]);
 
 	parnamiPackaging.config(function ($stateProvider,$httpProvider, $authProvider,cfpLoadingBarProvider) {

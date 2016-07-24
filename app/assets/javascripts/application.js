@@ -32,3 +32,6 @@
 //= require loading/loading-bar
 //= require sweet-alerts/sweetalert.min.js
 //= require sweet-alerts/ngSweetAlert.js
+//= require angular-ui/ui-bootstrap-tpls.min
+//= require angular-ui/angular-ui-router.min
+//= require angular-ui/sortable

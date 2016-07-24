@@ -1,6 +1,11 @@
 <div>
-  <div style="border-bottom: 1px solid #EEEEEE;">
-    <h3>Order Transactions</h3>
+  <div class="row" style="border-bottom: 1px solid #EEEEEE;">
+    <div class="col-md-6">
+      <h3>Order Transactions</h3>
+    </div>
+    <div class="col-md-6" style="text-align:right">
+      <butto class="btn btn-default" ng-click="addTransactionModel(orderTransactionList)">Add transaction</button>
+    </div>
   </div>
   <div class="col-md-12 alert alert-danger" role="alert" ng-show="orderTransactionList.length == 0" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
     <label style="font-weight:normal;">There is no order transactions created.</label>
@@ -32,7 +37,7 @@
         <td>{{orderTransaction.order_transaction.quantity_forwarded}}</td>
         <td>{{orderTransaction.order_transaction.quantity_transfered}}</td>
         <td>{{orderTransaction.order_transaction.quantity_waste}}</td>
-        <td>{{orderTransaction.order_transaction.status}}</td>
+        <td><span class="label" ng-class="orderTransaction.order_transaction.status == 'In Process' ? 'label-info' : 'label-success'">{{orderTransaction.order_transaction.status}}</span></td>
       </tr>
     </table>
   </div>

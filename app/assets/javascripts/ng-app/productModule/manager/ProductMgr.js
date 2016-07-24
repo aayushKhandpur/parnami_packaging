@@ -1,5 +1,5 @@
 productModule.service('productMgr', function (orderPlanMgr,productSrv,orderSrv,masterProductSrv,productPlanSrv) {
-        
+
 		var self = this;
 		this.createProduct = function(newProduct,productId,orderId,getInsertedProduct) {
 			if(productId == 'new') {
@@ -65,8 +65,6 @@ productModule.service('productMgr', function (orderPlanMgr,productSrv,orderSrv,m
 			var errorMsg = '';
 			if(product.quantity == null || product.quantity.length == 0)
 				errorMsg += '<ul><li>Quantity cannot be blank</li></ul>';
-			else if(parseInt(product.quantity) != product.quantity)
-				errorMsg += '<ul><li>Quantity must be Integer value</li></ul>';
 			else if(product.quantity <= 0)
 				errorMsg += '<ul><li>Quantity must be greater than zero</li></ul>';
 			return errorMsg;

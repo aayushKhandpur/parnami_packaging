@@ -1,4 +1,4 @@
-orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$stateParams,$timeout,$state,processOneLocationMgr,SweetAlert) {
+orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$stateParams,$timeout,$state,processOneLocationMgr,SweetAlert,$rootScope,$modal) {
 
 		$scope.order = {};
 		$scope.mobile_number;
@@ -236,6 +236,30 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 		$scope.go = function ( path ) {
 			$location.path( path );
 		};
+
+
+
+$scope.addTransactionModel = function(transaction){
+	var addTransactionModelInstance = $modal.open({
+			templateUrl: 'ng-app/orderModule/templates/add-transaction-popup.html',
+			controller: 'TransactionUpdateCtrl',
+			backdrop: 'static',
+			size: 'md',
+			resolve: {
+					transaction: function(){
+							return angular.copy(transaction);
+					}
+			}
+
+	});
+
+	addTransactionModelInstance.result.then(function () {
+
+	}, function () {
+			//$log.info('Modal dismissed at: ' + new Date());
+	});
+};
+
 
     });
 

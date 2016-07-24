@@ -84,7 +84,7 @@
                 <td style="width:25%">{{productPlan.quantity}}</td>
                 <td style="width:25%">{{productPlan.delivery_date}}</td>
                 <td>
-                    <button class="btn btn-default"><a ng-href="/#/index/order/{{order.id}}/order-products/{{productPlan.order_product_id}}/delivery-plans/{{productPlan.id}}/process">Process</a></button>
+                    <button class="btn btn-default" ui-sref ="index.productprocessplan({orderId:orderId,productId:productPlan.order_product.id,orderPlanId:productPlan.id})">Process</button>
                 </td>
             </tr>
         </table>
