@@ -51,6 +51,6 @@ class OrderDeliveryPlansController < ApplicationController
     private
 
     def order_delivery_plan_params
-      params.permit(:customer_id, :order_id, :order_product_id, :delivery_date, :quantity)
+      params.permit(:customer_id, :order_id, :order_product_id, :delivery_date, :quantity, :is_transaction_initiated)
     end
 end

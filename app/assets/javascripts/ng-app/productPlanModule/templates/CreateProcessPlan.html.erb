@@ -33,7 +33,7 @@
 		<div style="border-bottom: 1px solid #EEEEEE;">
 			<h3>Order Delivery Plan Processes</h3>
 		</div>
-		<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+		<div  class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
 			<button data-toggle="tooltip" title="Click this button to create the Order Product Plan Process" class="btn btn-default col-md-1" ng-click="addOrderPlanProcess()"><i class="fa fa-plus-square"></i></button>
 		</div>
 		<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;" ng-hide="allPlanProcessList.length == 0">
@@ -61,7 +61,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="col-md-12">
+		<div ng-if="!orderPlan.is_transaction_initiated" class="col-md-12">
 			<button style="text-align:center;" ng-click="initiateOrder()">Initiate Order</button>
 		</div>
 	</div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160724170908) do
+ActiveRecord::Schema.define(version: 20160730183517) do
 
   create_table "customers", force: :cascade do |t|
     t.string   "name",             limit: 255,   null: false
@@ -71,13 +71,14 @@ ActiveRecord::Schema.define(version: 20160724170908) do
   add_index "order_delivery_plan_processes", ["vendor_id"], name: "index_order_delivery_plan_processes_on_vendor_id", using: :btree
 
   create_table "order_delivery_plans", force: :cascade do |t|
-    t.integer  "order_id",         limit: 4, null: false
-    t.integer  "customer_id",      limit: 4, null: false
-    t.date     "delivery_date",              null: false
-    t.integer  "order_product_id", limit: 4, null: false
-    t.integer  "quantity",         limit: 4, null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.integer  "order_id",                 limit: 4,                 null: false
+    t.integer  "customer_id",              limit: 4,                 null: false
+    t.date     "delivery_date",                                      null: false
+    t.integer  "order_product_id",         limit: 4,                 null: false
+    t.integer  "quantity",                 limit: 4,                 null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.boolean  "is_transaction_initiated", limit: 1, default: false, null: false
   end
 
   add_index "order_delivery_plans", ["customer_id"], name: "index_order_delivery_plans_on_customer_id", using: :btree

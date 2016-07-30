@@ -68,7 +68,7 @@ productPlanModule.service('orderPlanMgr', function (productPlanSrv,masterProcess
 		this.getSequenceNumber = function(list) {
 			var sequenceNumber = 1;
 			if(list.length > 1)
-				sequenceNumber = list[list.length - 2].sequence_number + 1;
+				sequenceNumber = list[list.length - 2].order_delivery_plan_process.sequence_number + 1;
 			return sequenceNumber;
 		}
 		this.getOrderProductsByOrderId = function(orderId,callbackFunction) {

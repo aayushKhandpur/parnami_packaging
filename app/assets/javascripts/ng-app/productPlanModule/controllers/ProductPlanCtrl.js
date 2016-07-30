@@ -141,7 +141,7 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 		{
 			var orderTransactionDetails = {};
 			var lName = '';
-			var lId = $scope.allPlanProcessList[0].location_id;
+			var lId = $scope.allPlanProcessList[0].order_delivery_plan_process.location_id;
 			$.each($scope.locationPicklist,function(k,v){
 				if(lId == v.id)
 				{
@@ -151,14 +151,20 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 			orderTransactionDetails.order_id = $scope.orderId;
 			orderTransactionDetails.order_product_id = $scope.productId;
 			orderTransactionDetails.order_delivery_plan_id = $scope.orderPlanId;
-			orderTransactionDetails.order_delivery_plan_process_id = $scope.allPlanProcessList[0].id;
+			orderTransactionDetails.order_delivery_plan_process_id = $scope.allPlanProcessList[0].order_delivery_plan_process.id;
 			orderTransactionDetails.status = 'In Process';
 			orderTransactionDetails.process_start_date = new Date();
 			orderTransactionDetails.quantity_recieved = $scope.orderPlan.quantity;
 			orderTransactionDetails.process_end_date= $scope.orderPlan.delivery_date;
 			orderTransactionDetails.lName = lName;
 			//$log.info(JSON.stringify($scope.allPlanProcessList));
-			processOneLocationMgr.insertProcessOneLocation(orderTransactionDetails);
+			processOneLocationMgr.insertProcessOneLocation(orderTransactionDetails,function(transactionDetails) {
+				$.toaster({ priority : 'success', title : 'Info', message : 'Transaction is Saved',width:'100%'});
+				$scope.orderPlan.is_transaction_initiated = true;
+				orderPlanMgr.createPlan($scope.orderPlan,function(orderPlan) {
+					$scope.is_transaction_initiated = orderPlan;
+				})
+			});
 		}
 
     });
