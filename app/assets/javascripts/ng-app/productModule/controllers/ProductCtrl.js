@@ -23,9 +23,7 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 	    }
 
 		$scope.loadDefaults = function() {
-		console.log($scope.productId);
 				productMgr.getMasterProducts(function(data){
-					console.log(JSON.stringify(data));
 					$scope.product = {};
 					$scope.isProductShown = false;
 					$scope.allMasterProducts = [];
@@ -34,7 +32,6 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 					});
 					$scope.masterProductId = $scope.allMasterProducts[0].id;
 					$scope.productName = $scope.allMasterProducts[0].name;
-					console.log($scope.productName);
 					if($scope.productId == 'new'){}
 					else {
 						productMgr.loadDefaults($scope.productId,function(productDetails){
@@ -78,7 +75,6 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 						$state.go('index.order.create.order_delivery',{orderId: $scope.orderId});
 					else
 					{
-						console.log('khghINNNNNNNNNNNNNNNNNN');
 						$scope.productId = 'new';
 						$scope.loadDefaults();
 						$state.go('index.order.create.order_delivery',{orderId:$scope.orderId,productId:'new'});

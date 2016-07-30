@@ -27,11 +27,11 @@
 
     				<div class="form-group">
     					<label>Quantity Wasted</label>
-    					<input type="number"class="form-control"></input>
+    					<input class="form-control" ng-model="transaction.quantity_waste"></input>
     				</div>
     				<div class="form-group">
     					<label>Quantity Forwarded</label>
-    					<input type="number" class="form-control"></input>
+    					<input type="number" class="form-control" ng-model="transaction.quantity_forwarded"></input>
     				</div>
     			</form>
     	</div>
@@ -39,7 +39,7 @@
 
     <div class="modal-footer">
 
-        <button  type="submit" class="btn btn-primary" ng-click="">
+        <button  type="submit" class="btn btn-primary" ng-click="saveTransaction()">
             <span class="fa fa-save"> Save</span>
         </button>
         <button type="button" id="btnCancelModel" class="btn btn-default" ng-click="cancel()"><i class="fa fa-times"></i> Cancel</button>

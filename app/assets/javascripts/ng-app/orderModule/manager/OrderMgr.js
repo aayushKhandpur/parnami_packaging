@@ -123,10 +123,6 @@ angular.module('orderModule')
 					currentQuantity += allPlans[counter].order_delivery_plan.quantity;
 				}
 				var quantityToSave = parseInt(orderPlan.quantity) + currentQuantity;
-				console.log('current quantity'+currentQuantity);
-				console.log('maximum quantity'+maximumQuantity);
-				console.log('order plan quantity'+orderPlan.quantity);
-				console.log('quantityToSave'+quantityToSave);
 				if(orderPlan.delivery_date == null || orderPlan.delivery_date.length == 0)
 					errorMsg += '<ul><li>Delivery Date cannot be empty</li></ul>' ;
 				if(orderPlan.quantity == null || orderPlan.quantity.length == 0)

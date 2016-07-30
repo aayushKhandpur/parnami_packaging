@@ -22,6 +22,12 @@ class OrderDeliveryPlanProcessesController < ApplicationController
 
       def create
         @order_delivery_plan_process = OrderDeliveryPlanProcess.new(order_delivery_plan_process_params)
+        if @order_delivery_plan_process.sequence_number.nil?
+           @order_delivery_plan_process.is_first_step = true;
+           @order_delivery_plan_process.sequence_number =1
+        else
+             @order_delivery_plan_process.is_last_step = true
+         end
         if !@order_delivery_plan_process.valid?
           render json: {errors: @order_delivery_plan_process.errors.full_messages}, status: 400
         end

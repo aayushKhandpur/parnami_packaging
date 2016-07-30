@@ -11,7 +11,6 @@ orderModule.service('allOrderMgr', function (orderSrv,customerSrv) {
 					allOrders[counter].order.billing_name = customerBillingMap[allOrders[counter].order.customer_id];
 					orderList.push(allOrders[counter].order);
 				}
-				console.log(orderList);
 				callbackFunction(orderList);
 			});
 		});
@@ -26,7 +25,6 @@ orderModule.service('allOrderMgr', function (orderSrv,customerSrv) {
 			for(var counter = 0; counter < allCustomers.length; counter++) {
 				customerBillingMap[allCustomers[counter].customer.id] = allCustomers[counter].customer.billing_name;
 			}
-			console.log(customerMap,customerBillingMap);
 			callbackFunction(customerMap,customerBillingMap);
 		});
 	}

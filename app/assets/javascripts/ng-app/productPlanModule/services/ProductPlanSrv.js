@@ -1,10 +1,10 @@
 productPlanModule.factory('productPlanSrv', function ($http) {
-        
+
 		return {
-		
+
 			getCustomerByNameAndMobile: function(cName,mobileNum,callbackFunction) {
 				var httpRequest = $http({
-					url: '/customers', 
+					url: '/customers',
 					method: "GET",
 					params: {search_name: cName,mobile_number: mobileNum}
 				});
@@ -17,7 +17,7 @@ productPlanModule.factory('productPlanSrv', function ($http) {
 			},
 			getCustomerById: function(customerId,callbackFunction) {
 				var httpRequest = $http({
-					url: '/customers/'+customerId, 
+					url: '/customers/'+customerId,
 					method: "GET"
 				});
 				httpRequest.success(function(data){
@@ -125,7 +125,17 @@ productPlanModule.factory('productPlanSrv', function ($http) {
 				httpRequest.error(function(data){
 					console.log(JSON.stringify(data));
 				});
+			},
+
+      getDeliveryPlanProcessByPlanId: function(order_delivery_plan_id,callbackFunction) {
+				var httpRequest = $http.get('/show_order_delivery_plan_process/'+order_delivery_plan_id);
+				httpRequest.success(function(data){
+					callbackFunction(data);
+				});
+				httpRequest.error(function(data){
+					console.log(JSON.stringify(data));
+				});
 			}
-		};	
-		
+		};
+
     });

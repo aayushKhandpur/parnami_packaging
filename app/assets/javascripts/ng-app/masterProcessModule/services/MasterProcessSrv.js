@@ -24,7 +24,6 @@ masterProcessModule.service('masterProcessSrv', function ($http) {
 	this.insertMasterProduct = function(masterProduct,callbackFunction) {
 		var httpRequest = $http.post('/master_processes',masterProduct);
 		httpRequest.success(function(data){
-			console.log('servicw'+JSON.stringify(data));
 			callbackFunction(data);
 		});
 		httpRequest.error(function(data){

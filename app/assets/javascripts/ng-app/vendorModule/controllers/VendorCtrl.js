@@ -35,7 +35,6 @@ vendorModule.controller('vendorCtrl', function ($scope,$log,$location,vendorMgr)
 			}
 		var errorMsg = vendorMgr.validateVendor($scope.location);
 		if(errorMsg.length == 0){
-			console.log($scope.location);
 			vendorMgr.createLocation($scope.locationId,$scope.location,function(locationDetails) {
 				$.toaster({ priority : 'success', title : 'Info', message : 'Vendor is Saved',width:'100%'});
 				$scope.loadDefaults();

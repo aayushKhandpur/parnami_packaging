@@ -47,7 +47,6 @@ locationModule.controller('locationDetailsCtrl', function ($scope,$log,$location
 				locationMgr.createLocation($scope.locationId,$scope.location,function(locationDetails) {
 					$.toaster({ priority : 'success', title : 'Info', message : 'Location is updated',width:'100%'});
 					$scope.loadDefaults();
-					console.log(JSON.stringify(locationDetails));
 					$scope.applyChanges();
 					$scope.go('index/locations/');
 				});

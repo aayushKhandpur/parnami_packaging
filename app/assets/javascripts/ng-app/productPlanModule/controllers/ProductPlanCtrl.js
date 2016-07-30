@@ -13,7 +13,6 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 
 		$scope.loadDefaults = function() {
 			orderPlanMgr.getPicklistData(function(locationList,processList,vendorList){
-				console.log('12qw'+JSON.stringify(vendorList));
 				$scope.locationPicklist = [];
 				$scope.processPicklist = [];
 				$scope.vendorPicklist = [];
@@ -52,7 +51,6 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 
 		$scope.createPlanStatus = function(planProcess) {
 			planProcess.sequence_number = orderPlanMgr.getSequenceNumber($scope.allPlanProcessList);
-			console.log('num is'+planProcess.sequence_number);
 			planProcess.order_id = $scope.orderId;
 			planProcess.order_product_id = $scope.productId;
 			planProcess.order_delivery_plan_id = $scope.orderPlanId;
@@ -144,15 +142,12 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 			var orderTransactionDetails = {};
 			var lName = '';
 			var lId = $scope.allPlanProcessList[0].location_id;
-			$log.info('Location lIst'+JSON.stringify($scope.locationPicklist));
-			$log.info('Location Id'+lId);
 			$.each($scope.locationPicklist,function(k,v){
 				if(lId == v.id)
 				{
 					lName = v.name;
 				}
 			});
-			$log.info('Location Name'+lName);
 			orderTransactionDetails.order_id = $scope.orderId;
 			orderTransactionDetails.order_product_id = $scope.productId;
 			orderTransactionDetails.order_delivery_plan_id = $scope.orderPlanId;

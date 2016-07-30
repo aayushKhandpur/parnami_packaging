@@ -36,7 +36,6 @@ orderModule.controller('allOrderCtrl', function ($scope,$location,allOrderMgr,$s
 	$scope.getAllOrders = function() {
 		allOrderMgr.getAllOrders(function(allOrders) {
 			if(allOrders.length > 0) {
-				console.log(allOrders);
 				$scope.allOrders = allOrders;
 				$scope.gridOptions = { data: 'allOrders' };
 			}

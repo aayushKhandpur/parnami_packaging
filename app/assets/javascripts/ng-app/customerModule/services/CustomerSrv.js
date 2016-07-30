@@ -16,7 +16,6 @@ customerModule.service('customerSrv', function ($http) {
 		this.insertMasterProduct = function(masterProduct,callbackFunction) {
 			var httpRequest = $http.post('/customers',masterProduct);
 			httpRequest.success(function(data){
-				console.log('service'+JSON.stringify(data));
 				callbackFunction(data);
 			});
 			httpRequest.error(function(data){

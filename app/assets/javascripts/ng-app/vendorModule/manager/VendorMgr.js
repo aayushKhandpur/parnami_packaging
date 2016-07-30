@@ -13,7 +13,6 @@ vendorModule.service('vendorMgr', function (vendorSrv) {
 			location.created_at = new Date();
 			location.updated_at = new Date();
 			vendorSrv.insertLocation(location,function(data) {
-				console.log(JSON.stringify(data));
 				callbackFunction(data);
 			});
 		}

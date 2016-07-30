@@ -12,7 +12,6 @@ customerModule.service('customerMgr', function (customerSrv) {
 			masterProduct.created_at = new Date();
 			masterProduct.updated_at = new Date();
 			customerSrv.insertMasterProduct(masterProduct,function(data) {
-				console.log('data'+JSON.stringify(data));
 				callbackFunction(data);
 			});
 		}
