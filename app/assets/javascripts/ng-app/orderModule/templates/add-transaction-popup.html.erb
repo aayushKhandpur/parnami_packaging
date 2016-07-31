@@ -1,48 +1,67 @@
 <style media="screen">
 
-  .valdr-message {
-    display: none;
-  }
+    .valdr-message {
+        display: none;
+    }
 
-  .valdr-message.ng-invalid.ng-touched.ng-dirty,
-  .form-submitted .valdr-message.ng-invalid {
-    display: inline;
-    color: red;
-    margin-top: -2px;
-  }
+    .form-submitted .valdr-message.ng-invalid,
+    .valdr-message.ng-invalid.ng-touched.ng-dirty {
+        display: inline;
+        color: red;
+        margin-top: -2px;
+    }
 
-  .form-group {
-    margin-bottom: 8px;
-  }
+    .form-group {
+        margin-bottom: 8px;
+    }
+
 </style>
 <div ng-class="{ 'form-submitted': formSubmitted }">
-  <form >
-    <div class="modal-header">
-        <button type="button" id="btnCloseModel" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <span><h3 class="modal-title">Add Transaction</h3></span>
-    </div>
-    <div class="modal-body">
-    	<div class=" well">
-    		<form class="form-horizontal">
+    <form name="form" valdr-type="TransactionUpdate" novalidate on-navigate-away-strategy='none'>
+        <div class="modal-header">
+            <button type="button" id="btnCloseModel" class="close" ng-click="cancel()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <span>
+                <h3 class="modal-title">Add Transaction</h3>
+            </span>
+        </div>
+        <div class="modal-body">
+            <div class="alert alert-danger alert-dismissible" role="alert" ng-if="transactionErrors">
+                <button type="button" class="close" id="btnHideErrors" ng-click="hideTransactionErrors()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <ul class="list-unstyled">
+                    <li>
+                        {{transactionErrors}}
+                    </li>
+                </ul>
+            </div>
+            <div>
 
-    				<div class="form-group">
-    					<label>Quantity Wasted</label>
-    					<input class="form-control" ng-model="transaction.quantity_waste"></input>
-    				</div>
-    				<div class="form-group">
-    					<label>Quantity Forwarded</label>
-    					<input type="number" class="form-control" ng-model="transaction.quantity_forwarded"></input>
-    				</div>
-    			</form>
-    	</div>
-    </div>
+                <div class="form-group">
+                    <label>Quantity Forwarded</label>
+                    <div valdr-form-group>
+                        <input type="number" min="1" class="form-control" name="forward" ng-model="transaction.quantity_forwarded"></input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Quantity Wasted</label>
+                    <div valdr-form-group>
+                        <input type="number" class="form-control" name="waste" ng-model="transaction.quantity_waste"></input>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <div class="modal-footer">
-
-        <button  type="submit" class="btn btn-primary" ng-click="saveTransaction()">
-            <span class="fa fa-save"> Save</span>
-        </button>
-        <button type="button" id="btnCancelModel" class="btn btn-default" ng-click="cancel()"><i class="fa fa-times"></i> Cancel</button>
-    </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" ng-click="saveTransaction(form)">
+                <span class="fa fa-save">
+                    Save</span>
+            </button>
+            <button type="button" id="btnCancelModel" class="btn btn-default" ng-click="cancel()">
+                <i class="fa fa-times"></i>
+                Cancel</button>
+        </div>
     </form>
 </div>

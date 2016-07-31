@@ -244,7 +244,11 @@ $scope.addTransactionModel = function(transaction,index){
 	});
 
 	addTransactionModelInstance.result.then(function (transaction) {
-		$scope.orderTransactionList[index].order_transaction  = transaction;
+		processOneLocationMgr.getTransactions($scope.orderId,function(data){
+			if(data.length > 0){
+				$scope.orderTransactionList = data;
+			}
+		})
 	}, function () {
 
 			//$log.info('Modal dismissed at: ' + new Date());

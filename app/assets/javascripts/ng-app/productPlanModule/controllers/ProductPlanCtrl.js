@@ -162,7 +162,7 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 				$.toaster({ priority : 'success', title : 'Info', message : 'Transaction is Saved',width:'100%'});
 				$scope.orderPlan.is_transaction_initiated = true;
 				orderPlanMgr.createPlan($scope.orderPlan,function(orderPlan) {
-					$scope.is_transaction_initiated = orderPlan;
+					$scope.is_transaction_initiated = orderPlan.order_delivery_plan.is_transaction_initiated;
 				})
 			});
 		}
