@@ -6,8 +6,6 @@ transactionModule.service('proceesOneLocationSrv', function ($http) {
 	{
 		var httpRequest = $http.post('/order_transactions',order_transactions);
 		httpRequest.success(function(data){
-			console.log('success');
-			console.log(JSON.stringify(data));
 			callbackFunction(data);
 		});
 		httpRequest.error(function(data){
@@ -19,8 +17,6 @@ transactionModule.service('proceesOneLocationSrv', function ($http) {
 	{
 		var httpRequest = $http.get('/order_transactions/'+orderId);
 		httpRequest.success(function(data){
-			console.log('success');
-			console.log(JSON.stringify(data));
 			callbackFunction(data);
 		});
 		httpRequest.error(function(data){

@@ -1,5 +1,5 @@
 productModule.controller('productCtrl', function ($scope,$log,$location,utilitySrv,$stateParams,productMgr,$state) {
-        
+
 		$scope.productName;
 		$scope.product = {};
 		$scope.productId = $stateParams.productId;
@@ -14,18 +14,16 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 		$scope.lamination_type = 'Matt';
 		$scope.showPrice = false;
 		$scope.showLaminationType = false;
-		
-		
+
+
 		$scope.applyChanges = function()
 	    {
 		   if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest')
 			   $scope.$apply();
 	    }
-		
+
 		$scope.loadDefaults = function() {
-		console.log($scope.productId);
 				productMgr.getMasterProducts(function(data){
-					console.log(JSON.stringify(data));
 					$scope.product = {};
 					$scope.isProductShown = false;
 					$scope.allMasterProducts = [];
@@ -34,7 +32,6 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 					});
 					$scope.masterProductId = $scope.allMasterProducts[0].id;
 					$scope.productName = $scope.allMasterProducts[0].name;
-					console.log($scope.productName);
 					if($scope.productId == 'new'){}
 					else {
 						productMgr.loadDefaults($scope.productId,function(productDetails){
@@ -54,10 +51,14 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 					$scope.applyChanges();
 			});
 		}
-		
+
 		$scope.loadDefaults();
-		
-		$scope.createProduct = function(option) {
+
+		$scope.createProduct = function(option,form) {
+			if(form.$invalid){
+					$scope.formSubmitted=true;
+					return;
+			}
 			$scope.product.master_product_id = $scope.masterProductId;
 			$scope.product.master_process_name = $scope.productName;
 			$scope.product.price_type = $scope.price_type;
@@ -71,12 +72,12 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 					$scope.applyChanges();
 					$.toaster({ priority : 'success', title : 'Info', message : 'Order Product is Saved',width:'100%'});
 					if(option == 'savereturn')
-						$state.go('index.createorder',{orderId: $scope.orderId});
+						$state.go('index.order.create.order_delivery',{orderId: $scope.orderId});
 					else
-					{	console.log('khghINNNNNNNNNNNNNNNNNN');
+					{
 						$scope.productId = 'new';
 						$scope.loadDefaults();
-						$state.go('index.neworderproducts',{orderId:$scope.orderId,productId:'new'});
+						$state.go('index.order.create.order_delivery',{orderId:$scope.orderId,productId:'new'});
 					}
 				});
 			}
@@ -84,39 +85,87 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 				$scope.productErrorMsg = errorMsg;
 			}
 		}
-		
+
 		$scope.editProduct = function() {
 			$scope.isProductShown = false;
 		}
-		
-		
+
+
 		$scope.navigateToProductPlan = function() {
 			$location.path('/productprocessplan/'+$scope.orderId+'/'+$scope.productId+'/new');
 		}
-		
+
 		$scope.productChanged = function() {
 			var name;
 			for(var counter = 0; counter <  $scope.allMasterProducts.length; counter++) {
 				if($scope.allMasterProducts[counter].id == $scope.masterProductId) {
-					selectedCustomer = $scope.allMasterProducts[counter].name ;
+					name = $scope.allMasterProducts[counter].name ;
 					break;
 				}
 			}
 			$scope.productName = name;
 		}
-		
+
 		$scope.checkPrice = function(priceSelected) {
 			if(priceSelected != 'N/A')
 				$scope.showPrice = true;
-			else	
+			else
 				$scope.showPrice = false;
 		}
-		
+
 		$scope.checkLamination = function(isSelected) {
 			if(isSelected)
 				$scope.showLaminationType = true;
 			else
 				$scope.showLaminationType = false;
 		}
-		
+
     });
+
+
+		angular.module('AngularRails').config(['valdrProvider','NUMBER_REGEXP2', function(valdrProvider,NUMBER_REGEXP2) {
+
+			valdrProvider.addConstraints({
+				"OrderProductCreate": {
+					'name': {
+						'required': {
+							'message': 'Product name is required'
+						}
+					},
+					'quantity': {
+						'required': {
+							'message': 'Quantity is required'
+						},
+						"pattern": {
+							 "value": NUMBER_REGEXP2,
+							 "message": "Quantity is not valid"
+						}
+					},
+					'quantityUnit': {
+						'required': {
+							'message': 'Quantity unit is required'
+						}
+					},
+					'color': {
+						'required': {
+							'message': 'Color is required'
+						}
+					},
+					'price': {
+						'required': {
+							'message': 'Price is required'
+						},
+						"pattern": {
+							 "value": NUMBER_REGEXP2,
+							 "message": "Price is not valid"
+						}
+					},
+					'priceType': {
+						'required': {
+							'message': 'Price type is required'
+						}
+					},
+
+				}
+			});
+		}]);

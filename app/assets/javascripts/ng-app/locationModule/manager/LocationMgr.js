@@ -1,7 +1,7 @@
 locationModule.service('locationMgr', function (locationSrv) {
-	
+
 	var self = this;
-	
+
 	this.getLocations = function(callbackFunction) {
 		locationSrv.getLocations(function(allLocations) {
 			self.allLocations = allLocations;
@@ -13,7 +13,6 @@ locationModule.service('locationMgr', function (locationSrv) {
 			location.created_at = new Date();
 			location.updated_at = new Date();
 			locationSrv.insertLocation(location,function(data) {
-				console.log(JSON.stringify(data));
 				callbackFunction(data);
 			});
 		}
@@ -23,5 +22,17 @@ locationModule.service('locationMgr', function (locationSrv) {
 				callbackFunction(data);
 			});
 		}
+	}
+
+	this.deleteLocation = function(locationId,callbackFunction){
+		locationSrv.deleteLocation(locationId,function(data) {
+			callbackFunction();
+		})
+	}
+
+	this.getLocationById = function(locationId,callbackFunction){
+		locationSrv.getLocationById(locationId,function(data) {
+			callbackFunction(data.location);
+		})
 	}
 });

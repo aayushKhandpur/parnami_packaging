@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 	get 'order_delivery_plan_byproductid/:order_product_id' , :to => 'order_delivery_plans#showPlanByProductId'
 	get 'addRolesToUsers/:userId/:userRole' , :to => 'customs#addRoleToUser'
   get 'getUserRole/:userId' , :to => 'customs#getUserRole'
-
+  get 'show_order_delivery_plan_process/:id' , :to => 'order_delivery_plans#show_order_delivery_plan_processes'
   # Example resource route with options:
   #   resources :products do
   #     member do

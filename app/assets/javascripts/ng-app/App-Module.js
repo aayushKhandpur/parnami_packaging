@@ -15,10 +15,17 @@ var parnamiPackaging = angular.module('AngularRails', [
 		'vendorModule',
     'registrationModule',
     'transactionModule',
-		'angularUtils.directives.dirPagination'
+		'angularUtils.directives.dirPagination',
+    'valdr',
+    'angular-loading-bar',
+    'ngAnimate',
+    'oitozero.ngSweetAlert',
+    'ui.bootstrap'
     ]);
 
-	parnamiPackaging.config(function ($stateProvider,$httpProvider, $authProvider) {
+	parnamiPackaging.config(function ($stateProvider,$httpProvider, $authProvider,cfpLoadingBarProvider) {
+     cfpLoadingBarProvider.includeSpinner = false;
+     cfpLoadingBarProvider.latencyThreshold = 500;
 
     $authProvider.configure({
       apiUrl: '.'

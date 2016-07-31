@@ -5,12 +5,12 @@ masterProcessModule.controller('masterProcessCtrl', function ($scope,$log,$locat
 	$scope.masterProductId = null;
 	$scope.findView;
 	$scope.showList;
-	
+
 	$scope.applyChanges = function() {
 	   if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest')
 		   $scope.$apply();
 	}
-	
+
 	$scope.loadDefaults = function() {
 		$scope.allMasterProducts = [];
 		$scope.masterProductId = null;
@@ -25,16 +25,34 @@ masterProcessModule.controller('masterProcessCtrl', function ($scope,$log,$locat
 		});
 	}
 	$scope.loadDefaults();
-	
-	$scope.createMasterProcess = function() {
-		masterProcessMgr.createMasterProduct($scope.masterProductId,$scope.masterProduct,function(masterProductDetails) {
-			$.toaster({ priority : 'success', title : 'Info', message : 'Master Process is Saved',width:'100%'});
-			$scope.loadDefaults();
-			console.log(JSON.stringify(masterProductDetails));
-			$scope.applyChanges();
-		});
+
+	$scope.createMasterProcess = function(form) {
+		var validated = true;
+		if(form.$invalid){
+				$scope.formSubmitted=true;
+				return;
+			}
+		$scope.errorMsg = '';
+
+		if($scope.allMasterProducts.length != 0){
+				angular.forEach($scope.allMasterProducts,function(listItem){
+					if (listItem.name.toLowerCase() === $scope.masterProduct.name.toLowerCase()){
+						$scope.errorMsg = "Process name already taken";
+						validated = false;
+						return;
+					}
+				});
+			}
+			if(validated){
+				masterProcessMgr.createMasterProduct($scope.masterProductId,$scope.masterProduct,function(masterProductDetails) {
+					$.toaster({ priority : 'success', title : 'Info', message : 'Master Process is Saved',width:'100%'});
+					$scope.loadDefaults();
+					$scope.applyChanges();
+					$scope.go('/index/process/')
+				});
+			}
 	}
-	
+
 	$scope.showMasterProduct = function(pId) {
 		var masterProduct = {};
 		for(var counter = 0;counter < $scope.allMasterProducts.length;counter++) {
@@ -48,16 +66,43 @@ masterProcessModule.controller('masterProcessCtrl', function ($scope,$log,$locat
 		$scope.findView = 'showeditandview';
 		$scope.showList = false;
 	}
-	
+
 	$scope.showNewProcess = function() {
 		$scope.showList = false;
 		$scope.findView = 'showSaveWithNewProcess';
 		$scope.location = {};
 	}
-	
+
 	$scope.editProcess = function() {
 		$scope.showList = false;
 		$scope.findView = 'showSaveWithOldProcess';
 	}
-	
+
+	$scope.deleteProcess = function(masterProductId){
+		masterProcessMgr.deleteProcess(masterProductId,function() {
+			$.toaster({ priority : 'success', title : 'Info', message : 'Master Process is Deleted',width:'100%'});
+			$scope.loadDefaults();
+
+			$scope.applyChanges();
+		});
+	}
+
+	$scope.go = function ( path ) {
+		$location.path( path );
+	};
+
 });
+
+
+angular.module('AngularRails').config(['valdrProvider', function(valdrProvider) {
+
+  valdrProvider.addConstraints({
+    "ProcessUpdate": {
+      "name": {
+        "required": {
+          "message": "Name is required"
+        }
+      }
+    }
+  });
+}]);

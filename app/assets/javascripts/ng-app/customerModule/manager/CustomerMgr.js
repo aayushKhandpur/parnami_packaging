@@ -12,7 +12,6 @@ customerModule.service('customerMgr', function (customerSrv) {
 			masterProduct.created_at = new Date();
 			masterProduct.updated_at = new Date();
 			customerSrv.insertMasterProduct(masterProduct,function(data) {
-				console.log('data'+JSON.stringify(data));
 				callbackFunction(data);
 			});
 		}
@@ -30,4 +29,10 @@ customerModule.service('customerMgr', function (customerSrv) {
 			errorMsg += "<ul><li>Mobile Number can't be blank</li></ul>" ;
 			return errorMsg;
 	}
+	this.getCustomerById = function(customerId,callbackFunction) {
+		customerSrv.getCustomerById(customerId,function(masterProducts) {
+			callbackFunction(masterProducts);
+		});
+	}
+
 });

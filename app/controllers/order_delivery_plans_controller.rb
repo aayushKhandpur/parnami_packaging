@@ -44,9 +44,13 @@ class OrderDeliveryPlansController < ApplicationController
       render json: {deleted: true}, status: 200
     end
 
+    def show_order_delivery_plan_processes
+      @order_delivery_plan_process = OrderDeliveryPlan.find(params[:id]).order_delivery_plan_processes
+    end
+
     private
 
     def order_delivery_plan_params
-      params.permit(:customer_id, :order_id, :order_product_id, :delivery_date, :quantity)
+      params.permit(:customer_id, :order_id, :order_product_id, :delivery_date, :quantity, :is_transaction_initiated)
     end
 end

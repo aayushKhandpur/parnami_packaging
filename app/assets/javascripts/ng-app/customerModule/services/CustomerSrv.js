@@ -16,7 +16,6 @@ customerModule.service('customerSrv', function ($http) {
 		this.insertMasterProduct = function(masterProduct,callbackFunction) {
 			var httpRequest = $http.post('/customers',masterProduct);
 			httpRequest.success(function(data){
-				console.log('service'+JSON.stringify(data));
 				callbackFunction(data);
 			});
 			httpRequest.error(function(data){
@@ -33,4 +32,15 @@ customerModule.service('customerSrv', function ($http) {
 				console.log(JSON.stringify(data));
 			});
 		}
+
+		this.getCustomerById = function(masterProductId,callbackFunction) {
+			var httpRequest = $http.get('/customers/'+masterProductId);
+			httpRequest.success(function(data){
+				callbackFunction(data);
+			});
+			httpRequest.error(function(data){
+				console.log(JSON.stringify(data));
+			});
+		}
+
     });

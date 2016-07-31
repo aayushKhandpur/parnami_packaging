@@ -1,0 +1,154 @@
+<%= stylesheet_link_tag "homecss" %>
+<style>
+    .header {
+        text-transform: uppercase;
+        font-weight: bolder;
+    }
+    .valdr-message {
+        display: none;
+    }
+
+    .form-submitted .valdr-message.ng-invalid,
+    .valdr-message.ng-invalid.ng-touched.ng-dirty {
+        display: inline;
+        color: red;
+        margin-top: -2px;
+    }
+
+    .form-group {
+        margin-bottom: 8px;
+    }
+
+</style>
+
+<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+    <back-button data-toggle="tooltip" title="Click this button to go to previous screen"></back-button>
+    <button data-toggle="tooltip" title="Click this button to save Customer" class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="updateCustomer(form)" ng-show="findView == 'editView'">
+        <i class="fa fa-save"></i>
+    </button>
+    <button data-toggle="tooltip" title="Click this button to  edit Customer" class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="editCustomer()" ng-show="findView == 'detailView' ">
+        <i class="fa fa-edit"></i>
+    </button>
+
+</div>
+<div class="panel panel-default" style="margin-top:70px" ng-show="findView == 'detailView'">
+    <div class="panel-heading header">CUSTOMER DETAIL</div>
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <tr>
+                <th style="width:20%">Customer Name</th>
+                <td style="width:30%">{{masterProduct.name}}</td>
+                <th style="width:20%">Billing Name</th>
+                <td style="width:30%">{{masterProduct.billing_name}}</td>
+
+            </tr>
+            <tr>
+                <th>Mobile Number</th>
+                <td>{{masterProduct.mobile_number}}</td>
+                <th>Landline Number</th>
+                <td>{{masterProduct.landline_number}}</td>
+            </tr>
+            <tr>
+                <th>Alternate Number</th>
+                <td>{{masterProduct.alternate_number}}</td>
+                <th>Office Number</th>
+                <td>{{masterProduct.office_number}}</td>
+            </tr>
+            <tr>
+                <th>Billing Address</th>
+                <td>{{masterProduct.billing_address}}</td>
+                <th>Email</th>
+                <td>{{masterProduct.email_id}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div ng-show="findView == 'editView'">
+    <div ng-class="{ 'form-submitted': formSubmitted }">
+        <form name="form" valdr-type="CustomerUpdate" novalidate on-navigate-away-strategy='none'>
+            <div class="alert alert-danger col-md-12" ng-show="customerErrorMsg.length > 0">
+                <span style="color:#cc0000">
+                    <h4>Errors</h4>
+                </span>
+                <span ng-bind-html="customerErrorMsg | sanitize">
+                    <p>{customerErrorMsg}}</p>
+                </span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Customer Name *</div>
+                        <div valdr-form-group class="profile-info-value">
+                            <input type="text" name="name" class="form-control" ng-model="masterProduct.name"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Customer Email</div>
+                        <div valdr-form-group class="profile-info-value">
+                            <input type="email" name="email" class="form-control" ng-model="masterProduct.email_id"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Mobile Number *</div>
+                        <div valdr-form-group class="profile-info-value">
+                            <input type="text" name="mobileNumber" class="form-control" ng-model="masterProduct.mobile_number"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Landline Number</div>
+                        <div valdr-form-group class="profile-info-value">
+                            <input type="text" name="landline" class="form-control" ng-model="masterProduct.landline_number"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Alternate Number</div>
+                        <div valdr-form-group class="profile-info-value">
+                            <input type="text" name="alternateNumber" class="form-control" ng-model="masterProduct.alternate_number"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Office Number</div>
+                        <div valdr-form-group class="profile-info-value">
+                            <input type="text" name="officeNumber" class="form-control" ng-model="masterProduct.office_number"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Billing Name *</div>
+                        <div valdr-form-group class="profile-info-value">
+                            <input type="text" name="billingName" class="form-control" ng-model="masterProduct.billing_name"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Billing Address</div>
+                        <div valdr-form-group class="profile-info-value">
+                            <textarea rows="4" class="form-control" ng-model="masterProduct.billing_address"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>

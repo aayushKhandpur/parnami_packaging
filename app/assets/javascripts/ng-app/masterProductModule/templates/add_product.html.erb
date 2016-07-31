@@ -1,0 +1,52 @@
+<%= stylesheet_link_tag "homecss" %>
+<style media="screen">
+
+    .valdr-message {
+        display: none;
+    }
+
+    .form-submitted .valdr-message.ng-invalid,
+    .valdr-message.ng-invalid.ng-touched.ng-dirty {
+        display: inline;
+        color: red;
+        margin-top: -2px;
+    }
+
+    .form-group {
+        margin-bottom: 8px;
+    }
+
+</style>
+<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+    <back-button data-toggle="tooltip" title="Click this button to go to previous screen"></back-button>
+    <button data-toggle="tooltip" title="Click this button to create save Product" class="btn btn-default col-md-1" style="margin-left:1%;" ng-click="createMasterProduct(form)">
+        <i class="fa fa-save"></i>
+    </button>
+</div>
+<div>
+    <div ng-class="{ 'form-submitted': formSubmitted }">
+        <form name="form" valdr-type="ProductUpdate" novalidate on-navigate-away-strategy='none'>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Product Name</div>
+                        <div valdr-form-group class="profile-info-value">
+                            <input type="text" class="form-control" name="name" ng-model="masterProduct.name"/>
+                            <span ng-show="errorMsg.length!=0 && masterProduct.name!=null" style="color:red;">{{errorMsg}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Product Description</div>
+                        <div class="profile-info-value">
+                            <textarea rows="4" class="form-control" ng-model="masterProduct.description"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

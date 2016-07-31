@@ -3,9 +3,10 @@ orderModule.controller('allOrderCtrl', function ($scope,$location,allOrderMgr,$s
 	$scope.allOrders = [];
 	$scope.noOrderMsg = '';
 	$scope.sortKey = 'customer_name';
+	$scope.sortKey = 'billing_name';
 	$scope.reverse;
 	$scope.searchAttribute = '$';
-	$scope.searchText = {customer_name :'',delivery_address :'',order_details: '',delivery_date: '', $ :''};
+	$scope.searchText = {customer_name :'',delivery_address :'',billing_name: '', $ :''};
 
 	$scope.applyChanges = function()
 	{
@@ -27,12 +28,8 @@ orderModule.controller('allOrderCtrl', function ($scope,$location,allOrderMgr,$s
 			'id':'delivery_address'
 		},
 		{
-			'name':'Order Details',
-			'id':'order_details'
-		},
-		{
-			'name':'Delivery Date',
-			'id':'delivery_date'
+			'name':'Billing Name',
+			'id':'billing_name'
 		}
 	];
 
@@ -51,7 +48,7 @@ orderModule.controller('allOrderCtrl', function ($scope,$location,allOrderMgr,$s
 	$scope.getAllOrders();
 
 	$scope.createNewOrder = function() {
-		$state.go('index.createorder',{orderId: 'new'});
+		$state.go('index.order.create.order',{orderId: 'new'});
 	}
 
 	$scope.sort = function(keyname){
@@ -61,6 +58,6 @@ orderModule.controller('allOrderCtrl', function ($scope,$location,allOrderMgr,$s
 
 	$scope.changeSearchAttribute = function(searchFilter) {
 		$scope.searchAttribute = searchFilter;
-		$scope.searchText = {customer_name :'',delivery_address :'',order_details: '',delivery_date: '', $ :''};
+		$scope.searchText = {customer_name :'',delivery_address :'',billing_name: '', $ :''};
 	}
 });

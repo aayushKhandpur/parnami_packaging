@@ -1,16 +1,40 @@
-<%= stylesheet_link_tag "homecss" %>
 <div class="container-fluid">
-	<div class="row" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
-		<div class="col-md-12">
-			<ul class="nav nav-tabs">
+    <div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+        <back-button data-toggle="tooltip" title="Click this button to go to previous screen"></back-button>
+    </div>
+    <div class="row" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs nav-tab-striped">
+                <li ui-sref-active="active">
+                    <a ui-sref=".order" aria-controls="order">&nbsp; Order
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref=".order_product" aria-controls="order_product">&nbsp; Order Product
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref=".order_delivery" aria-controls="order_delivery">
+                        &nbsp; Order Delivery
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref=".order_transaction" aria-controls="order_transaction">
+                        &nbsp; Order Transactions
+                    </a>
+                </li>
+                <!-- <li ng-if="student.can_view_placement_drives" ui-sref-active="active" ><a ui-sref=".drives" aria-controls="profile" > <i class="fa fa-ticket"></i>&nbsp; Placement Drives </a></li>
+
 				<li role="presentation" class="active"><a href="javascript:void(0)" ng-click="toggleTab('showOrder')">Order</a></li>
 			  <li role="presentation"><a href="javascript:void(0)" ng-click="toggleTab('showProducts')">Order Products</a></li>
 			  <li role="presentation"><a href="javascript:void(0)" ng-click="toggleTab('showDeliveryPlan')">Order Delivery Plan</a></li>
-				<li role="presentation"><a href="javascript:void(0)" ng-click="toggleTab('showOrderTransaction')">Order Transactions</a></li>
-			</ul>
-		</div>
-	</div>
-	<div ng-show="showProductOrDeliveryPlan == 'showOrder'">
+				<li role="presentation"><a href="javascript:void(0)" ng-click="toggleTab('showOrderTransaction')">Order Transactions</a></li> -->
+            </ul>
+        </div>
+    </div>
+    <ui-view></ui-view>
+</div>
+<!-- <div ng-show="showProductOrDeliveryPlan == 'showOrder'">
 		<div class="alert alert-danger col-md-12" ng-show="orderErrorMsg.length > 0">
 			<span style="color:#cc0000"><h4>Errors</h4></span>
 			<span ng-bind-html="orderErrorMsg | sanitize"><p>{{orderErrorMsg}}</p></span>
@@ -26,7 +50,7 @@
 				<div class="profile-info-row">
 					<div class="profile-info-name">Select Customer</div>
 					<div class="profile-info-value">
-						<select class="form-control select2" ng-model="customerSelected" ng-options="customers as customers.nameNumberAddress for customers in allCustomers" ng-change="updateMobileAndAddress()">
+						<select class="form-control select2" ng-model="customerSelected" ng-options="customers as customers.nameNumber for customers in allCustomers" ng-change="updateMobileAndAddress()">
 						</select>
 					</div>
 				</div>
@@ -36,7 +60,7 @@
 		<div class="row" ng-show="showOrderMenu">
 			<div class="col-md-3">
 				<div class="profile-info-row">
-					<div class="profile-info-name">Customer Name</div>
+					<div class="profile-info-name">Customer Name *</div>
 					<div class="profile-info-value">
 						<input type="text" class="form-control" ng-model="customer_name" ng-disabled="true"/>
 					</div>
@@ -44,7 +68,7 @@
 			</div>
 			<div class="col-md-3">
 				<div class="profile-info-row">
-					<div class="profile-info-name">Mobile Number</div>
+					<div class="profile-info-name">Mobile Number *</div>
 					<div class="profile-info-value">
 						<input type="text" class="form-control" ng-model="mobile_number" ng-disabled="true"/>
 					</div>
@@ -52,7 +76,7 @@
 			</div>
 			<div class="col-md-3">
 				<div class="profile-info-row">
-					<div class="profile-info-name">Delivery Date</div>
+					<div class="profile-info-name">Delivery Date *</div>
 					<div class="profile-info-value">
 						<div class='input-group date orderdatepicker'>
 							<input type='text' class="form-control"  ng-model="order.delivery_date" ng-disabled="isOrderShown"/>
@@ -67,17 +91,26 @@
 		<div class="row" ng-show="showOrderMenu">
 			<div class="col-md-3">
 				<div class="profile-info-row">
-					<div class="profile-info-name">Additional Details (Optional)</div>
+					<div class="profile-info-name">Delivery Address *</div>
 					<div class="profile-info-value">
-						<textarea rows="4" class="form-control" ng-model="order.order_details" ng-disabled="isOrderShown"/>
+						<textarea rows="4" class="form-control" ng-model="order.delivery_address" ng-disabled="isOrderShown"/>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-3">
-				<div class="profile-info-row">
-					<div class="profile-info-name">Delivery Address</div>
-					<div class="profile-info-value">
-						<textarea rows="4" class="form-control" ng-model="order.delivery_address" ng-disabled="isOrderShown"/>
+				<div class="col-md-3">
+					<div class="profile-info-row">
+						<div class="profile-info-name">Billing Name *</div>
+						<div class="profile-info-value">
+							<textarea rows="4" class="form-control" ng-model="billing_name" ng-disabled="isOrderShown"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="profile-info-row">
+						<div class="profile-info-name">Additional Details (Optional)</div>
+						<div class="profile-info-value">
+							<textarea rows="4" class="form-control" ng-model="order.order_details" ng-disabled="isOrderShown"/>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -195,6 +228,5 @@
 				</tr>
 			</table>
 		</div>
-	</div>
-</div>
+	</div> -->
 <%= javascript_include_tag "homejs" %>

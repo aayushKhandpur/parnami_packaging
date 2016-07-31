@@ -13,7 +13,6 @@ vendorModule.service('vendorMgr', function (vendorSrv) {
 			location.created_at = new Date();
 			location.updated_at = new Date();
 			vendorSrv.insertLocation(location,function(data) {
-				console.log(JSON.stringify(data));
 				callbackFunction(data);
 			});
 		}
@@ -31,5 +30,12 @@ vendorModule.service('vendorMgr', function (vendorSrv) {
 			errorMsg += "<ul><li>Mobile Number can't be blank</li></ul>" ;
 			return errorMsg;
 	}
+
+
+		this.getVendorById = function(vendorId,callbackFunction){
+			vendorSrv.getVendorById(vendorId,function(data) {
+				callbackFunction(data.vendor);
+			})
+		}
 
 });

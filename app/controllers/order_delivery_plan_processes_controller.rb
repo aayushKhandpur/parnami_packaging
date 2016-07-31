@@ -22,6 +22,18 @@ class OrderDeliveryPlanProcessesController < ApplicationController
 
       def create
         @order_delivery_plan_process = OrderDeliveryPlanProcess.new(order_delivery_plan_process_params)
+        count = OrderDeliveryPlanProcess.where(order_id: order_delivery_plan_process_params[:order_id]).where(order_delivery_plan_id: order_delivery_plan_process_params[:order_delivery_plan_id]).count
+        count = count + 1;
+        if @order_delivery_plan_process.sequence_number == 1
+           @order_delivery_plan_process.is_first_step = true;
+         end
+        if @order_delivery_plan_process.sequence_number == count
+             @order_delivery_plan_process.is_last_step = true
+         end
+         step = OrderDeliveryPlanProcess.where(order_id: order_delivery_plan_process_params[:order_id]).where(order_delivery_plan_id: order_delivery_plan_process_params[:order_delivery_plan_id]).last
+         if !step.nil?
+           step.update_attributes(is_last_step: false)
+         end
         if !@order_delivery_plan_process.valid?
           render json: {errors: @order_delivery_plan_process.errors.full_messages}, status: 400
         end

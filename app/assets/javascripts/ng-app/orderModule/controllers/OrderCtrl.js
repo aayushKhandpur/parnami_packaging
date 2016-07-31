@@ -1,8 +1,8 @@
-orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$stateParams,$timeout,$state,processOneLocationMgr) {
+orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$stateParams,$timeout,$state,processOneLocationMgr,SweetAlert,$rootScope,$modal) {
 
 		$scope.order = {};
 		$scope.mobile_number;
-		$scope.isOrderShown = false;
+		$scope.isOrderShown = false
 		$scope.orderId = $stateParams.orderId;
 		$scope.productList = [];
 		$scope.orderPlanDeliveryList = [];
@@ -17,7 +17,7 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 		$scope.orderErrorMsg = '';
 		$scope.orderPlanErrorMsg = '';
 		$scope.orderTransactionList = [];
-
+		$scope.billing_name;
 		$scope.applyChanges = function()
 	    {
 		   if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest')
@@ -28,7 +28,7 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 			$scope.showOrderMenu = false;
 			orderMgr.getAllCustomers(function(data) {
 				$.each(data,function(k,v){
-					v.customer.nameNumberAddress = v.customer.name+','+v.customer.mobile_number+','+v.customer.billing_address;
+					v.customer.nameNumber = v.customer.name+', '+v.customer.mobile_number;
 					$scope.allCustomers.push(v.customer);
 				});
 
@@ -36,19 +36,17 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 				}
 				else {
 					orderMgr.loadDefaults($scope.orderId,function(orderDetails,customerDetails) {
-						console.log('####'+JSON.stringify(orderDetails));
 						$scope.order = orderDetails.orderProperty.order;
 						$scope.productList = orderDetails.productList;
-						console.log('2dd'+JSON.stringify(orderDetails.orderDeliveryPlanList));
 						$scope.orderPlanDeliveryList = orderDetails.orderDeliveryPlanList;
 						var cust = orderMgr.getCustomerByIdFromList(orderDetails.orderProperty.order.customer_id,$scope.allCustomers);
 						$scope.mobile_number = cust.mobile_number;
 						$scope.customer_name = cust.name;
+						$scope.billing_name = cust.billing_name;
 						$scope.showOrderMenu = true;
 						$scope.order_date = $scope.order.delivery_date;
 						$scope.customer_id = cust.id;
 						$scope.isOrderShown = true;
-						console.log('@!@33'+JSON.stringify(customerDetails));
 						orderMgr.getOrderProductById($scope.orderId,function(data){
 							$scope.allOrderProducts = data;
 							$scope.addDatePicker();
@@ -64,10 +62,8 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 							$scope.applyChanges();
 						});
 						processOneLocationMgr.getTransactions($scope.orderId,function(data){
-							console.log(data);
 							if(data.length > 0){
 								$scope.orderTransactionList = data;
-								console.log(JSON.stringify($scope.orderTransactionList));
 							}
 						})
 
@@ -80,18 +76,20 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 
 		$scope.loadDefaults();
 
-		$scope.createOrder = function() {
+		$scope.createOrder = function(form) {
+			if(form.$invalid){
+					$scope.formSubmitted=true;
+					return;
+			}
 			var errorMsg = orderMgr.validateOrder($scope.order);
 			if(errorMsg.length == 0) {
 				orderMgr.createOrder($scope.order,$scope.orderId,function(orderInserted){
-					console.log(JSON.stringify(orderInserted));
-					console.log('###'+orderInserted.order.id);
 					$scope.orderId = orderInserted.order.id;
 					$scope.order_date = orderInserted.order.delivery_date;
 					$scope.isOrderShown = true;
 					$scope.applyChanges();
 					$.toaster({ priority : 'success', title : 'Info', message : 'Your Order is Saved...you can now proceed to create Order Products',width:'100%'});
-					$location.path('/createorder/'+$scope.orderId);
+					$location.path('/index/order/'+$scope.orderId+'/order_product');
 				});
 			}
 			else {
@@ -102,7 +100,6 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 		$scope.createOrderPlan = function(orderPlan,callbackFunction) {
 			orderPlan.order_id = $scope.orderId;
 			orderPlan.customer_id = $scope.customer_id;
-			console.log('##'+orderPlan.splittedFromId);
 			if(orderPlan.splittedFromId == null || orderPlan.splittedFromId == '') {
 				orderMgr.validateOrderPlan(orderPlan,$scope.productList,function(errorMsg) {
 					if(errorMsg.length == 0) {
@@ -164,19 +161,21 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 			},50);
 		}
 
-		$scope.updateMobileAndAddress = function() {
-			if($scope.customerSelected != null) {
-				$scope.order.customer_id = $scope.customerSelected.id;
-				$scope.customer_name = $scope.customerSelected.name;
-				$scope.mobile_number = $scope.customerSelected.mobile_number;
-				$scope.order.delivery_address = $scope.customerSelected.billing_address;
+		$scope.updateMobileAndAddress = function(customerSelected) {
+			if(customerSelected != null) {
+				$scope.order.customer_id = customerSelected.id;
+				$scope.customer_name = customerSelected.name;
+				$scope.mobile_number = customerSelected.mobile_number;
+				$scope.order.delivery_address = customerSelected.billing_address;
 				$scope.showOrderMenu = true;
+				$scope.billing_name = customerSelected.billing_name;
 			}
 			else {
 				$scope.customer_name = '';
 				$scope.mobile_number = '';
 				$scope.order.delivery_address = '';
 				$scope.showOrderMenu = false;
+				$scope.billing_name = '';
 			}
 		}
 		$scope.addDatePicker = function() {
@@ -193,8 +192,22 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 		}
 		$scope.executeCRUDOperationForOrderPlan = function(actionPerformed,orderPlan) {
 			if(actionPerformed == 'cancel') {
-				$scope.orderPlanDeliveryList.splice($scope.orderPlanDeliveryList.length -1,1);
-				$scope.orderPlanErrorMsg = '';
+				SweetAlert.swal({
+					 title: "Delete Order Delivery Plan!!",
+					 text: "Are you sure you want to delete order delivery plan?",
+					 type: "warning",
+					 showCancelButton: true,
+					 confirmButtonColor: "#DD6B55",confirmButtonText: "Yes, delete it!",
+					 cancelButtonText: "Cancel",
+					 closeOnConfirm: true,
+					 closeOnCancel: true },
+					 function(isConfirm){
+							if (isConfirm) {
+								$scope.orderPlanDeliveryList.splice($scope.orderPlanDeliveryList.length -1,1);
+								$scope.orderPlanErrorMsg = '';
+							}
+						});
+
 			}
 			else if(actionPerformed == 'edit') {
 				orderPlan.isEditable = true;
@@ -208,4 +221,78 @@ orderModule.controller('orderCtrl', function ($scope,$log,$location,orderMgr,$st
 				$scope.orderPlanDeliveryList[$scope.orderPlanDeliveryList.length - 1].order_product_id = orderPlan.order_product_id;
 			}
 		}
+
+
+		$scope.go = function ( path ) {
+			$location.path( path );
+		};
+
+
+
+$scope.addTransactionModel = function(transaction,index){
+	var addTransactionModelInstance = $modal.open({
+			templateUrl: 'ng-app/orderModule/templates/add-transaction-popup.html',
+			controller: 'TransactionUpdateCtrl',
+			backdrop: 'static',
+			size: 'md',
+			resolve: {
+					transaction: function(){
+							return angular.copy(transaction);
+					}
+			}
+
+	});
+
+	addTransactionModelInstance.result.then(function (transaction) {
+		processOneLocationMgr.getTransactions($scope.orderId,function(data){
+			if(data.length > 0){
+				$scope.orderTransactionList = data;
+			}
+		})
+	}, function () {
+
+			//$log.info('Modal dismissed at: ' + new Date());
+	});
+};
+
+
     });
+
+
+		angular.module('AngularRails').config(['valdrProvider','CONTACT_NUMBER_REGEXP','EMAIL_REGEXP','CONTACT_NUMBER_REGEXP2', function(valdrProvider,CONTACT_NUMBER_REGEXP,EMAIL_REGEXP,CONTACT_NUMBER_REGEXP2) {
+
+		  valdrProvider.addConstraints({
+		    "OrderCreate": {
+					'customerName': {
+						'required': {
+							'message': 'Customer name is required'
+						}
+					},
+					'mobileNumber': {
+						'required': {
+							'message': 'Mobile number is required'
+						},
+						"pattern": {
+							 "value": CONTACT_NUMBER_REGEXP,
+							 "message": "Mobile number is not valid"
+						}
+					},
+					'deliveryDate': {
+						'required': {
+							'message': 'Delivery date is required'
+						}
+					},
+					'address': {
+						'required': {
+							'message': 'Address is required'
+						}
+					},
+					'billingName': {
+						'required': {
+							'message': 'Billing name is required'
+						}
+					},
+
+		    }
+		  });
+		}]);

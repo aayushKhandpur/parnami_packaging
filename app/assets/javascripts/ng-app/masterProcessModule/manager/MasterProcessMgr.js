@@ -1,7 +1,7 @@
 masterProcessModule.service('masterProcessMgr', function (masterProcessSrv) {
-	
+
 	var self = this;
-	
+
 	this.getMasterProducts = function(callbackFunction) {
 		masterProcessSrv.getProcesses(function(allMasterProducts) {
 			callbackFunction(allMasterProducts);
@@ -12,7 +12,6 @@ masterProcessModule.service('masterProcessMgr', function (masterProcessSrv) {
 			masterProduct.created_at = new Date();
 			masterProduct.updated_at = new Date();
 			masterProcessSrv.insertMasterProduct(masterProduct,function(data) {
-				console.log('data'+JSON.stringify(data));
 				callbackFunction(data);
 			});
 		}
@@ -22,5 +21,17 @@ masterProcessModule.service('masterProcessMgr', function (masterProcessSrv) {
 				callbackFunction(data);
 			});
 		}
+	}
+
+	this.deleteProcess = function(masterProductId,callbackFunction){
+		masterProcessSrv.deleteProcess(masterProductId,function(data) {
+			callbackFunction();
+		})
+	}
+
+	this.getMasterProcessById = function(masterProcessId,callbackFunction) {
+		masterProcessSrv.getProcessById(masterProcessId,function(masterProcess) {
+			callbackFunction(masterProcess);
+		});
 	}
 });

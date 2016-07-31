@@ -1,4 +1,4 @@
-productPlanModule.controller('productPlanCtrl', function ($scope,$log,$stateParams,orderPlanMgr,$location,processOneLocationMgr) {
+productPlanModule.controller('productPlanCtrl', function ($scope,$log,$stateParams,orderPlanMgr,$location,processOneLocationMgr,SweetAlert) {
 
 		$scope.orderPlan = {};
 		$scope.orderId = $stateParams.orderId;
@@ -13,7 +13,6 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 
 		$scope.loadDefaults = function() {
 			orderPlanMgr.getPicklistData(function(locationList,processList,vendorList){
-				console.log('12qw'+JSON.stringify(vendorList));
 				$scope.locationPicklist = [];
 				$scope.processPicklist = [];
 				$scope.vendorPicklist = [];
@@ -52,7 +51,6 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 
 		$scope.createPlanStatus = function(planProcess) {
 			planProcess.sequence_number = orderPlanMgr.getSequenceNumber($scope.allPlanProcessList);
-			console.log('num is'+planProcess.sequence_number);
 			planProcess.order_id = $scope.orderId;
 			planProcess.order_product_id = $scope.productId;
 			planProcess.order_delivery_plan_id = $scope.orderPlanId;
@@ -122,34 +120,51 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 				$scope.createPlanStatus(planProcess);
 			}
 			else if(actionPerformed == 'delete')
-				$scope.deleteOrderPlanProcess(planProcess.id);
+			SweetAlert.swal({
+				 title: "Delete Order Delivery Plan Process!!",
+				 text: "Are you sure you want to delete order delivery plan process?",
+				 type: "warning",
+				 showCancelButton: true,
+				 confirmButtonColor: "#DD6B55",confirmButtonText: "Yes, delete it!",
+				 cancelButtonText: "Cancel",
+				 closeOnConfirm: true,
+				 closeOnCancel: true },
+				 function(isConfirm){
+						if (isConfirm) {
+							$scope.deleteOrderPlanProcess(planProcess.id);
+						}
+					});
+
 		}
 
 		$scope.initiateOrder = function()
 		{
 			var orderTransactionDetails = {};
 			var lName = '';
-			var lId = $scope.allPlanProcessList[0].location_id;
-			$log.info('Location lIst'+JSON.stringify($scope.locationPicklist));
-			$log.info('Location Id'+lId);
+			var lId = $scope.allPlanProcessList[0].order_delivery_plan_process.location_id;
 			$.each($scope.locationPicklist,function(k,v){
 				if(lId == v.id)
 				{
 					lName = v.name;
 				}
 			});
-			$log.info('Location Name'+lName);
 			orderTransactionDetails.order_id = $scope.orderId;
 			orderTransactionDetails.order_product_id = $scope.productId;
 			orderTransactionDetails.order_delivery_plan_id = $scope.orderPlanId;
-			orderTransactionDetails.order_delivery_plan_process_id = $scope.allPlanProcessList[0].id;
+			orderTransactionDetails.order_delivery_plan_process_id = $scope.allPlanProcessList[0].order_delivery_plan_process.id;
 			orderTransactionDetails.status = 'In Process';
 			orderTransactionDetails.process_start_date = new Date();
 			orderTransactionDetails.quantity_recieved = $scope.orderPlan.quantity;
 			orderTransactionDetails.process_end_date= $scope.orderPlan.delivery_date;
 			orderTransactionDetails.lName = lName;
 			//$log.info(JSON.stringify($scope.allPlanProcessList));
-			processOneLocationMgr.insertProcessOneLocation(orderTransactionDetails);
+			processOneLocationMgr.insertProcessOneLocation(orderTransactionDetails,function(transactionDetails) {
+				$.toaster({ priority : 'success', title : 'Info', message : 'Transaction is Saved',width:'100%'});
+				$scope.orderPlan.is_transaction_initiated = true;
+				orderPlanMgr.createPlan($scope.orderPlan,function(orderPlan) {
+					$scope.is_transaction_initiated = orderPlan.order_delivery_plan.is_transaction_initiated;
+				})
+			});
 		}
 
     });

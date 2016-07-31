@@ -1,5 +1,5 @@
 productPlanModule.service('orderPlanMgr', function (productPlanSrv,masterProcessSrv,locationSrv,productSrv,masterProductSrv,vendorSrv) {
-	
+
 		var self = this;
 		this.createPlan = function(orderPlan,getOrderPlan) {
 			if(orderPlan.id == null) {
@@ -33,7 +33,6 @@ productPlanModule.service('orderPlanMgr', function (productPlanSrv,masterProcess
 		}
 		this.loadDefaults = function(orderPlanId,getOrderPlanDetails) {
 			productPlanSrv.getOrderPlanById(orderPlanId,function(orderPlanDetails){
-				console.log('@@@@'+JSON.stringify(orderPlanDetails));
 				self.getPlanProcessByPlanId(orderPlanId,function(orderPlanStatus) {
 					orderPlanDetails.orderDeliveryPlanStatus = orderPlanStatus;
 					getOrderPlanDetails(orderPlanDetails);
@@ -51,14 +50,14 @@ productPlanModule.service('orderPlanMgr', function (productPlanSrv,masterProcess
 		}
 		this.getPlanProcessByPlanId = function(planId,callbackFunction) {
 			var orderPlanStatus = [];
-			productPlanSrv.getAllPlanOrderStatus(function(allPlanStatus){
-				for(var counter = 0;counter < allPlanStatus.length; counter++) {
-					if(allPlanStatus[counter].order_delivery_plan_process.order_delivery_plan_id == planId) {
-						allPlanStatus[counter].order_delivery_plan_process.isEditable = false;
-						orderPlanStatus.push(allPlanStatus[counter].order_delivery_plan_process);
-					}
-				}
-				callbackFunction(orderPlanStatus);
+			productPlanSrv.getDeliveryPlanProcessByPlanId(planId,function(allPlanStatus){
+				// for(var counter = 0;counter < allPlanStatus.length; counter++) {
+				// 	if(allPlanStatus[counter].order_delivery_plan_process.order_delivery_plan_id == planId) {
+				// 		allPlanStatus[counter].order_delivery_plan_process.isEditable = false;
+				// 		orderPlanStatus.push(allPlanStatus[counter].order_delivery_plan_process);
+				// 	}
+				// }
+				callbackFunction(allPlanStatus);
 			});
 		}
 		this.deletePlanProcess = function(planProcessId,callbackFunction) {
@@ -67,10 +66,9 @@ productPlanModule.service('orderPlanMgr', function (productPlanSrv,masterProcess
 			});
 		}
 		this.getSequenceNumber = function(list) {
-			console.log('length'+list.length);
 			var sequenceNumber = 1;
 			if(list.length > 1)
-				sequenceNumber = list[list.length - 2].sequence_number + 1;
+				sequenceNumber = list[list.length - 2].order_delivery_plan_process.sequence_number + 1;
 			return sequenceNumber;
 		}
 		this.getOrderProductsByOrderId = function(orderId,callbackFunction) {
@@ -91,5 +89,5 @@ productPlanModule.service('orderPlanMgr', function (productPlanSrv,masterProcess
 				});
 			});
 		}
-		
+
     });

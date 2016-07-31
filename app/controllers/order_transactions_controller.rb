@@ -39,6 +39,10 @@ class OrderTransactionsController < ApplicationController
     render json: {deleted: true}, status: 200
   end
 
+  def move_transaction
+
+  end
+
   private
 
   def order_transaction_params

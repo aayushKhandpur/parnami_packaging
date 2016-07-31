@@ -1,13 +1,13 @@
 angular.module('orderModule')
     .factory('orderSrv', function ($http) {
-        
+
 		return {
-		
+
 			insertOrder: function(newOrder,getResponseData) {
 				var httpRequest = $http.post('/orders',newOrder);
 				httpRequest.success(function(data){
 					getResponseData(data);
-				
+
 				});
 				httpRequest.error(function(data){
 					console.log(JSON.stringify(data));
@@ -26,7 +26,7 @@ angular.module('orderModule')
 				var httpRequest = $http.get('/orders/'+orderId);
 				httpRequest.success(function(data){
 					getOrder(data);
-				
+
 				});
 				httpRequest.error(function(data){
 					console.log(JSON.stringify(data));
@@ -41,6 +41,6 @@ angular.module('orderModule')
 					console.log(JSON.stringify(data));
 				});
 			}
-		};	
-		
+		};
+
     });

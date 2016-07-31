@@ -1,8 +1,8 @@
 masterProductModule.service('masterProductSrv', function ($http) {
 
 	var self =  this;
-     this.allMasterProducts = [];   
-		
+     this.allMasterProducts = [];
+
 	this.getMasterProductById = function(masterProductId,getMasterProduct) {
 			var httpRequest = $http.get('/master_products/'+masterProductId);
 			httpRequest.success(function(data){
@@ -12,7 +12,7 @@ masterProductModule.service('masterProductSrv', function ($http) {
 				console.log(JSON.stringify(data));
 			});
 	}
-	
+
 	this.getMasterProducts = function(callbackFunction) {
 		var httpRequest = $http.get('/master_products');
 		httpRequest.success(function(data){
@@ -37,10 +37,21 @@ masterProductModule.service('masterProductSrv', function ($http) {
 		var httpRequest = $http.put('/master_products/'+masterProductId,masterProduct);
 		httpRequest.success(function(data){
 			callbackFunction(data);
-		
+
+		});
+		httpRequest.error(function(data){
+			console.log(JSON.stringify(data));
+		});
+	},
+	this.deleteProduct = function(masterProductId,callbackFunction){
+		var httpRequest = $http.delete('/master_products/'+masterProductId);
+		httpRequest.success(function(data){
+		callbackFunction(data);
+
 		});
 		httpRequest.error(function(data){
 			console.log(JSON.stringify(data));
 		});
 	}
+
 });
