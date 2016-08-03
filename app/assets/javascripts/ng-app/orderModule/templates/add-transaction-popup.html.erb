@@ -18,15 +18,19 @@
 </style>
 <div ng-class="{ 'form-submitted': formSubmitted }">
     <form name="form" valdr-type="TransactionUpdate" novalidate on-navigate-away-strategy='none'>
-        <div class="modal-header">
+        <div class="modal-header" style="padding:10px;">
             <button type="button" id="btnCloseModel" class="close" ng-click="cancel()" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             <span>
-                <h3 class="modal-title">Add Transaction</h3>
+                <h4 class="modal-title"><b>Add Transaction</b></h4>
             </span>
         </div>
         <div class="modal-body">
+          <div>
+            <span><b>Quantity Received: </b> {{transaction.quantity_recieved}}</span>
+          </div>
+          <br />
             <div class="alert alert-danger alert-dismissible" role="alert" ng-if="transactionErrors">
                 <button type="button" class="close" id="btnHideErrors" ng-click="hideTransactionErrors()" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -40,13 +44,13 @@
             <div>
 
                 <div class="form-group">
-                    <label>Quantity Forwarded</label>
+                    <label>Quantity Completed</label>
                     <div valdr-form-group>
                         <input type="number" min="1" class="form-control" name="forward" ng-model="transaction.quantity_forwarded"></input>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Quantity Wasted</label>
+                    <label>Quantity Waste</label>
                     <div valdr-form-group>
                         <input type="number" class="form-control" name="waste" ng-model="transaction.quantity_waste"></input>
                     </div>
@@ -54,7 +58,7 @@
             </div>
         </div>
 
-        <div class="modal-footer">
+        <div class="modal-footer" style="padding:8px;">
             <button type="submit" class="btn btn-primary" ng-click="saveTransaction(form)">
                 <span class="fa fa-save">
                     Save</span>

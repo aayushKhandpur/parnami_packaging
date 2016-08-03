@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160730183517) do
+ActiveRecord::Schema.define(version: 20160803195641) do
 
   create_table "customers", force: :cascade do |t|
     t.string   "name",             limit: 255,   null: false
@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 20160730183517) do
   create_table "order_transactions", force: :cascade do |t|
     t.integer  "order_product_id",               limit: 4,               null: false
     t.date     "process_start_date",                                     null: false
-    t.date     "process_end_date",                                       null: false
+    t.date     "process_end_date"
     t.integer  "order_delivery_plan_process_id", limit: 4,               null: false
     t.integer  "order_delivery_plan_id",         limit: 4,               null: false
     t.integer  "order_id",                       limit: 4,               null: false
