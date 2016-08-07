@@ -1,14 +1,14 @@
 <div>
     <div style="border-bottom: 1px solid #EEEEEE;">
-        <h3>Order Delivery Plan</h3>
+        <h3>Delivery Plan</h3>
     </div>
     <div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
         <button data-toggle="tooltip" title="Click this button to create the Order Product Plan" class="btn btn-default" style="padding:6px 35px 6px 35px;" ng-click="addOrderDeliveryPlan()" ng-disabled="!isOrderShown || productList.length == 0">
             <i class="fa fa-plus-square"></i>
         </button>
     </div>
-    <div class="col-md-12 alert alert-danger" role="alert" ng-show="productList.length == 0" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
-        <label style="font-weight:normal;">There is no order product created.</label>
+    <div class="col-md-12 alert alert-danger" role="alert" ng-show="productList.length == 0" style="margin-top:1%;margin-bottom:1%;">
+        <label style="font-weight:normal;">No delivery plan added.</label>
     </div>
     <div class="alert alert-danger col-md-12" ng-show="orderPlanErrorMsg.length > 0">
         <span style="color:#cc0000">
@@ -47,8 +47,8 @@
                     </span>
                     <span class="col-md-6">
                         <i class="fa fa-trash" ng-show="productPlan.isEditable && productPlan.id == null" ng-click="executeCRUDOperationForOrderPlan('cancel',productPlan)"></i>
-                        <i class="fa fa-chain-broken" ng-click="executeCRUDOperationForOrderPlan('split',productPlan)" ng-show="!productPlan.isEditable"></i>
-                        <a style="margin-left:25px" ui-sref="index.productprocessplan({orderId:productPlan.order_id,productId:productPlan.order_product_id,orderPlanId:productPlan.id})" ng-show="!productPlan.isEditable">Details</a>
+                        <span rel="tooltip" tooltip="Click here to split the delivery plan" tooltip-placement="left"><a ng-click="executeCRUDOperationForOrderPlan('split',productPlan)" href="" ng-show="!productPlan.isEditable">Split</a></span>
+                        <span rel="tooltip" tooltip="Click here to show processes"><a  style="margin-left:25px" ui-sref="index.productprocessplan({orderId:productPlan.order_id,productId:productPlan.order_product_id,orderPlanId:productPlan.id})" ng-show="!productPlan.isEditable">Details</a></span>
                     </span>
                 </td>
             </tr>

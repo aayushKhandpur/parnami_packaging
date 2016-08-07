@@ -27,30 +27,12 @@ orderModule.controller('TransactionUpdateCtrl', function($scope, transaction, $m
             return;
         }
         $scope.transaction.status = "Completed";
-        $scope.transaction.quantity_transfered = $scope.transaction.quantity_forwarded - $scope.transaction.quantity_waste;
-        var httpRequest = $http.put('/order_transactions/' + $scope.transaction.id, $scope.transaction);
+        $scope.transaction.process_end_date = new Date();
+        $scope.transaction.quantity_transfered = $scope.transaction.quantity_recieved - $scope.transaction.quantity_forwarded - $scope.transaction.quantity_waste;
+        var httpRequest = $http.put('/move_transaction/' + $scope.transaction.id, $scope.transaction);
         httpRequest.success(function(data) {
             $scope.transactionErrors = null;
-            var new_transaction = {};
-            var new_transaction = $scope.transaction;
-            if ($scope.transaction.quantity_transfered > 0) {
-                new_transaction.quantity_recieved = $scope.transaction.quantity_transfered;
-                new_transaction.quantity_waste = 0;
-                new_transaction.quantity_forwarded = 0;
-                new_transaction.status = "In Process";
-                new_transaction.quantity_transfered = 0;
-                var httpRequest = $http.post('/order_transactions/', new_transaction);
-                httpRequest.success(function(data) {
-                    console.log(data);
-                });
-            }
-            var next_transaction = {};
-
-            if ($scope.transaction.quantity_forwarded > 0) {
-
-            }
-
-            $modalInstance.close($scope.transaction);
+            $modalInstance.close(data);
         });
         httpRequest.error(function(data) {
             console.log(data);

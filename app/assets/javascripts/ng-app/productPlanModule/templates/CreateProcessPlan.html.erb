@@ -33,8 +33,17 @@
 		<div style="border-bottom: 1px solid #EEEEEE;">
 			<h3>Order Delivery Plan Processes</h3>
 		</div>
-		<div  class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+		<div style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
 			<button data-toggle="tooltip" title="Click this button to create the Order Product Plan Process" class="btn btn-default col-md-1" ng-click="addOrderPlanProcess()"><i class="fa fa-plus-square"></i></button>
+		</div>
+		<div ng-if="!orderPlan.is_transaction_initiated"  ng-hide="allPlanProcessList.length == 0">
+			<button data-toggle="tooltip" title="Click this button to initiate order" class="btn btn-default col-md-1"  style="text-align:center;margin-left:20px;" ng-click="initiateOrder()">Initiate Order</button>
+		</div>
+		<div class="col-md-12 alert alert-danger" role="alert" ng-show="allPlanProcessList.length == 0" style="margin-top:1%;margin-bottom:1%;">
+        <label style="font-weight:normal;">No delivery plan added.</label>
+    </div>
+		<div class="col-md-12 alert alert-success" role="alert" ng-if="orderPlan.is_transaction_initiated"style="margin-top:1%;margin-bottom:1%;">
+				<label >Order initiated successfully</label>
 		</div>
 		<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;" ng-hide="allPlanProcessList.length == 0">
 			<table class="table table-striped table-hover">
@@ -52,17 +61,17 @@
 						<td style="width:20%">{{process.order_delivery_plan_process.sequence_number}}</td>
 						<td style="width:20%"><select class="form-control" ng-model="process.order_delivery_plan_process.master_process_id" ng-options="masterProcess.id as masterProcess.name for masterProcess in processPicklist" ng-disabled="!process.isEditable" ng-change="processChanged(process)"/></td>
 						<td style="width:20%"><select class="form-control" ng-model="process.order_delivery_plan_process.location_id" ng-options="loc.id as loc.name for loc in locationPicklist" ng-disabled="!process.isEditable" ng-change="locationChanged(process)"/></td>
-						<td style="width:20%"><select class="form-control" ng-model="process.order_delivery_plan_process.vendor_id" ng-options="vendor.id as vendor.name for vendor in vendorPicklist" ng-disabled="!process.isEditable" ng-show="process.vendor_id != null && process.vendor_id.length != 0"/><label style="font-weight: normal !important;padding-left: 15px;" ng-show="process.vendor_id == null || process.vendor_id.length == 0">Not Applicable</label></td>
+						<td style="width:20%"><select class="form-control" ng-model="process.order_delivery_plan_process.vendor_id" ng-options="vendor.id as vendor.name for vendor in vendorPicklist" ng-disabled="!process.isEditable"/></td>
 						<td style="width:20%">
-							<span style="cursor:default;" class="col-md-6"><i class="fa fa-check" ng-show="process.isEditable" ng-click="executeCRUDOperation('add',process.order_delivery_plan_process)"></i><i class="fa fa-edit" ng-show="!process.isEditable" ng-click="executeCRUDOperation('edit',process.order_delivery_plan_process)"></i></span>
-							<span style="cursor:default;" class="col-md-6"><i class="fa fa-trash" ng-show="!process.isEditable" ng-click="executeCRUDOperation('delete',process.order_delivery_plan_process)"></i><i class="fa fa-ban" ng-show="process.isEditable && process.id == null" ng-click="executeCRUDOperation('cancel',process.order_delivery_plan_process)"></i></span>
+							<span style="cursor:default;" class="col-md-6"><i class="fa fa-check" ng-show="process.isEditable" ng-click="executeCRUDOperation('add',process.order_delivery_plan_process)"></i><i href="" class="fa fa-edit" ng-show="!process.isEditable && !orderPlan.is_transaction_initiated" ng-click="executeCRUDOperation('edit',process.order_delivery_plan_process)"></i></span>
+							<span style="cursor:default;" class="col-md-6"><i class="fa fa-trash" ng-show="!process.isEditable && !orderPlan.is_transaction_initiated" ng-click="executeCRUDOperation('delete',process.order_delivery_plan_process)"></i><i class="fa fa-ban" ng-show="process.isEditable && process.id == null" ng-click="executeCRUDOperation('cancel',process.order_delivery_plan_process)"></i></span>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		<div ng-if="!orderPlan.is_transaction_initiated" class="col-md-12">
-			<button style="text-align:center;" ng-click="initiateOrder()">Initiate Order</button>
+		<div style="padding-left:0px;margin-top:1%;margin-bottom:1%;" class="col-md-12"  ng-hide="allPlanProcessList.length == 0">
+			<button data-toggle="tooltip" title="Click this button to create the Order Product Plan Process" class="btn btn-default col-md-1" ng-click="addOrderPlanProcess()"><i class="fa fa-plus-square"></i></button>
 		</div>
 	</div>
 </div>

@@ -8,12 +8,17 @@
     <back-button data-toggle="tooltip" title="Click this button to go to previous screen"></back-button>
 </div>
 <div class="panel panel-default" style="margin-top:60px">
-    <div class="panel-heading header">ORDER DETAIL
-        <span>
-        <a ng-href="/#/index/order/{{order.id}}/order">
-          <span class="glyphicon glyphicon-edit"></span>
-        </a>
-        </span>
+    <div class="panel-heading header">
+      <div class="row">
+        <div class="col-md-6">
+          ORDER DETAIL
+        </div>
+        <div class="col-md-6" style="text-align:right">
+          <a ng-href="/#/index/order/{{order.id}}/order">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
     </div>
     <div class="panel-body">
         <table class="table table-bordered">
@@ -39,12 +44,17 @@
     </div>
 </div>
 <div class="panel panel-default" ng-hide="productList.length == 0">
-    <div class="panel-heading header">ORDER PRODUCTS
-        <span>
-        <a ng-href="/#/index/order/{{order.id}}/order_product">
-          <span class="glyphicon glyphicon-edit"></span>
-        </a>
-        </span>
+    <div class="panel-heading header">
+      <div class="row">
+        <div class="col-md-6">
+          ORDER PRODUCTS
+        </div>
+        <div class="col-md-6" style="text-align:right">
+          <a ng-href="/#/index/order/{{order.id}}/order_product">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
     </div>
     <div class="panel-body">
         <table class="table table-bordered table-hover">
@@ -64,12 +74,17 @@
     </div>
 </div>
 <div class="panel panel-default" ng-hide="orderPlanDeliveryList.length == 0">
-    <div class="panel-heading header">Order Delievery Plans
-        <span>
-        <a ng-href="/#/index/order/{{order.id}}/order_delivery">
-          <span class="glyphicon glyphicon-edit"></span>
-        </a>
-        </span>
+    <div class="panel-heading header">
+      <div class="row">
+        <div class="col-md-6">
+          Order Delievery Plans
+        </div>
+        <div class="col-md-6" style="text-align:right">
+          <a ng-href="/#/index/order/{{order.id}}/order_delivery">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
     </div>
     <div class="panel-body">
         <table class="table table-bordered table-hover">
@@ -83,8 +98,16 @@
                 <td style="width:25%">{{getProductName(productPlan.order_product_id)}}</td>
                 <td style="width:25%">{{productPlan.quantity}}</td>
                 <td style="width:25%">{{productPlan.delivery_date}}</td>
-                <td>
-                    <button class="btn btn-default" ui-sref ="index.productprocessplan({orderId:orderId,productId:productPlan.order_product_id,orderPlanId:productPlan.id})">Process</button>
+                <td style="width:25%">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <button class="btn btn-default" ui-sref ="index.productprocessplan({orderId:orderId,productId:productPlan.order_product_id,orderPlanId:productPlan.id})">Process</button>
+                    </div>
+                    <div class="col-md-8">
+                      <button ng-if="!productPlan.is_transaction_initiated" class="btn btn-default">Initiate Order</button>
+                      <span ng-if="productPlan.is_transaction_initiated" class="label label-success">Order Initiated Successfully</span>
+                    </div>
+                  </div>
                 </td>
             </tr>
         </table>
@@ -114,12 +137,17 @@
     </div>
 </div> -->
 <div class="panel panel-default" ng-hide="orderTransactionList.length == 0">
-    <div class="panel-heading header">Order Transactions
-        <span>
-        <a ng-href="/#/index/order/{{order.id}}/order_transaction">
-          <span class="glyphicon glyphicon-edit"></span>
-        </a>
-        </span>
+    <div class="panel-heading header">
+      <div class="row">
+        <div class="col-md-6">
+            Order Transactions
+        </div>
+        <div class="col-md-6" style="text-align:right">
+          <a ng-href="/#/index/order/{{order.id}}/order_transaction">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
     </div>
     <div class="panel-body">
         <table ng-hide="orderTransactionList.length == 0" class="table table-bordered table-hover">
@@ -136,9 +164,9 @@
             <tr ng-repeat="orderTransaction in orderTransactionList">
                 <td>{{getProductName(orderTransaction.order_transaction.order_product_id)}}</td>
                 <td>{{orderTransaction.order_transaction.lName}}</td>
-                <td>{{orderTransaction.order_transaction.process_start_date}}</td>
+                <td>{{orderTransaction.order_transaction.process_start_date | date:'dd-MM-yyyy'}}</td>
                 <td>{{orderTransaction.order_transaction.quantity_recieved}}</td>
-                <td>{{orderTransaction.order_transaction.process_end_date}}</td>
+                <td>{{orderTransaction.order_transaction.process_end_date | date:'dd-MM-yyyy'}}</td>
                 <td>{{orderTransaction.order_transaction.quantity_forwarded}}</td>
                 <td>{{orderTransaction.order_transaction.quantity_waste}}</td>
                 <td><span class="label" ng-class="orderTransaction.order_transaction.status == 'In Process' ? 'label-info' : 'label-success'">{{orderTransaction.order_transaction.status}}</span></td>

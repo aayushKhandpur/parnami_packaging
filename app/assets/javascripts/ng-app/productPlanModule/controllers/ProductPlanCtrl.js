@@ -29,14 +29,16 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 				$.each(processList,function(k,v){
 					$scope.processPicklist.push(v.master_process);
 				});
+				console.log(vendorList);
 				$.each(vendorList,function(k,v){
 					$scope.vendorPicklist.push(v.vendor);
 				});
+				console.log($scope.vendorPicklist);
 				$scope.orderPlanProcessTemplate = {
 					master_process_name : $scope.processPicklist[0].name,
 					master_process_id: $scope.processPicklist[0].id ,
 					location_id : $scope.locationPicklist[0].id,
-					vendor_id: '',
+					vendor_id: $scope.vendorPicklist[0].id,
 					isEditable: true
 				};
 				$scope.applyChanges();
@@ -155,7 +157,6 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 			orderTransactionDetails.status = 'In Process';
 			orderTransactionDetails.process_start_date = new Date();
 			orderTransactionDetails.quantity_recieved = $scope.orderPlan.quantity;
-			orderTransactionDetails.process_end_date= $scope.orderPlan.delivery_date;
 			orderTransactionDetails.lName = lName;
 			//$log.info(JSON.stringify($scope.allPlanProcessList));
 			processOneLocationMgr.insertProcessOneLocation(orderTransactionDetails,function(transactionDetails) {

@@ -141,31 +141,11 @@ productModule.controller('productCtrl', function ($scope,$log,$location,utilityS
 							 "message": "Quantity is not valid"
 						}
 					},
-					'quantityUnit': {
-						'required': {
-							'message': 'Quantity unit is required'
-						}
-					},
 					'color': {
 						'required': {
 							'message': 'Color is required'
 						}
-					},
-					'price': {
-						'required': {
-							'message': 'Price is required'
-						},
-						"pattern": {
-							 "value": NUMBER_REGEXP2,
-							 "message": "Price is not valid"
-						}
-					},
-					'priceType': {
-						'required': {
-							'message': 'Price type is required'
-						}
-					},
-
+					}
 				}
 			});
 		}]);
