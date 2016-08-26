@@ -2,7 +2,7 @@
     <div style="border-bottom: 1px solid #EEEEEE;">
         <h3>Delivery Plan</h3>
     </div>
-    <div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+    <div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;" ng-show="!order.is_completed">
         <button data-toggle="tooltip" title="Click this button to create the Order Product Plan" class="btn btn-default" style="padding:6px 35px 6px 35px;" ng-click="addOrderDeliveryPlan()" ng-disabled="!isOrderShown || productList.length == 0">
             <i class="fa fa-plus-square"></i>
         </button>

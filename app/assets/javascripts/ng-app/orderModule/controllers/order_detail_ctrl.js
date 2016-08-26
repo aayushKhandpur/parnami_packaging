@@ -1,4 +1,4 @@
-orderModule.controller('orderDetailCtrl', function($scope, $log, $location, orderMgr, $stateParams, $timeout, $state, processOneLocationMgr, orderId) {
+orderModule.controller('orderDetailCtrl', function($scope, $log, $location, orderMgr, $stateParams, $timeout, $state, processOneLocationMgr, orderId,$http) {
 
     $scope.order = {};
     $scope.mobile_number;
@@ -93,5 +93,15 @@ orderModule.controller('orderDetailCtrl', function($scope, $log, $location, orde
         return name;
     }
 
+    $scope.closeOrder = function(orderId){
+      var httpRequest = $http.get('/close_order/'+orderId);
+      httpRequest.success(function(data){
+        $scope.order.is_completed = data.is_completed
+      });
+      httpRequest.error(function(data){
+        console.log(JSON.stringify(data));
+      });
+
+    }
 
 });

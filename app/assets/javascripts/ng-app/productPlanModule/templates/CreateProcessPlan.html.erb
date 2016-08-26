@@ -33,10 +33,10 @@
 		<div style="border-bottom: 1px solid #EEEEEE;">
 			<h3>Order Delivery Plan Processes</h3>
 		</div>
-		<div style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
+		<div style="padding-left:0px;margin-top:1%;margin-bottom:1%;" ng-show="!order.is_completed">
 			<button data-toggle="tooltip" title="Click this button to create the Order Product Plan Process" class="btn btn-default col-md-1" ng-click="addOrderPlanProcess()"><i class="fa fa-plus-square"></i></button>
 		</div>
-		<div ng-if="!orderPlan.is_transaction_initiated"  ng-hide="allPlanProcessList.length == 0">
+		<div ng-if="!orderPlan.is_transaction_initiated"  ng-hide="allPlanProcessList.length == 0" ng-show="!order.is_completed">
 			<button data-toggle="tooltip" title="Click this button to initiate order" class="btn btn-default col-md-1"  style="text-align:center;margin-left:20px;" ng-click="initiateOrder()">Initiate Order</button>
 		</div>
 		<div class="col-md-12 alert alert-danger" role="alert" ng-show="allPlanProcessList.length == 0" style="margin-top:1%;margin-bottom:1%;">
@@ -70,7 +70,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div style="padding-left:0px;margin-top:1%;margin-bottom:1%;" class="col-md-12"  ng-hide="allPlanProcessList.length == 0">
+		<div style="padding-left:0px;margin-top:1%;margin-bottom:1%;" class="col-md-12"  ng-hide="allPlanProcessList.length == 0 || order.is_completed">
 			<button data-toggle="tooltip" title="Click this button to create the Order Product Plan Process" class="btn btn-default col-md-1" ng-click="addOrderPlanProcess()"><i class="fa fa-plus-square"></i></button>
 		</div>
 	</div>

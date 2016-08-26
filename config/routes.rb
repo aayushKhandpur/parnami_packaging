@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   get 'getUserRole/:userId' , :to => 'customs#getUserRole'
   get 'show_order_delivery_plan_process/:id' , :to => 'order_delivery_plans#show_order_delivery_plan_processes'
   put 'move_transaction/:id', :to => 'order_transactions#move_transaction'
+  get 'close_order/:id', :to => 'orders#close_order'
+
   # Example resource route with options:
   #   resources :products do
   #     member do

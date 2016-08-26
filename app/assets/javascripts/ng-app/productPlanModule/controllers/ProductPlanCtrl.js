@@ -1,4 +1,4 @@
-productPlanModule.controller('productPlanCtrl', function ($scope,$log,$stateParams,orderPlanMgr,$location,processOneLocationMgr,SweetAlert) {
+productPlanModule.controller('productPlanCtrl', function ($scope,$log,$stateParams,orderPlanMgr,$location,processOneLocationMgr,SweetAlert,orderMgr) {
 
 		$scope.orderPlan = {};
 		$scope.orderId = $stateParams.orderId;
@@ -41,6 +41,9 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 					vendor_id: $scope.vendorPicklist[0].id,
 					isEditable: true
 				};
+				orderMgr.getOrderById($scope.orderId, function(orderDetails) {
+            $scope.order = orderDetails.order;
+        });
 				$scope.applyChanges();
 			});
 		}

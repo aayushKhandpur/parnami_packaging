@@ -30,6 +30,13 @@ class OrdersController < ApplicationController
     render json: {deleted: true}, status: 200
   end
 
+  def close_order
+    @order = Order.find(params[:id])
+    @order.is_completed = true
+    @order.save
+    render json: {is_completed: true}, status: 200
+  end
+
   private
 
   def order_params

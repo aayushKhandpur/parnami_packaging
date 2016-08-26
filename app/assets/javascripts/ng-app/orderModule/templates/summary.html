@@ -4,10 +4,19 @@
         font-weight: bolder;
     }
 </style>
-<div class="col-md-12" style="padding-left:0px;margin-top:1%;margin-bottom:1%;">
-    <back-button data-toggle="tooltip" title="Click this button to go to previous screen"></back-button>
+<div class="row" style="margin-top:10px;margin-bottom:10px">
+  <div class="col-md-6">
+    <span style="display:block">
+      <back-button data-toggle="tooltip" title="Click this button to go to previous screen"></back-button>
+    </span>
+  </div>
+  <div class="col-md-6" style="text-align:right">
+      <span ng-show="!order.is_completed"><button class="btn btn-danger" ng-click="closeOrder(order.id)">Close order</button></span>
+  </div>
 </div>
-<div class="panel panel-default" style="margin-top:60px">
+
+
+<div class="panel panel-default">
     <div class="panel-heading header">
       <div class="row">
         <div class="col-md-6">

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160803195641) do
+ActiveRecord::Schema.define(version: 20160826180304) do
 
   create_table "customers", force: :cascade do |t|
     t.string   "name",             limit: 255,   null: false
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20160803195641) do
     t.datetime "updated_at",                                         null: false
     t.integer  "location_id",            limit: 4,                   null: false
     t.integer  "vendor_id",              limit: 4
+    t.boolean  "is_completed",           limit: 1,   default: false, null: false
   end
 
   add_index "order_delivery_plan_processes", ["master_process_id"], name: "index_order_delivery_plan_processes_on_master_process_id", using: :btree
@@ -79,6 +80,7 @@ ActiveRecord::Schema.define(version: 20160803195641) do
     t.datetime "created_at",                                         null: false
     t.datetime "updated_at",                                         null: false
     t.boolean  "is_transaction_initiated", limit: 1, default: false, null: false
+    t.boolean  "is_completed",             limit: 1, default: false, null: false
   end
 
   add_index "order_delivery_plans", ["customer_id"], name: "index_order_delivery_plans_on_customer_id", using: :btree
@@ -144,14 +146,15 @@ ActiveRecord::Schema.define(version: 20160803195641) do
   add_index "order_transactions", ["order_product_id"], name: "index_order_transactions_on_order_product_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
-    t.integer  "customer_id",      limit: 4,                    null: false
-    t.date     "order_date",                                    null: false
-    t.date     "delivery_date",                                 null: false
-    t.text     "delivery_address", limit: 65535,                null: false
+    t.integer  "customer_id",      limit: 4,                                    null: false
+    t.date     "order_date",                                                    null: false
+    t.date     "delivery_date",                                                 null: false
+    t.text     "delivery_address", limit: 65535,                                null: false
     t.text     "order_details",    limit: 65535
-    t.decimal  "order_price",                    precision: 10, null: false
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.decimal  "order_price",                    precision: 10,                 null: false
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
+    t.boolean  "is_completed",     limit: 1,                    default: false, null: false
   end
 
   add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree

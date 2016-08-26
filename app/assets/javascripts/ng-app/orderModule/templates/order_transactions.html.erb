@@ -39,7 +39,7 @@
         <td>{{orderTransaction.order_transaction.quantity_transfered}}</td>
         <td>{{orderTransaction.order_transaction.quantity_waste}}</td>
         <td><span class="label" ng-class="orderTransaction.order_transaction.status == 'In Process' ? 'label-info' : 'label-success'">{{orderTransaction.order_transaction.status}}</span></td>
-        <td ng-if="orderTransaction.order_transaction.status == 'In Process'" style="text-align:center;"><a href="" ng-click="addTransactionModel(orderTransaction,$index)"><i class="fa fa-check-square-o" aria-hidden="true" style="color:black;"></i></i></a></td>
+        <td ng-if="orderTransaction.order_transaction.status == 'In Process'" ng-show="!order.is_completed" style="text-align:center;"><a href="" ng-click="addTransactionModel(orderTransaction,$index)"><i class="fa fa-check-square-o" aria-hidden="true" style="color:black;"></i></i></a></td>
       </tr>
     </table>
   </div>

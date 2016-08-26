@@ -1,2 +1,2 @@
 collection @orders
-attributes :id, :delivery_date, :delivery_address, :order_date, :order_details, :order_price, :customer_id
+attributes :id, :delivery_date, :delivery_address, :order_date, :order_details, :order_price, :customer_id, :is_completed
