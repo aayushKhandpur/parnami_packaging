@@ -10,7 +10,7 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 		$scope.processPicklist = [];
 		$scope.vendorPicklist = [];
 		$scope.check = [];
-
+		$scope.vendor_enable=false;
 		$scope.loadDefaults = function() {
 			orderPlanMgr.getPicklistData(function(locationList,processList,vendorList){
 				$scope.locationPicklist = [];
@@ -33,7 +33,7 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 				$.each(vendorList,function(k,v){
 					$scope.vendorPicklist.push(v.vendor);
 				});
-				console.log($scope.vendorPicklist);
+				console.log($scope.locationPicklist);
 				$scope.orderPlanProcessTemplate = {
 					master_process_name : $scope.processPicklist[0].name,
 					master_process_id: $scope.processPicklist[0].id ,
@@ -75,20 +75,32 @@ productPlanModule.controller('productPlanCtrl', function ($scope,$log,$statePara
 			   $scope.$apply();
 	    }
 
-		$scope.locationChanged = function(planProcess) {
+		$scope.locationChanged = function(planProcess, locationSelect) {
+			console.log(planProcess);
 			var name;
 			for(var counter = 0;counter < $scope.locationPicklist.length; counter++) {
-				if($scope.locationPicklist[counter].id == planProcess.location_id) {
+				if($scope.locationPicklist[counter].id == planProcess.order_delivery_plan_process.location_id) {
 					name = $scope.locationPicklist[counter].name;
 					break;
 				}
 			}
 			if(name.toLowerCase() == 'Vendor'.toLowerCase()) {
-				planProcess.vendor_id = $scope.vendorPicklist[0].id;
+				planProcess.order_delivery_plan_process.vendor_id = $scope.vendorPicklist[0].id;
+				$scope.vendor_enable=true;
 			}
 			else {
-				planProcess.vendor_id = '';
+				$scope.vendor_enable=false;
+				planProcess.order_delivery_plan_process.vendor_id = '';
 			}
+		}
+
+		$scope.vendorDisabled = function(planProcess) {
+
+			if(!$scope.vendor_enable || !planProcess.isEditable){
+				return true;
+			}
+
+			return false;
 		}
 
 		$scope.processChanged = function(planProcess) {

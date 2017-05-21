@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160826180304) do
+ActiveRecord::Schema.define(version: 20160829200722) do
 
   create_table "customers", force: :cascade do |t|
     t.string   "name",             limit: 255,   null: false
@@ -62,7 +62,6 @@ ActiveRecord::Schema.define(version: 20160826180304) do
     t.datetime "updated_at",                                         null: false
     t.integer  "location_id",            limit: 4,                   null: false
     t.integer  "vendor_id",              limit: 4
-    t.boolean  "is_completed",           limit: 1,   default: false, null: false
   end
 
   add_index "order_delivery_plan_processes", ["master_process_id"], name: "index_order_delivery_plan_processes_on_master_process_id", using: :btree
@@ -80,7 +79,6 @@ ActiveRecord::Schema.define(version: 20160826180304) do
     t.datetime "created_at",                                         null: false
     t.datetime "updated_at",                                         null: false
     t.boolean  "is_transaction_initiated", limit: 1, default: false, null: false
-    t.boolean  "is_completed",             limit: 1, default: false, null: false
   end
 
   add_index "order_delivery_plans", ["customer_id"], name: "index_order_delivery_plans_on_customer_id", using: :btree
