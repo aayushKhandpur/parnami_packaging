@@ -114,7 +114,7 @@ GEM
     pkg-config (1.1.7)
     rabl (0.13.0)
       activesupport (>= 2.3.14)
-    rack (1.6.4)
+    rack (1.6.12)
     rack-test (0.6.3)
       rack (>= 1.0)
     railroady (1.5.1)
